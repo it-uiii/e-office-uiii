@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\category;
+use App\Models\Category;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
@@ -22,10 +22,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return view('category.index', [
+        return view('Category.index', [
             'title' => 'Category',
             'subtitle' => 'All',
-            'categories' => category::latest()->get()
+            'categories' => Category::latest()->get()
         ]);
     }
 
@@ -36,7 +36,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('category.create', [
+        return view('Category.create', [
             'title' => 'Category',
             'subtitle' => 'Create'
         ]);
@@ -56,17 +56,17 @@ class CategoryController extends Controller
 
         $data['slug'] = Str::slug($request->name, '-');
 
-        category::create($data);
-        return redirect('/category')->with('success', 'Category has been added!!');
+        Category::create($data);
+        return redirect('/Category')->with('success', 'Category has been added!!');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\category  $category
+     * @param  \App\Models\Category  $Category
      * @return \Illuminate\Http\Response
      */
-    public function show(category $category)
+    public function show(Category $Category)
     {
         //
     }
@@ -74,15 +74,15 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\category  $category
+     * @param  \App\Models\Category  $Category
      * @return \Illuminate\Http\Response
      */
-    public function edit(category $category)
+    public function edit(Category $Category)
     {
-        return view('category.edit', [
+        return view('Category.edit', [
             'title' => 'Category',
-            'subtitle' => 'Edit ' . '"' . $category->name . '"',
-            'category' => $category
+            'subtitle' => 'Edit ' . '"' . $Category->name . '"',
+            'Category' => $Category
         ]);
     }
 
@@ -90,10 +90,10 @@ class CategoryController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\category  $category
+     * @param  \App\Models\Category  $Category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, category $category)
+    public function update(Request $request, Category $Category)
     {
         $data = $request->validate([
             'name' => 'required',
@@ -101,19 +101,19 @@ class CategoryController extends Controller
 
         $data['slug'] = Str::slug($request->name, '-');
 
-        category::where('id', $category->id)->update($data);
-        return redirect('/category')->with('success', 'Category has been updated!!');
+        Category::where('id', $Category->id)->update($data);
+        return redirect('/Category')->with('success', 'Category has been updated!!');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\category  $category
+     * @param  \App\Models\Category  $Category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(category $category)
+    public function destroy(Category $Category)
     {
-        category::destroy($category->id);
-        return redirect('/category')->with('success', 'Category has been deleted');
+        Category::destroy($Category->id);
+        return redirect('/Category')->with('success', 'Category has been deleted');
     }
 }
