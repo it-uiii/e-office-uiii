@@ -22,7 +22,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return view('Category.index', [
+        return view('category.index', [
             'title' => 'Category',
             'subtitle' => 'All',
             'categories' => Category::latest()->get()
