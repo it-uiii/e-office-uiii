@@ -8,6 +8,7 @@ use Path\To\DOMDocument;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Cviebrock\EloquentSluggable\Services\SlugService;
+use Illuminate\Support\Facades\Storage;
 use Intervention\Image\ImageManagerStatic as Image;
 
 class ServiceController extends Controller
@@ -37,23 +38,6 @@ class ServiceController extends Controller
                 $query->where('user_id', auth()->user()->id);
             })->get()
         ]);
-
-
-        // $role = auth()->user()->role;
-
-        // if ($role == "Admin") {
-        //     return view('services.index', [
-        //         'title' => 'Services',
-        //         'subtitle' => 'All',
-        //         'services' => Service::all()
-        //     ]);
-        // } else {
-        //     return view('services.index', [
-        //         'title' => 'Services',
-        //         'subtitle' => 'All',
-        //         'services' => Service::where('user_id', auth()->user()->id)->get()
-        //     ]);
-        // }
     }
 
     /**
@@ -83,33 +67,40 @@ class ServiceController extends Controller
             'title' => 'required|max:255',
             'slug' => 'required|unique:services',
             'category_id' => 'required',
+            'cover' => 'image|file|max:1024',
+            'body' => 'required'
         ]);
 
-        $storage = "storage/services_img";
-        $dom = new \DOMDocument();
-        libxml_use_internal_errors(true);
-        $dom->loadHTML($request->body, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NOIMPLIED);
-        libxml_clear_errors();
-        $images = $dom->getElementsByTagName('img');
-        foreach ($images as $img) {
-            $src = $img->getAttribute('src');
-            if (preg_match('/data:image/', $src)) {
-                preg_match('/data:image\/(?<mime>.*?)\;/', $src, $groups);
-                $mimetype = $groups['mime'];
-                $FileNameContent = uniqid();
-                $FileNameContentRand = substr(md5($FileNameContent), 6, 6) . '_' . time();
-                $filepath = ("$storage/$FileNameContentRand.$mimetype");
-                $image = Image::make($src)
-                    ->resize(1200, 1200)
-                    ->encode($mimetype, 100)
-                    ->save(public_path($filepath));
-                $new_src = asset($filepath);
-                $img->removeAttribute('src');
-                $img->setAttribute('src', $new_src);
-                $img->setAttribute('class', 'img-responsive');
-            }
+        // $storage = "storage/services-img";
+        // $dom = new \DOMDocument();
+        // libxml_use_internal_errors(true);
+        // $dom->loadHTML($request->body, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NOIMPLIED);
+        // libxml_clear_errors();
+        // $images = $dom->getElementsByTagName('img');
+        // foreach ($images as $img) {
+        //     $src = $img->getAttribute('src');
+        //     if (preg_match('/data:image/', $src)) {
+        //         preg_match('/data:image\/(?<mime>.*?)\;/', $src, $groups);
+        //         $mimetype = $groups['mime'];
+        //         $FileNameContent = uniqid();
+        //         $FileNameContentRand = substr(md5($FileNameContent), 6, 6) . '_' . time();
+        //         $filepath = ("$storage/$FileNameContentRand.$mimetype");
+        //         $image = Image::make($src)
+        //             ->resize(1200, 1200)
+        //             ->encode($mimetype, 100)
+        //             ->save(public_path($filepath));
+        //         $new_src = asset($filepath);
+        //         $img->removeAttribute('src');
+        //         $img->setAttribute('src', $new_src);
+        //         $img->setAttribute('class', 'img-responsive');
+        //     }
+        // }
+        // $validate['body'] = $dom->saveHTML();
+
+        if ($request->file('cover')) {
+            $validate['cover'] = $request->file('cover')->store('services-img');
         }
-        $validate['body'] = $dom->saveHTML();
+
         $validate['user_id'] = auth()->user()->id;
         $validate['excerpt'] = Str::limit(strip_tags($request->body), 200);
 
@@ -160,39 +151,48 @@ class ServiceController extends Controller
         $rules = [
             'title' => 'required|max:255',
             'category_id' => 'required',
+            'body' => 'required',
         ];
+
 
         if ($request->slug != $service->slug) {
             $rules['slug'] = 'required|unique:services';
         }
 
-        $storage = "storage/services_img";
-        $dom = new \DOMDocument();
-        libxml_use_internal_errors(true);
-        $dom->loadHTML($request->body, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NOIMPLIED);
-        libxml_clear_errors();
-        $images = $dom->getElementsByTagName('img');
-        foreach ($images as $img) {
-            $src = $img->getAttribute('src');
-            if (preg_match('/data:image/', $src)) {
-                preg_match('/data:image\/(?<mime>.*?)\;/', $src, $groups);
-                $mimetype = $groups['mime'];
-                $FileNameContent = uniqid();
-                $FileNameContentRand = substr(md5($FileNameContent), 6, 6) . '_' . time();
-                $filepath = ("$storage/$FileNameContentRand.$mimetype");
-                $image = Image::make($src)
-                    ->resize(1200, 1200)
-                    ->encode($mimetype, 100)
-                    ->save(public_path($filepath));
-                $new_src = asset($filepath);
-                $img->removeAttribute('src');
-                $img->setAttribute('src', $new_src);
-                $img->setAttribute('class', 'img-responsive');
-            }
-        }
+        // $storage = "storage/services-img";
+        // $dom = new \DOMDocument();
+        // libxml_use_internal_errors(true);
+        // $dom->loadHTML($request->body, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NOIMPLIED);
+        // libxml_clear_errors();
+        // $images = $dom->getElementsByTagName('img');
+        // foreach ($images as $img) {
+        //     $src = $img->getAttribute('src');
+        //     if (preg_match('/data:image/', $src)) {
+        //         preg_match('/data:image\/(?<mime>.*?)\;/', $src, $groups);
+        //         $mimetype = $groups['mime'];
+        //         $FileNameContent = uniqid();
+        //         $FileNameContentRand = substr(md5($FileNameContent), 6, 6) . '_' . time();
+        //         $filepath = ("$storage/$FileNameContentRand.$mimetype");
+        //         $image = Image::make($src)
+        //             ->resize(1200, 1200)
+        //             ->encode($mimetype, 100)
+        //             ->save(public_path($filepath));
+        //         $new_src = asset($filepath);
+        //         $img->removeAttribute('src');
+        //         $img->setAttribute('src', $new_src);
+        //         $img->setAttribute('class', 'img-responsive');
+        //     }
+        // }
 
         $validate = $request->validate($rules);
-        $validate['body'] = $dom->saveHTML();
+
+        if ($request->file('cover')) {
+            if ($request->oldCover) {
+                Storage::delete($request->oldCover);
+            }
+            $validate['cover'] = $request->file('cover')->store('services-img');
+        }
+        // $validate['body'] = $dom->saveHTML();
         $validate['user_id'] = auth()->user()->id;
         $validate['excerpt'] = Str::limit(strip_tags($request->body), 200);
 
@@ -208,6 +208,9 @@ class ServiceController extends Controller
      */
     public function destroy(Service $service)
     {
+        if ($service->cover) {
+            Storage::delete($service->cover);
+        }
         Service::destroy($service->id);
         return redirect('/services')->with('success', 'Service has been deleted');
     }

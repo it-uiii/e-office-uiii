@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
@@ -41,6 +42,8 @@ Route::resource('/users_portal', UsersPortalController::class);
 Route::resource('/abouts', AboutController::class);
 Route::resource('/visi_misi', VisiMisiController::class);
 Route::resource('/faqs', FaqController::class);
+
+Route::resource('/category', CategoryController::class);
 
 Route::post('/logout', [LoginController::class, 'logout']);
 

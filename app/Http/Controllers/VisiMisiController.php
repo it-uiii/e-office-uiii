@@ -71,7 +71,7 @@ class VisiMisiController extends Controller
     public function edit(VisiMisi $visiMisi)
     {
         return view('visi_misi.edit', [
-            'title' => 'About',
+            'title' => 'Vision & Mission',
             'subtitle' => 'Edit',
             'result' => $visiMisi
         ]);

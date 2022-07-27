@@ -142,6 +142,12 @@
             <p>Permission</p>
           </a>
         </li>
+        <li class="nav-item">
+          <a href="/category" class="nav-link">
+            <i class="fas fa-circle nav-icon"></i>
+            <p>Category</p>
+          </a>
+        </li>
         @endcan
         <li class="nav-item">
           <a href="#" class="nav-link">

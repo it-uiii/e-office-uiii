@@ -1,7 +1,7 @@
 @extends('layout.main')
 @section('container')
     <div class="card card-primary">
-        <form action="/services" method="post" enctype="">
+        <form action="/services" method="post" enctype="multipart/form-data">
         @csrf
         <div class="card-body">
             <div class="form-group">
@@ -30,16 +30,26 @@
                 </select>
             </div>
             <div class="form-group">
-            <label for="cover">Upload cover</label>
-            <div class="input-group">
-                <div class="custom-file">
-                    <input type="file" class="custom-file-input" id="cover" name="cover"> 
-                    <label class="custom-file-label" for="cover" >Choose file</label>
+                <label for="cover">Upload cover</label>
+                <img class="img-preview img-fluid mb-3 col-sm-2">
+                <div class="input-group">
+                    <div class="custom-file">
+                        <input class="form-control @error('cover') @enderror" type="file" name="cover" id="cover" onchange="previewImage()">
+                        @error('cover')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
                 </div>
-            </div>
             </div>
             <div class="form-group">
                 <label for="body">Body</label>
+                @error('body')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
                 <textarea name="body" id="summernote" cols="30" rows="10">
                 </textarea>
             </div>
@@ -59,5 +69,22 @@
         .then(response => response.json())
         .then(data => slug.value = data.slug)
     });
+
+    // script preview image
+    function previewImage(){
+        const cover = document.querySelector('#cover');
+        const imgPreview = document.querySelector('.img-preview');
+
+
+        imgPreview.style.display = 'block';
+
+        const oFReader = new FileReader();
+        oFReader.readAsDataURL(cover.files[0]);
+
+        oFReader.onload = function(oFREvent) {
+            imgPreview.src = oFREvent.target.result;
+        }
+    }
+    
 </script>
 @endsection
