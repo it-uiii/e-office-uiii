@@ -12,6 +12,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\VisiMisiController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FormRequestController;
+use App\Http\Controllers\InboxController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\UsersPortalController;
 
@@ -40,6 +41,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/profile/{id}/settings', [ProfileController::class, 'setting']);
     Route::put('/profile/{id}/settings', [ProfileController::class, 'change']);
     Route::resource('request', FormRequestController::class);
+    Route::get('/mailbox', [InboxController::class, 'index']);
 
 });
 

@@ -12,7 +12,7 @@
         <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
         <li class="nav-header">MENU</li>
         <li class="nav-item">
-          <a href="#" class="nav-link">
+          <a href="/mailbox" class="nav-link">
             <i class="fas fa-circle nav-icon"></i>
             <p>Inbox</p>
           </a>
