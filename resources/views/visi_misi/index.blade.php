@@ -24,7 +24,7 @@
             @foreach ($results as $result)
             <tr>
                 <td>{{ $loop->iteration }}</td>
-                <td>{{ $result->body }}</td>
+                <td>{!! $result->body !!}</td>
                 <td>{{ $result->updated_at }}</td>
                 <td>
                     @can('about-list')

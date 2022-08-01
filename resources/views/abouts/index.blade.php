@@ -29,8 +29,8 @@
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $about->quote }}</td>
                 <td>{{ $about->sub_quote }}</td>
-                <td>{{ $about->body }}</td>
-                <td>{{ $about->body2 }}</td>
+                <td>{!! $about->body !!}</td>
+                <td>{!! $about->body2 !!}</td>
                 <td>{{ $about->updated_at }}</td>
                 <td>
                     @can('about-list')
