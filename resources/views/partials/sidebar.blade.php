@@ -86,12 +86,12 @@
             </p>
           </a>
           <ul class="nav nav-treeview">
-            <li class="nav-item">
+            {{-- <li class="nav-item">
               <a href="/users_portal" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Users</p>
               </a>
-            </li>
+            </li> --}}
             <li class="nav-item">
               <a href="/abouts" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
@@ -104,24 +104,26 @@
                 <p>Visi & Misi</p>
               </a>
             </li>
-            <li class="nav-item">
+            {{-- belum terpakai --}}
+            {{-- <li class="nav-item">
               <a href="/sop" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>SOP</p>
               </a>
-            </li>
+            </li> --}}
             <li class="nav-item">
               <a href="/faqs" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>FAQs</p>
               </a>
             </li>
-            <li class="nav-item">
+            {{-- tidak terpakai --}}
+            {{-- <li class="nav-item">
               <a href="/contacts" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Contacts</p>
               </a>
-            </li>
+            </li> --}}
           </ul>
         </li>
         <li class="nav-item">
@@ -149,15 +151,7 @@
           </a>
         </li>
         @endcan
-        <li class="nav-item">
-          <a href="#" class="nav-link">
-            {{-- <i class="nav-icon far fa-circle text-danger"></i> --}}
-            <form action="/logout" method="post">
-              @csrf
-              <button class="btn btn-danger" type="submit">Logout</button>
-            </form>
-          </a>
-        </li>
+        
       </ul>
     </nav>
     <!-- /.sidebar-menu -->

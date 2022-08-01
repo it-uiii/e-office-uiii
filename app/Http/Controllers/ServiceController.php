@@ -36,7 +36,7 @@ class ServiceController extends Controller
             // 'services' => Service::all()
             'services' => Service::latest()->when(!auth()->user()->hasRole('Admin'), function ($query) {
                 $query->where('user_id', auth()->user()->id);
-            })->get()
+            })->paginate(5)
         ]);
     }
 

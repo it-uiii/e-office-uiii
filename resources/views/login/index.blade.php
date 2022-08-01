@@ -73,9 +73,9 @@
         </div>
     </form>
 
-    <p class="mb-1 mt-4 text-center">
+    {{-- <p class="mb-1 mt-4 text-center">
     <a href="forgot-password.html">I forgot my password</a>
-    </p>
+    </p> --}}
     <!-- /.card-body -->
 </div>
 <!-- /.card -->

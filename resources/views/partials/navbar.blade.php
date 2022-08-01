@@ -48,17 +48,31 @@
           </a>
           <div class="dropdown-divider"></div>
           <a href="#" class="dropdown-item">
-            <i class="fas fa-users mr-2"></i> 8 friend requests
-            <span class="float-right text-muted text-sm">12 hours</span>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
             <i class="fas fa-file mr-2"></i> 3 new reports
             <span class="float-right text-muted text-sm">2 days</span>
           </a>
           <div class="dropdown-divider"></div>
           <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
         </div>
+      </li>
+      <li class="nav-item dropdown user-menu">
+        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+          <img src="{{ asset('dist/img/user.png') }}" class="user-image img-circle elevation-2" alt="User Image">
+          <span class="d-none d-md-inline">{{ auth()->user()->name }}</span>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+          <!-- Menu Footer-->
+          <li class="user-footer">
+            {{-- <a href="/profile/{{ auth()->user()->id }}/profil" class="btn btn-default btn-flat">Profile</a> --}}
+            <a href="/profile/{{ auth()->user()->id }}/settings" class="btn btn-default btn-flat">Change Password</a>
+            <a class="d-inline float-right">
+              <form action="/logout" method="post">
+                @csrf
+                <button class="btn btn-danger" type="submit">Logout</button>
+              </form>
+            </a>
+          </li>
+        </ul>
       </li>
       <li class="nav-item">
         <a class="nav-link" data-widget="fullscreen" href="#" role="button">

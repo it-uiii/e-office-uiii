@@ -13,7 +13,7 @@
     <div class="card-header">
         <div class="card-title">
             @can('service-create')
-                <a class="btn btn-primary" href="/services/create">Create New</a>
+                <a class="btn btn-primary" href="/faqs/create">Create New</a>
             @endcan
         </div>
     </div>
@@ -59,13 +59,7 @@
     </div>
     <!-- /.card-body -->
     <div class="card-footer clearfix">
-        <ul class="pagination pagination-sm m-0 float-right">
-            <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
-        </ul>
+        {{ $results->links() }}
     </div>
 </div>
 @endsection

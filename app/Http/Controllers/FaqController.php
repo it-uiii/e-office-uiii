@@ -24,7 +24,7 @@ class FaqController extends Controller
         return view('faqs.index', [
             'title' => 'Faqs',
             'subtitle' => 'All',
-            'results' => faq::all()
+            'results' => faq::paginate(5)
         ]);
     }
 
