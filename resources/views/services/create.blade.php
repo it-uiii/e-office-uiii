@@ -13,9 +13,9 @@
                     </div>
                 @enderror
             </div>
-            <div class="form-group">
-                <input type="text" class="form-control" id="slug" name="slug" readonly>
-            </div>
+            {{-- <div class="form-group">
+                <input type="text" class="form-control" name="slug" readonly>
+            </div> --}}
             <div class="form-group">
                 <label>Category</label>
                 <select class="form-control" name="category_id">
@@ -61,14 +61,14 @@
         </form>
     </div>
 <script>
-    const title = document.querySelector('#title');
-    const slug = document.querySelector('#slug');
+    // const title = document.querySelector('#title');
+    // const slug = document.querySelector('#slug');
 
-    title = addEventListener('change', function(){
-        fetch('/services/checkSlug?title=' + title.value)
-        .then(response => response.json())
-        .then(data => slug.value = data.slug)
-    });
+    // title = addEventListener('change', function(){
+    //     fetch('/services/checkSlug?title=' + title.value)
+    //     .then(response => response.json())
+    //     .then(data => slug.value = data.slug)
+    // });
 
     // script preview image
     function previewImage(){

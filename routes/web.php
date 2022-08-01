@@ -36,7 +36,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('abouts', AboutController::class);
     Route::resource('visi_misi', VisiMisiController::class);
     Route::resource('faqs', FaqController::class);
-    Route::resource('/services', ServiceController::class);
     Route::resource('/category', CategoryController::class);
     Route::get('/profile/{id}/settings', [ProfileController::class, 'setting']);
     Route::put('/profile/{id}/settings', [ProfileController::class, 'change']);
@@ -48,6 +47,7 @@ Route::group(['middleware' => ['auth']], function () {
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class, 'auth']);
 
+Route::resource('/services', ServiceController::class);
 Route::get('/services/checkSlug', [ServiceController::class, 'checkSlug']);
 
 Route::post('/logout', [LoginController::class, 'logout']);

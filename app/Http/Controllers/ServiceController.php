@@ -65,7 +65,7 @@ class ServiceController extends Controller
         // ddd($request);
         $validate = $request->validate([
             'title' => 'required|max:255',
-            'slug' => 'required|unique:services',
+            // 'slug' => 'required|unique:services',
             'category_id' => 'required',
             'cover' => 'image|file|max:1024',
             'body' => 'required'
@@ -100,7 +100,7 @@ class ServiceController extends Controller
         if ($request->file('cover')) {
             $validate['cover'] = $request->file('cover')->store('services-img');
         }
-
+        $valudate['slug'] = str::slug($request->title, '-');
         $validate['user_id'] = auth()->user()->id;
         $validate['excerpt'] = Str::limit(strip_tags($request->body), 200);
 
