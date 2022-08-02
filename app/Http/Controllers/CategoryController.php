@@ -57,7 +57,7 @@ class CategoryController extends Controller
         $data['slug'] = Str::slug($request->name, '-');
 
         Category::create($data);
-        return redirect('/Category')->with('success', 'Category has been added!!');
+        return redirect('/category')->with('success', 'Category has been added!!');
     }
 
     /**

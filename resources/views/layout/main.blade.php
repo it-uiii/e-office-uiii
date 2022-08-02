@@ -5,6 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>IT Portal | {{ $title }}</title>
 
+  {{-- icon --}}
+  <link rel="apple-touch-icon" sizes="57x57" href="{{ asset('logo/logo_bulet.png') }}">
+  <link rel="apple-touch-icon" sizes="60x60" href="{{ asset('logo/logo_bulet.png') }}">
+  <link rel="apple-touch-icon" sizes="72x72" href="{{ asset('logo/logo_bulet.png') }}">
+  <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('logo/logo_bulet.png') }}">
+  <link rel="apple-touch-icon" sizes="114x114" href="{{ asset('logo/logo_bulet.png') }}">
+  <link rel="apple-touch-icon" sizes="120x120" href="{{ asset('logo/logo_bulet.png') }}">
+  <link rel="apple-touch-icon" sizes="144x144" href="{{ asset('logo/logo_bulet.png') }}">
+  <link rel="apple-touch-icon" sizes="152x152" href="{{ asset('logo/logo_bulet.png') }}">
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('logo/logo_bulet.png') }}">
+  <link rel="icon" type="image/png" sizes="192x192"  href="{{ asset('logo/logo_bulet.png') }}">
+  <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('logo/logo_bulet.png') }}">
+  <link rel="icon" type="image/png" sizes="96x96" href="{{ asset('logo/logo_bulet.png') }}">
+  <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('logo/logo_bulet.png') }}">
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
@@ -33,7 +47,7 @@
 
   <!-- Preloader -->
   <div class="preloader flex-column justify-content-center align-items-center">
-    <img class="animation__shake" src="{{ asset('dist/img/AdminLTELogo.png') }}" alt="AdminLTELogo" height="60" width="60">
+    <img class="animation__shake" src="{{ asset('img/loading.png') }}" height="60" width="60">
   </div>
 
   <!-- Navbar -->
@@ -43,8 +57,8 @@
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
-      <img src="{{ asset('dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+    <a href="/" class="brand-link">
+      <img src="{{ asset('logo/logo_bulet.png') }}" class="brand-image">
       <span class="brand-text font-weight-light">IT UIII</span>
     </a>
 
@@ -86,7 +100,6 @@
 </div>
 <!-- ./wrapper -->
 
-<!-- AdminLTE App -->
 <script src="dist/js/adminlte.min.js"></script>
 
 <!-- jQuery -->

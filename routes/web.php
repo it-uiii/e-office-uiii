@@ -37,6 +37,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('visi_misi', VisiMisiController::class);
     Route::resource('faqs', FaqController::class);
     Route::resource('/category', CategoryController::class);
+    Route::get('/profile/{id}/index', [ProfileController::class, 'index']);
     Route::get('/profile/{id}/settings', [ProfileController::class, 'setting']);
     Route::put('/profile/{id}/settings', [ProfileController::class, 'change']);
     Route::resource('request', FormRequestController::class);

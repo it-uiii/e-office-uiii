@@ -9,6 +9,16 @@ use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
 {   
+    public function index($id){
+        
+        $user = User::find($id);
+        return view('profile.index', [
+            'title' => 'Profile',
+            'subtitle' => 'Show',
+            'user' => $user
+        ]);
+    }
+
     public function setting(){
         return view('profile.settings', [
             'title' => 'Change',

@@ -7,6 +7,9 @@
       <li class="nav-item d-none d-sm-inline-block">
         <a href="/" class="nav-link">Home</a>
       </li>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="https://it.uiii.ac.id/" class="nav-link">Portal IT</a>
+      </li>
     </ul>
 
     <!-- Right navbar links -->
@@ -63,12 +66,12 @@
         <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
           <!-- Menu Footer-->
           <li class="user-footer">
-            {{-- <a href="/profile/{{ auth()->user()->id }}/profil" class="btn btn-default btn-flat">Profile</a> --}}
-            <a href="/profile/{{ auth()->user()->id }}/settings" class="btn btn-default btn-flat">Change Password</a>
+            <a href="/profile/{{ auth()->user()->id }}/index" class="btn btn-default btn-flat">Profile</a>
+            <a href="/profile/{{ auth()->user()->id }}/settings" class="btn btn-default btn-flat">Settings</a>
             <a class="d-inline float-right">
               <form action="/logout" method="post">
                 @csrf
-                <button class="btn btn-danger" type="submit">Logout</button>
+                <button class="btn btn-danger" onclick="return confirm('Are you sure want logout?')" type="submit">Logout</button>
               </form>
             </a>
           </li>
