@@ -1,13 +1,24 @@
 @extends('layout.main')
 @section('container')
-            <div class="row my-3">
-                <div class="col-md-8 card">
-                    <h2>{{ $service->title }}</h2>
-                    <img class="img-fluid" src="https://source.unsplash.com/1200x300?{{ $service->category->name }}" alt="...">
-                    <article class="my-3 fs-6">
-                        {!! $service->body !!}
-                    </article>
-                    <a href="/services">Back to services</a>
-                </div>
+    <div class="col-md-6">
+    <div class="card card-primary">
+        <form action="/faqs">
+        <div class="card-body">
+            <div class="form-group">
+                <label>Question</label>
+                <input type="text" class="form-control" value="{{ $faq->question }}" disabled>
             </div>
+            <div class="form-group">
+                <label>Answer</label>
+                <textarea cols="50" rows="5" id="summernote">
+                    {{ $faq->table }}
+                </textarea>
+            </div>
+        </div>
+        <div class="card-footer">
+            <a class="btn btn-danger" href="/faqs">Back</a>
+        </div>
+        </form>
+    </div>
+</div>
 @endsection

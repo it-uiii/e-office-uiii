@@ -131,9 +131,11 @@
     ['color', ['color']],
     ['para', ['ul', 'ol', 'paragraph']],
     ['height', ['height']],
+    ['insert', ['link']],
   ],
   height:500,
   popatmouse:true
+
 });
 </script>
 

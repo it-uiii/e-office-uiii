@@ -24,7 +24,7 @@ class FaqController extends Controller
         return view('faqs.index', [
             'title' => 'Faqs',
             'subtitle' => 'All',
-            'results' => faq::paginate(5)
+            'faqs' => faq::paginate(5)
         ]);
     }
 
@@ -54,6 +54,8 @@ class FaqController extends Controller
             'table' => 'required|min:5|max:100'
         ]);
 
+        // return $validate;
+
         faq::create($validate);
         return redirect('/faqs')->with('success', 'Faq has been Added!!');
     }
@@ -66,7 +68,11 @@ class FaqController extends Controller
      */
     public function show(faq $faq)
     {
-        //
+        return view('faqs.show', [
+            'title' => 'Show',
+            'subtitle' => $faq->id,
+            'faq' => $faq
+        ]);
     }
 
     /**
@@ -77,7 +83,11 @@ class FaqController extends Controller
      */
     public function edit(faq $faq)
     {
-        //
+        return view('faqs.edit', [
+            'title' => 'Edit',
+            'subtitle' => 'id ' . $faq->id,
+            'faq' => $faq
+        ]);
     }
 
     /**
@@ -89,7 +99,13 @@ class FaqController extends Controller
      */
     public function update(Request $request, faq $faq)
     {
-        //
+        $validate = $request->validate([
+            'question' => 'required|min:5',
+            'table' => 'required'
+        ]);
+
+        faq::where('id', $faq->id)->update($validate);
+        return redirect('/faqs')->with('edited', 'faq has been updated!!');
     }
 
     /**
@@ -100,6 +116,7 @@ class FaqController extends Controller
      */
     public function destroy(faq $faq)
     {
-        //
+        faq::destroy($faq->id);
+        return redirect('/faqs')->with('deleted', 'faq has been deleted');
     }
 }
