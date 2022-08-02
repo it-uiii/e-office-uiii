@@ -50,8 +50,8 @@ class FaqController extends Controller
     public function store(Request $request)
     {
         $validate = $request->validate([
-            'question' => 'required|min:5|max:100',
-            'table' => 'required|min:5|max:100'
+            'question' => 'required|min:5',
+            'table' => 'required|min:5'
         ]);
 
         // return $validate;
