@@ -66,12 +66,12 @@ class FaqController extends Controller
      * @param  \App\Models\faq  $faq
      * @return \Illuminate\Http\Response
      */
-    public function show(faq $faq)
+    public function show(faq $request)
     {
         return view('faqs.show', [
             'title' => 'Show',
-            'subtitle' => $faq->id,
-            'faq' => $faq
+            'subtitle' => $request->id,
+            'faq' => $request
         ]);
     }
 
@@ -81,12 +81,12 @@ class FaqController extends Controller
      * @param  \App\Models\faq  $faq
      * @return \Illuminate\Http\Response
      */
-    public function edit(faq $faq)
+    public function edit(faq $request)
     {
         return view('faqs.edit', [
             'title' => 'Edit',
-            'subtitle' => 'id ' . $faq->id,
-            'faq' => $faq
+            'subtitle' => 'id ' . $request->id,
+            'faq' => $request
         ]);
     }
 
@@ -114,9 +114,9 @@ class FaqController extends Controller
      * @param  \App\Models\faq  $faq
      * @return \Illuminate\Http\Response
      */
-    public function destroy(faq $faq)
+    public function destroy(faq $request)
     {
-        faq::destroy($faq->id);
+        faq::destroy($request->id);
         return redirect('/faqs')->with('deleted', 'faq has been deleted');
     }
 }

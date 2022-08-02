@@ -5,7 +5,7 @@
         @csrf
         <div class="card-body">
             <div class="form-group">
-                <label>question</label>
+                <label>Question</label>
                 <input type="text" class="form-control @error('question') is-invalid @enderror" name="question" placeholder="Enter question" value="{{ old('question') }}" autocomplete="off">
                 @error('question')
                     <div class="invalid-feedback">
@@ -16,6 +16,7 @@
             <div class="form-group">
                 <label>Answer</label>
                 <textarea name="table" id="summernote" cols="30" rows="10">
+                    {{ old('table') }}
                 </textarea>
             </div>
         </div>
