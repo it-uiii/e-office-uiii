@@ -1,12 +1,5 @@
 <p align="center"><a href="https://uiii.ac.id/" target="_blank"><img src="logo-uiii.png" width="400"></a></p>
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
-
 ## About UIII Laravel
 
 UIII Laravel is basiclly from laravel v8 for a web application framework with expressive, elegant syntax And also we added adminLTE 3. We believe development must be an enjoyable and creative experience to be truly fulfilling. this framework takes the pain out of development by easing common tasks used in many dashboard application, such as:
