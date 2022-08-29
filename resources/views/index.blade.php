@@ -7,7 +7,7 @@
     <!-- small box -->
     <div class="small-box bg-info">
       <div class="inner">
-        <h3>{{ $requests }}</h3>
+        <h3>0</h3>
 
         <p>Support Requests</p>
       </div>
@@ -22,7 +22,7 @@
     <!-- small box -->
     <div class="small-box bg-success">
       <div class="inner">
-        <h3>53<sup style="font-size: 20px">%</sup></h3>
+        <h3>0</h3>
 
         <p>Bounce Rate</p>
       </div>
@@ -37,7 +37,7 @@
     <!-- small box -->
     <div class="small-box bg-warning">
       <div class="inner">
-        <h3>{{ $users }}</h3>
+        <h3>0</h3>
 
         <p>User Registrations</p>
       </div>
@@ -52,7 +52,7 @@
     <!-- small box -->
     <div class="small-box bg-danger">
       <div class="inner">
-        <h3>65</h3>
+        <h3>0</h3>
 
         <p>Unique Visitors</p>
       </div>

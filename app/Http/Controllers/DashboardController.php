@@ -13,8 +13,6 @@ class DashboardController extends Controller
         return view('index', [
             'title' => 'Home',
             'subtitle' => 'Dashboard',
-            'users' => User::where('role', 'guest')->get()->count(),
-            'requests' => FormRequest::where('status', 'On process')->get()->count()
         ]);
     }
 }
