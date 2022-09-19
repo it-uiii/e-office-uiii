@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>IT Portal | {{ $title }}</title>
+  <title>{{ ENV('APP_NAME') }} | {{ $title }}</title>
 
   {{-- icon --}}
   <link rel="apple-touch-icon" sizes="57x57" href="{{ asset('logo/logo_bulet.png') }}">
