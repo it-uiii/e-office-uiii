@@ -18,59 +18,34 @@
           </a>
         </li>
         @can('admin-list')
-        <li class="nav-header">ADMINISTRATOR</li>
         <li class="nav-item">
           <a href="" class="nav-link">
             <i class="nav-icon fas fa-circle"></i>
             <p>
-              IT Portal
+              Settings
               <i class="right fas fa-angle-left"></i>
             </p>
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="/abouts" class="nav-link">
+              <a href="/users" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
-                <p>About</p>
+                <p>Users</p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="/visi_misi" class="nav-link">
+              <a href="/roles" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
-                <p>Visi & Misi</p>
+                <p>Roles</p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="/faqs" class="nav-link">
+              <a href="/permissions" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
-                <p>FAQs</p>
+                <p>Permissions</p>
               </a>
             </li>
           </ul>
-        </li>
-        <li class="nav-item">
-          <a href="/users" class="nav-link">
-            <i class="fas fa-circle nav-icon"></i>
-            <p>Users</p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="/roles" class="nav-link">
-            <i class="fas fa-circle nav-icon"></i>
-            <p>Roles</p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="/permissions" class="nav-link">
-            <i class="fas fa-circle nav-icon"></i>
-            <p>Permission</p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="/category" class="nav-link">
-            <i class="fas fa-circle nav-icon"></i>
-            <p>Category</p>
-          </a>
         </li>
         @endcan
         
