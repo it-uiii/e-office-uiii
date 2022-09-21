@@ -59,7 +59,7 @@
     <!-- Brand Logo -->
     <a href="/" class="brand-link">
       <img src="{{ asset('logo/logo_bulet.png') }}" class="brand-image">
-      <span class="brand-text font-weight-light">IT UIII</span>
+      <span class="brand-text font-weight-light">{{ ENV('APP_NAME') }}</span>
     </a>
 
     <!-- Sidebar -->
@@ -74,7 +74,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">{{ $title }} {{ $subtitle }}</h1>
+            <h1 class="m-0">{{ $title }}</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
