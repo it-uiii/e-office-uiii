@@ -27,8 +27,8 @@ Laravel is accessible, powerful, and provides tools required for large, robust a
 
 ## Demo User
 
--   email : demo@admin.com
--   password : 123456
+-   email : ict@uiii.ac.id
+-   password : Admin2022!
 
 ### Reference role base
 
