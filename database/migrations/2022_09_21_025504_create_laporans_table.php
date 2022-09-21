@@ -17,10 +17,10 @@ class CreateLaporansTable extends Migration
             $table->id();
             $table->foreignId('user_id');
             $table->string('kegiatan');
-            $table->string('output');
-            $table->string('volume');
-            $table->text('keterangan');
-            $table->string('filenames');
+            $table->string('output')->nullable();
+            $table->string('volume')->nullable();
+            $table->text('keterangan')->nullable();
+            $table->string('filenames')->nullable();
             $table->date('tanggal_dibuat');
             $table->string('status');
             $table->timestamps();

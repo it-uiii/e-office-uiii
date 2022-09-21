@@ -39,6 +39,8 @@ class LaporanKinerjaController extends Controller
         // dd($request);
         $report = $request->validate([
             'kegiatan' => ['required', 'max:255', 'string'],
+            'filenames' => 'required',
+            'filenames.*' => 'required'
         ]);
     }
 

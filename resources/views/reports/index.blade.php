@@ -22,11 +22,8 @@
             <thead>
             <tr>
                 <th style="width: 10px">#</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Roles</th>
-                <th>Created At</th>
-                <th>Updated At</th>
+                <th>Kegiatan</th>
+                <th>Keterangan</th>
                 <th>Action</ths>
             </tr>
             </thead>
