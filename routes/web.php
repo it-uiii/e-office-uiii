@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\LaporanKinerjaController;
 use App\Http\Controllers\PermissionController;
 
 /*
@@ -27,6 +28,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/profile/{id}/index', [ProfileController::class, 'index']);
     Route::get('/profile/{id}/settings', [ProfileController::class, 'setting']);
     Route::put('/profile/{id}/settings', [ProfileController::class, 'change']);
+    Route::resource('reports', LaporanKinerjaController::class);
 });
 
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');

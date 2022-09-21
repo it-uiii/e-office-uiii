@@ -150,6 +150,24 @@
   popatmouse:true
 
 });
+
+//Date picker
+  $('#reservationdate').datetimepicker({
+      format: 'L'
+  });
+
+  //Date and time picker
+  $('#reservationdatetime').datetimepicker({ icons: { time: 'far fa-clock' } });
+
+  $(document).ready(function() {
+      $(".btn-success").click(function(){ 
+          var lsthmtl = $(".clone").html();
+          $(".increment").after(lsthmtl);
+      });
+      $("body").on("click",".btn-danger",function(){ 
+          $(this).parents(".hdtuto").remove();
+      });
+    });
 </script>
 
 </body>

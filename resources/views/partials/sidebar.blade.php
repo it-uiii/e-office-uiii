@@ -26,7 +26,7 @@
             <li class="nav-item">
               <a href="./index3.html" class="nav-link">
                 <i class="fas fa-notes-medical nav-icon"></i>
-                <p>Desposisi</p>
+                <p>Disposisi</p>
               </a>
             </li>
             <li class="nav-item">
@@ -39,7 +39,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="reports" class="nav-link">
                   <i class="fas fa-file nav-icon"></i>
                   <p>Management Laporan</p>
                 </a>

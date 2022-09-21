@@ -52,8 +52,8 @@ class User extends Authenticatable
         $this->attributes['username'] = Str::of($value)->slug('');
     }
 
-    public function services()
+    public function reports()
     {
-        return $this->hasMany(Service::class);
+        return $this->hasMany(Laporan::class);
     }
 }
