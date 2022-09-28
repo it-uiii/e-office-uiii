@@ -12,25 +12,19 @@
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="./index.html" class="nav-link">
-                <i class="fas fa-inbox nav-icon"></i>
-                <p>Surat Masuk</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="./index2.html" class="nav-link">
+              <a href="/surat_keluar" class="nav-link">
                 <i class="fas fa-mail-bulk nav-icon"></i>
                 <p>Surat Keluar</p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="./index3.html" class="nav-link">
+              <a href="/disposisi" class="nav-link">
                 <i class="fas fa-notes-medical nav-icon"></i>
                 <p>Disposisi</p>
               </a>
             </li>
             <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a class="nav-link">
               <i class="nav-icon fas fa-file-alt"></i>
               <p>
                 Laporan Kinerja
@@ -39,23 +33,26 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="reports" class="nav-link">
+                <a href="/reports" class="nav-link">
                   <i class="fas fa-file nav-icon"></i>
                   <p>Management Laporan</p>
                 </a>
               </li>
+              @can('summary')
               <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="fas fa-check nav-icon"></i>
-                  <p>Approval Laporan</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="/summary" class="nav-link">
                   <i class="fas fa-file-excel nav-icon"></i>
-                  <p>Summary Laporan</p>
+                  <p>Summary</p>
                 </a>
-              </li>
+              </li>    
+              @elsecan('report')
+              <li class="nav-item">
+                <a href="/report" class="nav-link">
+                  <i class="fas fa-file-excel nav-icon"></i>
+                  <p>Reports</p>
+                </a>
+              </li>   
+              @endcan
             </ul>
           </li>
           </ul>
@@ -97,6 +94,12 @@
             <a href="/users" class="nav-link">
               <i class="fas fa-users nav-icon"></i>
               <p>Pegawai</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/jabatan" class="nav-link">
+              <i class="fas fa-user-tie nav-icon"></i>
+              <p>Jabatan</p>
             </a>
           </li>
           <li class="nav-item">

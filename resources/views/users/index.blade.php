@@ -27,7 +27,8 @@
                 <th>Roles</th>
                 <th>Created At</th>
                 <th>Updated At</th>
-                <th>Action</ths>
+                <th>Status</th>
+                <th>Action</th>
             </tr>
             </thead>
             <tbody>
@@ -45,6 +46,13 @@
                 </td>
                 <td>{{ $user->created_at }}</td>
                 <td>{{ $user->updated_at }}</td>
+                <td>
+                    @if ($user->status == 1)
+                        <span class="badge bg-success">Active</span>
+                    @elseif ($user->status == 0)
+                        <span class="badge bg-danger">Passive</span>
+                    @endif
+                </td>
                 <td>
                     <a class="btn btn-info" href="/users/{{ $user->id }}"><i class="fas fa-eye"></i></a>
                     @can('user-edit')

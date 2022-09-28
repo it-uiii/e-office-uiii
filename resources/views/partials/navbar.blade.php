@@ -39,10 +39,33 @@
           <span class="d-none d-md-inline">{{ auth()->user()->name }}</span>
         </a>
         <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+          <!-- User image -->
+          <li class="user-header bg-primary">
+            <img src="{{ asset('dist/img/user.png') }}" class="img-circle elevation-2" alt="User Image">
+
+            <p>
+              {{ auth()->user()->name }}
+              <small>Entry since {{ \Carbon\Carbon::parse(auth()->user()->tgl_masuk)->format('M Y') }}</small>
+            </p>
+          </li>
+          <!-- Menu Body -->
+          <li class="user-body">
+            <div class="row">
+              <div class="col-4 text-center">
+                <a href="#">Followers</a>
+              </div>
+              <div class="col-4 text-center">
+                <a href="#">Sales</a>
+              </div>
+              <div class="col-4 text-center">
+                <a href="#">Friends</a>
+              </div>
+            </div>
+            <!-- /.row -->
+          </li>
           <!-- Menu Footer-->
           <li class="user-footer">
-            <a href="/profile/{{ auth()->user()->id }}/index" class="btn btn-default btn-flat">Profile</a>
-            <a href="/profile/{{ auth()->user()->id }}/settings" class="btn btn-default btn-flat">Settings</a>
+            <a href="#" class="btn btn-default btn-flat">Profile</a>
             <a class="d-inline float-right">
               <form action="/logout" method="post">
                 @csrf

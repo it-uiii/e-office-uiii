@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Jabatan;
 use App\Models\User;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
@@ -46,8 +47,9 @@ class UserController extends Controller
      */
     public function create()
     {
+        $jabatan = Jabatan::all();
         $roles = Role::pluck('name', 'name')->all();
-        return view('users.create', ['title' => 'Users', 'subtitle' => 'Create'], compact('roles'));
+        return view('users.create', ['title' => 'Users', 'subtitle' => 'Create'], compact('roles', 'jabatan'));
     }
 
     /**
@@ -61,13 +63,14 @@ class UserController extends Controller
         //return $request;
         $this->validate($request, [
             'name' => 'required',
+            'nrp' => 'required|min:10|max:14',
             'email' => 'required|email:dns|unique:users|regex:/^[A-Za-z0-9\.]*@(uiii)[.](ac)[.](id)$/',
-            'password' => 'required|confirmed',
             'roles' => 'required'
         ]);
 
         $input = $request->all();
-        $input['password'] = Hash::make($input['password']);
+        $input['status'] = true;
+        $input['password'] = Hash::make(123456789);
         $input['role'] = 'admin';
 
         $user = User::create($input);

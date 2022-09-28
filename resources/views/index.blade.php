@@ -2,63 +2,75 @@
 @extends('layout.main')
 @section('container')
 <!-- Small boxes (Stat box) -->
-{{-- <div class="row">
+<div class="row">
   <div class="col-lg-3 col-6">
-    <!-- small box -->
+    <!-- small card -->
     <div class="small-box bg-info">
       <div class="inner">
-        <h3>0</h3>
+        <h3>JDIH</h3>
 
-        <p>Support Requests</p>
+        <p>Jaringan Dokumen & Informasi Hukum</p>
       </div>
       <div class="icon">
-        <i class="ion ion-bag"></i>
+        <i class="fas fa-gavel"></i>
       </div>
-      <a href="/request" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+      <a href="https://jdih.uiii.ac.id/login" class="small-box-footer" target="_blank">
+        More info <i class="fas fa-arrow-circle-right"></i>
+      </a>
     </div>
   </div>
-    <div class="col-lg-3 col-6">
-    <!-- small box -->
+  <!-- ./col -->
+  <div class="col-lg-3 col-6">
+    <!-- small card -->
     <div class="small-box bg-success">
       <div class="inner">
-        <h3>0</h3>
+        <h3>UIII IT</h3>
 
-        <p>Bounce Rate</p>
+        <p>IT CENTER</p>
       </div>
       <div class="icon">
-        <i class="ion ion-stats-bars"></i>
+        <i class="fas fa-digital-tachograph"></i>
       </div>
-      <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+      <a href="https://it-dashboard.uiii.ac.id/login"  target="_blank" class="small-box-footer">
+        More info <i class="fas fa-arrow-circle-right"></i>
+      </a>
     </div>
   </div>
-    <div class="col-lg-3 col-6">
-    <!-- small box -->
+  <!-- ./col -->
+  <div class="col-lg-3 col-6">
+    <!-- small card -->
     <div class="small-box bg-warning">
       <div class="inner">
-        <h3>0</h3>
+        <h3>Attendance</h3>
 
-        <p>User Registrations</p>
+        <p>online attendance</p>
       </div>
       <div class="icon">
-        <i class="ion ion-person-add"></i>
+        <i class="fas fa-fingerprint"></i>
       </div>
-      <a href="/users_portal" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+      <a href="http://10.1.8.90/" target="_blank" class="small-box-footer">
+        More info <i class="fas fa-arrow-circle-right"></i>
+      </a>
     </div>
   </div>
-    <div class="col-lg-3 col-6">
-    <!-- small box -->
+  <!-- ./col -->
+  <div class="col-lg-3 col-6">
+    <!-- small card -->
     <div class="small-box bg-danger">
       <div class="inner">
-        <h3>0</h3>
+        <h3>Asset</h3>
 
-        <p>Unique Visitors</p>
+        <p>Asset Management</p>
       </div>
       <div class="icon">
-        <i class="ion ion-pie-graph"></i>
+        <i class="fas fa-cubes"></i>
       </div>
-      <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+      <a href="http://dev-asset.uiii.ac.id/login" class="small-box-footer">
+        More info <i class="fas fa-arrow-circle-right"></i>
+      </a>
     </div>
   </div>
-</div> --}}
+  <!-- ./col -->
+</div>
 <!-- /.row -->
 @endsection

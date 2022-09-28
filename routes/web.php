@@ -5,9 +5,11 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SummaryController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\LaporanKinerjaController;
+use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\LaporanKinerjaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +31,12 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/profile/{id}/settings', [ProfileController::class, 'setting']);
     Route::put('/profile/{id}/settings', [ProfileController::class, 'change']);
     Route::resource('reports', LaporanKinerjaController::class);
+    Route::resource('jabatan', JabatanController::class);
+    Route::post('/importjabatan', [JabatanController::class, 'importjabatan']);
+
+    Route::get('/summary', [SummaryController::class, 'summary']);
+    Route::get('/report', [SummaryController::class, 'report']);
+    Route::get('/review', [SummaryController::class, 'review']);
 });
 
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');

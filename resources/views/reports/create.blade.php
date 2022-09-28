@@ -1,7 +1,7 @@
 @extends('layout.main')
 @section('container')
 <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-10">
         <div class="card card-primary">
             <form method="POST" action="/reports" class="form-horizontal" enctype="multipart/form-data">
                 @csrf
@@ -10,18 +10,6 @@
                         <label for="kegiatan" class="col-sm-2 col-form-label">Kegiatan</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control @error('kegiatan') is-invalid @enderror" id="kegiatan" name="kegiatan" placeholder="Example: monitoring acara" autofocus>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="output" class="col-sm-2 col-form-label">Output</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="output" name="output" placeholder="Example: Kegiatan telah dilakukan">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="volume" class="col-sm-2 col-form-label">Volume</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="volume" name="volume">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -57,6 +45,20 @@
                                     <button class="btn btn-danger" type="button"><i class="fas fa-trash"></i></button>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="keterangan" class="col-sm-2 col-form-label">Pimpinan</label>
+                        <div class="col-sm-10">
+                            <div class="form-group">
+                                <select class="custom-select">
+                                <option>Pilih KTU</option>
+                                <option>M. Hatta</option>
+                                <option>Imansari</option>
+                                <option>Choirul Anwar</option>
+                                <option>Megawati</option>
+                                </select>
                             </div>
                         </div>
                     </div>

@@ -15,6 +15,15 @@
                 @enderror
             </div>
             <div class="form-group">
+                <label for="name">NRP</label>
+                <input type="text" class="form-control @error('nrp') is-invalid @enderror" id="nrp" name="nrp" placeholder="Enter nrp" value="{{ old('nrp') }}">
+                @error('nrp')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
+            </div>
+            <div class="form-group">
                 <label for="email">Email</label>
                 <input type="email" class="form-control  @error('email') is-invalid @enderror" id="email" name="email" placeholder="Enter Email" value="{{ old('email') }}">
                 @error('email')
@@ -24,27 +33,22 @@
                 @enderror
             </div>
             <div class="form-group">
+                <label>Jabatan</label>
+                <select class="form-control" name="jabatan_id">
+                    <option>Pilih Jabatan</option>
+                    @foreach ($jabatan as $item)
+                        @if (old('jabatan_id') == $item->id)
+                            <option value="{{ $item->id }}" selected>{{ $item->nama }}</option>
+                        @else
+                            <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                        @endif
+                    @endforeach
+                </select>
+            </div>
+            <div class="form-group">
                 <label>Select Role</label>
                 {!! Form::select('roles[]', $roles,[], array('class' => 'form-control')) !!}
                 @error('roles')
-                    <div class="invalid-feedback">
-                        {{ $message }}
-                    </div>
-                @enderror
-            </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" placeholder="Password">
-                @error('password')
-                    <div class="invalid-feedback">
-                        {{ $message }}
-                    </div>
-                @enderror
-            </div>
-            <div class="form-group">
-                <label for="password_confirmation">Confirm Password</label>
-                <input type="password" class="form-control @error('password_confirmation') is-invalid @enderror" id="password_confirmation" name="password_confirmation" placeholder="Confirm Password">
-                    @error('password_confirmation')
                     <div class="invalid-feedback">
                         {{ $message }}
                     </div>
