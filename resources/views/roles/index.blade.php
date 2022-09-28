@@ -1,14 +1,6 @@
 {{-- @dd($data); --}}
 @extends('layout.main')
 @section('container')
-@if (session()->has('success'))
-<div class="alert alert-success alert-dismissible fade show col-md-8" role="alert">
-    {{ session('success') }}
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-    </button>
-</div>    
-@endif
 <div class="col-md-8">
     <div class="card">
         <div class="card-header">

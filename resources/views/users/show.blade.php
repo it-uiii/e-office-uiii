@@ -25,6 +25,10 @@
                         <label>Username</label>
                         <input type="text" class="form-control" value="{{ $user->username }}" disabled>
                     </div>
+                    <div class="form-group">
+                        <label>NRP</label>
+                        <input type="text" class="form-control" value="{{ $user->nrp }}" disabled>
+                    </div>
                     <!-- /.form-group -->
                 </div>
                 <!-- /.col -->

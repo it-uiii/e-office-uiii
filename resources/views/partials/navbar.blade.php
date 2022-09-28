@@ -69,7 +69,7 @@
             <a class="d-inline float-right">
               <form action="/logout" method="post">
                 @csrf
-                <button class="btn btn-danger" onclick="return confirm('Are you sure want logout?')" type="submit">Logout</button>
+                <button class="btn btn-danger" id="logout" name="logout" type="submit">Logout</button>
               </form>
             </a>
           </li>

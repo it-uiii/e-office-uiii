@@ -63,7 +63,7 @@ class UserController extends Controller
         //return $request;
         $this->validate($request, [
             'name' => 'required',
-            'nrp' => 'required|min:10|max:14',
+            'nrp' => 'required|min:10|max:14|unique:users',
             'email' => 'required|email:dns|unique:users|regex:/^[A-Za-z0-9\.]*@(uiii)[.](ac)[.](id)$/',
             'roles' => 'required'
         ]);
