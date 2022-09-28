@@ -12,7 +12,7 @@
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="/surat_keluar" class="nav-link">
+              <a href="/surat-keluar" class="nav-link">
                 <i class="fas fa-mail-bulk nav-icon"></i>
                 <p>Surat Keluar</p>
               </a>

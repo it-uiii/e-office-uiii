@@ -101,6 +101,6 @@ class JabatanController extends Controller
         $namafile = $data->getClientOriginalName();
 
         Excel::import(new JabatanImport, $namafile);
-        return redirect('/jabatan')->with('success', 'Jabatan has been imported!!');
+        return redirect('/jabatan')->with('danger', 'Jabatan has been imported!!');
     }
 }

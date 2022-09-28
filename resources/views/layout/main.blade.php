@@ -187,22 +187,13 @@
   		toastr.success("{{ session('success') }}");
   @endif
 
-  @if(Session::has('error'))
+  @if(Session::has('danger'))
   toastr.options =
   {
   	"closeButton" : true,
   	"progressBar" : true
   }
-  		toastr.error("{{ session('error') }}");
-  @endif
-
-  @if(Session::has('info'))
-  toastr.options =
-  {
-  	"closeButton" : true,
-  	"progressBar" : true
-  }
-  		toastr.info("{{ session('info') }}");
+  		toastr.error("{{ session('danger') }}");
   @endif
 
   @if(Session::has('warning'))
@@ -214,23 +205,10 @@
   		toastr.warning("{{ session('warning') }}");
   @endif
 
-  Swal.fire({
-  title: 'Are you sure?',
-  text: "You won't be able to revert this!",
-  icon: 'warning',
-  showCancelButton: true,
-  confirmButtonColor: '#3085d6',
-  cancelButtonColor: '#d33',
-  confirmButtonText: 'Yes, delete it!'
-}).then((result) => {
-  if (result.isConfirmed) {
-    Swal.fire(
-      'Deleted!',
-      'Your file has been deleted.',
-      'success'
-    )
-  }
-})   
+  $(function () {
+    //Add text editor
+    $('#compose-textarea').summernote()
+  })
 </script>
 
 </body>

@@ -10,6 +10,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\LaporanKinerjaController;
+use App\Http\Controllers\MailingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +34,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('reports', LaporanKinerjaController::class);
     Route::resource('jabatan', JabatanController::class);
     Route::post('/importjabatan', [JabatanController::class, 'importjabatan']);
+    Route::get('/surat-keluar', [MailingController::class, 'index']);
+    Route::get('/compose', [MailingController::class, 'compose']);
+    Route::get('/disposisi', [MailingController::class, 'inbox']);
+    Route::get('/read-mail', [MailingController::class, 'detail']);
 
     Route::get('/summary', [SummaryController::class, 'summary']);
     Route::get('/report', [SummaryController::class, 'report']);
