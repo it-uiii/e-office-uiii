@@ -19,12 +19,23 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $guarded = ['id'];
-    // protected $fillable = [
-    //     'name',
-    //     'email',
-    //     'password',
-    // ];
+    protected $fillable = [
+        'position_id',
+        'name',
+        'username',
+        'nrp',
+        'appoinment_number',
+        'appoinment_date',
+        'entry_date',
+        'birth_date',
+        'npwp',
+        'bank',
+        'account_number',
+        'avatar',
+        'email',
+        'status',
+        'password',
+    ];
 
 
     /**
@@ -57,13 +68,18 @@ class User extends Authenticatable
         return $this->hasMany(Laporan::class);
     }
 
-    // public function pimpinan()
-    // {
-    //     return $this->One(Pimpinan::class);
-    // }
-
-    public function jabatan()
+    public function head()
     {
-        return $this->belongsTo(jabatan::class);
+        return $this->belongsTo(User::class, 'head_id');
+    }
+
+    public function outgoing_letters()
+    {
+        return $this->hasMany(OutgoingLetter::class, 'created_by');
+    }
+
+    public function position()
+    {
+        return $this->belongsTo(Position::class);
     }
 }
