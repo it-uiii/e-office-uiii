@@ -2,11 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Permission;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Permission;
 
 class PermissionController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:permission-list|permission-create|permission-edit|permission-delete', ['only' => ['index', 'store']]);
+        $this->middleware('permission:permission-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:permission-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:permission-delete', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -44,7 +51,7 @@ class PermissionController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255|unique:' . config('permission.table_names.permissions', 'permissions') . ',name',
+            'name' => 'required|string|max:128|unique:' . config('permission.table_names.permissions', 'permissions') . ',name',
         ]);
         Permission::create($request->all());
         return redirect()->route('permissions.index')
@@ -89,7 +96,7 @@ class PermissionController extends Controller
     public function update(Request $request, Permission $permission)
     {
         $request->validate([
-            'name' => 'required|string|max:255|unique:' . config('permission.table_names.permissions', 'permissions') . ',name,' . $permission->id,
+            'name' => 'required|string|max:128|unique:' . config('permission.table_names.permissions', 'permissions') . ',name,' . $permission->id,
         ]);
         $permission->update($request->all());
         return redirect()->route('permissions.index')

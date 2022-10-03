@@ -11,6 +11,8 @@ use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\LaporanKinerjaController;
 use App\Http\Controllers\MailingController;
+use App\Http\Controllers\OutgoingLetterController;
+use App\Http\Controllers\PositionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,17 +25,27 @@ use App\Http\Controllers\MailingController;
 |
 */
 
-Route::group(['middleware' => ['auth']], function () {
+Route::group(['middleware' => ['web','guest']], function () {
+    Route::get('/login', [LoginController::class, 'index'])->name('login');
+    Route::post('/login', [LoginController::class, 'auth'])->name('login.auth');
+});
+
+Route::group(['middleware' => ['web','auth']], function () {
+    Route::post('/logout', [LoginController::class, 'logout']);
     Route::get('/', [DashboardController::class, 'index']);
-    Route::resource('roles', RoleController::class);
-    Route::resource('users', UserController::class);
-    Route::resource('permissions', PermissionController::class);
     Route::get('/profile/{id}/index', [ProfileController::class, 'index']);
     Route::get('/profile/{id}/settings', [ProfileController::class, 'setting']);
     Route::put('/profile/{id}/settings', [ProfileController::class, 'change']);
+
+    Route::resource('roles', RoleController::class);
+    Route::resource('users', UserController::class);
+    Route::resource('permissions', PermissionController::class);
+
     Route::resource('reports', LaporanKinerjaController::class);
-    Route::resource('jabatan', JabatanController::class);
-    Route::post('/importjabatan', [JabatanController::class, 'importjabatan']);
+    Route::post('/positions/import', [PositionController::class, 'import'])->name('positions.import');
+    Route::resource('positions', PositionController::class);
+    Route::resource('outgoing-letters', OutgoingLetterController::class);
+
     Route::get('/surat-keluar', [MailingController::class, 'index']);
     Route::get('/compose', [MailingController::class, 'compose']);
     Route::get('/disposisi', [MailingController::class, 'inbox']);
@@ -43,7 +55,3 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/report', [SummaryController::class, 'report']);
     Route::get('/review', [SummaryController::class, 'review']);
 });
-
-Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
-Route::post('/login', [LoginController::class, 'auth']);
-Route::post('/logout', [LoginController::class, 'logout']);

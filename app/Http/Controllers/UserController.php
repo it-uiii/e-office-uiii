@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Jabatan;
+use App\Models\Position;
 use App\Models\User;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
@@ -47,9 +48,9 @@ class UserController extends Controller
      */
     public function create()
     {
-        $jabatan = Jabatan::all();
+        $positions = Position::all();
         $roles = Role::pluck('name', 'name')->all();
-        return view('users.create', ['title' => 'Users', 'subtitle' => 'Create'], compact('roles', 'jabatan'));
+        return view('users.create', ['title' => 'Users', 'subtitle' => 'Create'], compact('roles', 'positions'));
     }
 
     /**
@@ -60,23 +61,21 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //return $request;
-        $this->validate($request, [
-            'name' => 'required',
-            'nrp' => 'required|min:10|max:14|unique:users',
-            'email' => 'required|email:dns|unique:users|regex:/^[A-Za-z0-9\.]*@(uiii)[.](ac)[.](id)$/',
-            'roles' => 'required'
+        $data = $request->validate([
+            'name'          => ['required', 'max:128', 'min:5'],
+            'nrp'           => ['required','min:10','max:14','unique:users'],
+            'email'         => ['required','email','unique:users,email','regex:/^[A-Za-z0-9\.]*@(uiii)[.](ac)[.](id)$/'],
+            'roles'         => ['required'],
+            'position_id'   => ['nullable', 'exists:positions,id'],
         ]);
 
-        $input = $request->all();
-        $input['status'] = true;
-        $input['password'] = Hash::make(123456789);
-        $input['role'] = 'admin';
+        $data['status'] = true;
+        $data['password'] = Hash::make(123456789);
 
-        $user = User::create($input);
+        $user = User::create($data);
         $user->assignRole($request->input('roles'));
 
-        return redirect()->route('users.index')->with('success', 'User created successfully');
+        return redirect()->route('users.index')->with('success', 'User berhasil ditambahkan');
     }
 
     /**
@@ -92,7 +91,6 @@ class UserController extends Controller
             'title' => 'User',
             'subtitle' => 'Show'
         ], compact('user'));
-        // return $user;
     }
 
     /**
@@ -106,6 +104,7 @@ class UserController extends Controller
         $user = User::find($id);
         $roles = Role::pluck('name', 'name')->all();
         $userRole = $user->roles->pluck('name', 'name')->all();
+        $positions = Position::all();
 
         return view(
             'users.edit',
@@ -113,7 +112,7 @@ class UserController extends Controller
                 'title' => 'User',
                 'subtitle' => 'Edit'
             ],
-            compact('user', 'roles', 'userRole')
+            compact('user', 'roles', 'userRole','positions')
         );
     }
 
@@ -126,28 +125,30 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
-            'name' => 'required',
-            'email' => 'required|email|unique:users,email,' . $id,
-            'password' => 'confirmed',
-            'roles' => 'required'
+        $data = $request->validate([
+            'name'          => ['required'],
+            'nrp'           => ['required','min:10','max:14','unique:users,nrp,'.$id],
+            'email'         => ['required','email','unique:users,email,'.$id,'regex:/^[A-Za-z0-9\.]*@(uiii)[.](ac)[.](id)$/'],
+            'password'      => ['confirmed'],
+            'roles'         => ['required'],
+            'position_id'   => ['nullable', 'exists:positions,id'],
         ]);
 
-        $input = $request->all();
-        if (!empty($input['password'])) {
-            $input['password'] = Hash::make($input['password']);
+        $data = $request->all();
+        if (!empty($data['password'])) {
+            $data['password'] = Hash::make($data['password']);
         } else {
-            $input = Arr::except($input, array('password'));
+            $data = Arr::except($data, array('password'));
         }
 
         $user = User::find($id);
-        $user->update($input);
+        $user->update($data);
         DB::table('model_has_roles')->where('model_id', $id)->delete();
 
         $user->assignRole($request->input('roles'));
 
         return redirect()->route('users.index')
-            ->with('warning', 'User updated successfully');
+            ->with('warning', 'User berhasil diperbarui');
     }
 
     /**
