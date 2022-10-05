@@ -8,7 +8,7 @@
             @csrf
             <div class="card-body">
                 <div class="form-group">
-                    <label for="name">Name</label>
+                    <label for="name">NamA</label>
                     <input type="text" class="form-control" id="name" name="name" value="{{ old('name', $user->name) }}">
                     @error('name')
                         <div class="invalid-feedback">
@@ -38,13 +38,21 @@
                     <label>Role</label>
                     {!! Form::select('roles[]', $roles,$userRole, array('class' => 'form-control')) !!}
                 </div>
-
                 <div class="form-group">
                     <label>Jabatan</label>
                     <select class="form-control" name="position_id">
                         <option>Pilih Jabatan</option>
                         @foreach ($positions as $item)
                             <option value="{{ $item->id }}" {{ old('position_id', $user->position_id) == $item->id ? 'selected' : '' }}>{{ $item->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Atasan</label>
+                    <select class="form-control" name="head_id">
+                        <option>Pilih Jabatan</option>
+                        @foreach ($heads as $item)
+                            <option value="{{ $item->id }}" {{ old('head_id', $user->head_id) == $item->id ? 'selected' : '' }}>{{ $item->name }}</option>
                         @endforeach
                     </select>
                 </div>

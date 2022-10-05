@@ -54,19 +54,29 @@ class UserSeeder extends Seeder
         Permission::create(['name' => 'outgoing-letter-create']);
         Permission::create(['name' => 'outgoing-letter-edit']);
         Permission::create(['name' => 'outgoing-letter-delete']);
+        Permission::create(['name' => 'entry-letter-list']);
+        Permission::create(['name' => 'entry-letter-create']);
+        Permission::create(['name' => 'entry-letter-edit']);
+        Permission::create(['name' => 'entry-letter-delete']);
 
         $permissions = Permission::pluck('id', 'id')->all();
         $role1->syncPermissions($permissions);
         $role2->givePermissionTo('outgoing-letter-list');
         $role2->givePermissionTo('outgoing-letter-edit');
-        $role2->givePermissionTo('outgoing-letter-list');
+        $role2->givePermissionTo('entry-letter-list');
+        $role2->givePermissionTo('entry-letter-edit');
         $role3->givePermissionTo('outgoing-letter-list');
         $role3->givePermissionTo('outgoing-letter-edit');
-        $role3->givePermissionTo('outgoing-letter-list');
+        $role3->givePermissionTo('entry-letter-list');
+        $role3->givePermissionTo('entry-letter-edit');
         $role4->givePermissionTo('outgoing-letter-list');
         $role4->givePermissionTo('outgoing-letter-create');
         $role4->givePermissionTo('outgoing-letter-edit');
         $role4->givePermissionTo('outgoing-letter-delete');
+        $role4->givePermissionTo('entry-letter-list');
+        $role4->givePermissionTo('entry-letter-create');
+        $role4->givePermissionTo('entry-letter-edit');
+        $role4->givePermissionTo('entry-letter-delete');
 
         User::create([
             'name'      => 'Root',
@@ -127,7 +137,5 @@ class UserSeeder extends Seeder
             'password'      => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
         ])->assignRole('Staff');
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
-
-
     }
 }

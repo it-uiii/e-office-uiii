@@ -7,7 +7,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SummaryController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\JabatanController;
+use App\Http\Controllers\EntryLetterController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\LaporanKinerjaController;
 use App\Http\Controllers\MailingController;
@@ -45,6 +45,7 @@ Route::group(['middleware' => ['web','auth']], function () {
     Route::post('/positions/import', [PositionController::class, 'import'])->name('positions.import');
     Route::resource('positions', PositionController::class);
     Route::resource('outgoing-letters', OutgoingLetterController::class);
+    Route::resource('entry-letters', EntryLetterController::class)->except('update');
 
     Route::get('/surat-keluar', [MailingController::class, 'index']);
     Route::get('/compose', [MailingController::class, 'compose']);

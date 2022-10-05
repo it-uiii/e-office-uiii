@@ -49,8 +49,9 @@ class UserController extends Controller
     public function create()
     {
         $positions = Position::all();
+        $heads = User::all();
         $roles = Role::pluck('name', 'name')->all();
-        return view('users.create', ['title' => 'Users', 'subtitle' => 'Create'], compact('roles', 'positions'));
+        return view('users.create', ['title' => 'Users', 'subtitle' => 'Create'], compact('roles', 'positions','heads'));
     }
 
     /**
@@ -67,6 +68,7 @@ class UserController extends Controller
             'email'         => ['required','email','unique:users,email','regex:/^[A-Za-z0-9\.]*@(uiii)[.](ac)[.](id)$/'],
             'roles'         => ['required'],
             'position_id'   => ['nullable', 'exists:positions,id'],
+            'head_id'   => ['nullable', 'exists:users,id'],
         ]);
 
         $data['status'] = true;
@@ -101,18 +103,18 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = User::find($id);
-        $roles = Role::pluck('name', 'name')->all();
-        $userRole = $user->roles->pluck('name', 'name')->all();
-        $positions = Position::all();
-
+        $user       = User::find($id);
+        $roles      = Role::pluck('name', 'name')->all();
+        $userRole   = $user->roles->pluck('name', 'name')->all();
+        $positions  = Position::all();
+        $heads      = User::all();
         return view(
             'users.edit',
             [
                 'title' => 'User',
                 'subtitle' => 'Edit'
             ],
-            compact('user', 'roles', 'userRole','positions')
+            compact('user', 'roles', 'userRole', 'positions', 'heads')
         );
     }
 
@@ -132,6 +134,7 @@ class UserController extends Controller
             'password'      => ['confirmed'],
             'roles'         => ['required'],
             'position_id'   => ['nullable', 'exists:positions,id'],
+            'head_id'       => ['nullable', 'exists:users,id'],
         ]);
 
         $data = $request->all();
@@ -143,9 +146,10 @@ class UserController extends Controller
 
         $user = User::find($id);
         $user->update($data);
-        DB::table('model_has_roles')->where('model_id', $id)->delete();
-
-        $user->assignRole($request->input('roles'));
+        if ($user->getRoleNames()->first() != $request->roles) {
+            $user->removeRole($user->role);
+            $user->assignRole($request->roles);
+          }
 
         return redirect()->route('users.index')
             ->with('warning', 'User berhasil diperbarui');

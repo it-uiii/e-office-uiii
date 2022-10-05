@@ -33,7 +33,7 @@ class PositionImport implements ToCollection
       try {
         $data           = [];
         $data['name']   = $row[0];
-        $position           = Position::where('name', $data['name'])->first();
+        $position       = Position::where('name', $data['name'])->first();
 
         Validator::make($data, [
           'name'    => ['required', 'string', 'max:128'],

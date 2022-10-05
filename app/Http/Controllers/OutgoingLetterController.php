@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\OutgoingLetter;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
 
 class OutgoingLetterController extends Controller
 {
