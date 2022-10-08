@@ -22,7 +22,6 @@
                             @endrole
                             <th>Perihal</th>
                             <th>Tujuan</th>
-                            <th>Keterangan</th>
                             <th>Status</th>
                             <th>Created At</th>
                             <th>Updated At</th>
@@ -35,24 +34,22 @@
                                 <td>{{ $data->firstItem() + $loop->index }}</td>
                                 <td>{{ $item->number }}</td>
                                 @role('Super Admin|Admin|Pimpinan')
-                                    <td>{{ $item->letter_created_by->name }}</td>
+                                    <td>{{ $item->outgoing_created_by->name }}</td>
                                 @endrole
                                 <td>{{ $item->subject }}</td>
                                 <td>{{ $item->destination }}</td>
-                                <td>{{ $item->description }}</td>
                                 <td>{!! $item->display_status !!}</td>
                                 <td>{{ $item->created_at }}</td>
                                 <td>{{ $item->updated_at }}</td>
                                 <td>
-                                    <a class="btn btn-outline-success" target="_blank" href="{{ asset(Storage::url($item->file)) }}" title="Download"><i class="fas fa-download"></i></a>
-                                    <a class="btn btn-info" href="{{ route('outgoing-letters.show', $item) }}"><i class="fas fa-eye"></i></a>
+                                    <a target="_blank" class="mb-1 btn btn-info" href="{{ route('outgoing-letters.show', $item) }}"><i class="fas fa-eye"></i></a>
                                     @can('outgoing-letter-edit')
                                         @if (auth()->user()->hasRole('Staff') && $item->status == 0)
-                                            <a class="btn btn-warning" href="{{ route('outgoing-letters.edit', $item) }}"><i class="fas fa-pen"></i></a>
+                                            <a class="mb-1 btn btn-warning" href="{{ route('outgoing-letters.edit', $item) }}"><i class="fas fa-pen"></i></a>
                                         @endif
 
                                         @role("Admin|Pimpinan")
-                                            <a class="btn btn-warning" href="{{ route('outgoing-letters.edit', $item) }}"><i class="fas fa-pen"></i></a>
+                                            <a class="mb-1 btn btn-warning" href="{{ route('outgoing-letters.edit', $item) }}"><i class="fas fa-pen"></i></a>
                                         @endrole
                                     @endcan
                                     @can('outgoing-letter-delete')
@@ -60,7 +57,7 @@
                                             <form action="{{ route('outgoing-letters.destroy', $item) }}" method="post"
                                                 class="d-inline">
                                                 @csrf @method('delete')
-                                                <button class="btn btn-danger"
+                                                <button class="mb-1 btn btn-danger"
                                                     onclick="return confirm('Are you sure want delete this data?')">
                                                     <i class="fas fa-trash"></i>
                                                 </button>

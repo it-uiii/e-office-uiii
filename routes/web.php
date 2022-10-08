@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdditionalController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
@@ -46,6 +47,7 @@ Route::group(['middleware' => ['web','auth']], function () {
     Route::resource('positions', PositionController::class);
     Route::resource('outgoing-letters', OutgoingLetterController::class);
     Route::resource('entry-letters', EntryLetterController::class)->except('update');
+    Route::delete('additionals/{additional}', [AdditionalController::class, 'destroy'])->name('additionals.destroy');
 
     Route::get('/surat-keluar', [MailingController::class, 'index']);
     Route::get('/compose', [MailingController::class, 'compose']);

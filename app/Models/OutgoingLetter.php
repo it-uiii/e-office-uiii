@@ -21,12 +21,12 @@ class OutgoingLetter extends Model
         'update_by'
     ];
 
-    public function entry_created_by()
+    public function outgoing_created_by()
     {
         return $this->belongsTo(User::class, 'created_by');
     }
 
-    public function entry_updated_by()
+    public function outgoing_updated_by()
     {
         return $this->belongsTo(User::class, 'updated_by');
     }
@@ -53,5 +53,10 @@ class OutgoingLetter extends Model
                 return '<span class="badge bg-danger">Unknown</span>';
                 break;
         }
+    }
+
+    public function additionals()
+    {
+        return $this->hasMany(Additional::class);
     }
 }

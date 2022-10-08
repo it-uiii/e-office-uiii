@@ -22,14 +22,18 @@
                         @error('destination')<div class="invalid-feedback">{{ $message }}</div>@enderror
                     </div>
                     <div class="form-group">
-                        <label for="description">Keterangan</label>
-                        <textarea type="text" class="form-control @error('description') is-invalid @enderror" id="description" name="description" placeholder="Masukkan Keterangan">{{ old('description') }}</textarea>
+                        <label for="description">Deskripsi</label>
+                        <textarea type="text" class="form-control @error('description') is-invalid @enderror" id="description" name="description" placeholder="Masukkan Deskripsi">{{ old('description') }}</textarea>
                         @error('description')<div class="invalid-feedback">{{ $message }}</div>@enderror
                     </div>
                     <div class="form-group">
+                        <label for="file">Lampiran</label>
                         <label for="file">File</label>
                         <div class="input-group">
-                            <input type="file" accept=".docx,.pdf" class="form-control" id="file" name="file" aria-describedby="file" aria-label="Upload">
+                            <div class="custom-file">
+                                <input type="file" multiple class="custom-file-input" id="file" name="file[]" aria-describedby="file" aria-label="Upload">
+                                <label class="custom-file-label" for="file">Masukkan beberapa lampiran ...</label>
+                            </div>
                         </div>
                         @error('file')<div class="invalid-feedback">{{ $message }}</div>@enderror
                     </div>
@@ -42,4 +46,25 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+<script>
+    $(document).ready(function() {
+        $("#description").summernote({
+            height: 200,
+            placeholder: 'Masukkan Deskripsi',
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'underline', 'clear']],
+                ['fontname', ['fontname']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture', 'video']],
+                ['view', ['fullscreen', 'codeview', 'help']],
+            ],
+        });
+    });
+</script>
 @endsection

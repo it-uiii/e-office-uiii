@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Additional;
 use App\Models\OutgoingLetter;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class OutgoingLetterController extends Controller
 {
@@ -58,20 +62,25 @@ class OutgoingLetterController extends Controller
             'subject'       => ['required','string','max:128'],
             'date'          => ['required','date'],
             'destination'   => ['required','string','max:128'],
-            'description'   => ['nullable','string','max:255'],
-            'file'          => ['required','file','mimes:pdf,doc,docx','max:2048'],
+            'description'   => ['required','string'],
+            'file.*'        => ['nullable','image','max:2048'],
         ],[],[
             'subject'       => 'Perihal',
             'date'          => 'Tanggal',
             'destination'   => 'Tujuan',
-            'description'   => 'Keterangan',
-            'file'          => 'File',
+            'description'   => 'Description',
         ]);
 
         $data['created_by'] = auth()->user()->id;
-        $data['file']       = $request->file('file')->storeAs('public/outgoing-letters', $request->file('file')->getClientOriginalName());
 
-        OutgoingLetter::create($data);
+        $outgoing_letter = OutgoingLetter::create($data);
+        if ($request->file) {
+            foreach ($request->file as $file) {
+                $data['outgoing_letter_id'] = $outgoing_letter->id;
+                $data['file']   = $file->storeAs('public/outgoing-letters', $file->getClientOriginalName());
+                Additional::create($data);
+            }
+        }
         return redirect()->route('outgoing-letters.index')->with('success', 'Surat Keluar berhasil disimpan');
     }
 
@@ -83,7 +92,9 @@ class OutgoingLetterController extends Controller
      */
     public function show(OutgoingLetter $outgoing_letter)
     {
-        return view('outgoing-letters.show', ['title' => 'Surat Keluar', 'subtitle' => 'Detail', 'data' => $outgoing_letter]);
+        $pdf = App::make('dompdf.wrapper');
+        $pdf->loadView('outgoing-letters.pdf', ['data' => $outgoing_letter])->setPaper(array(0,0,609.449,935.433));
+        return $pdf->stream($outgoing_letter->perihal. '.pdf');
     }
 
     /**
@@ -106,13 +117,13 @@ class OutgoingLetterController extends Controller
     public function update(Request $request, OutgoingLetter $outgoing_letter)
     {
         $data = $request->validate([
-            'acc'                   => ['required'],
-            'number'                => ['required','string','max:128'],
+            'acc'                   => [!auth()->user()->hasRole('Staff') ? 'required' : ''],
+            'number'                => [!auth()->user()->hasRole('Staff') ? 'required' : '','string','max:128'],
             'subject'               => ['required','string','max:128'],
             'date'                  => ['required','date'],
             'destination'           => ['required','string','max:128'],
-            'description'           => ['nullable','string','max:255'],
-            'file'                  => ['nullable','file','mimes:pdf,doc,docx','max:2048'],
+            'description'           => ['required','string'],
+            'file.*'                => ['nullable','image','max:2048'],
             'revision'              => ['nullable'],
             'revision_description'  => ['nullable','required_if:revision,1'],
         ],[
@@ -161,15 +172,18 @@ class OutgoingLetterController extends Controller
             }
         }
 
-        if ($request->file('file')) {
-            $data['file'] = $request->file('file')->storeAs('public/outgoing-letters', $request->file('file')->getClientOriginalName());
+        if ($request->file) {
+            foreach ($request->file as $file) {
+                $data['outgoing_letter_id'] = $outgoing_letter->id;
+                $data['file']   = $file->storeAs('public/outgoing-letters', $file->getClientOriginalName());
+                Additional::create($data);
+            }
         }
 
         $data['updated_by'] = auth()->user()->id;
 
         $outgoing_letter->update($data);
-        return redirect()->route('outgoing-letters.index')->with('success', 'Surat Keluar berhasil disimpan');
-        return view('outgoing-letters.edit', ['title' => 'Surat Keluar', 'subtitle' => 'Ubah'], compact('data'));
+        return back()->with('success', 'Surat Keluar berhasil disimpan');
     }
 
     /**
@@ -180,7 +194,10 @@ class OutgoingLetterController extends Controller
      */
     public function destroy(OutgoingLetter $outgoing_letter)
     {
-        File::delete('storage/'.$outgoing_letter->file);
+        foreach ($outgoing_letter->additionals as $item) {
+            Storage::delete($item->file);
+            $item->delete();
+        }
         $outgoing_letter->delete();
         return redirect()->route('outgoing-letters.index')->with('success', 'Surat Keluar berhasil dihapus');
     }

@@ -1,16 +1,21 @@
 @extends('layout.main')
+@section('styles')
+<link rel="stylesheet" href="{{ asset('plugins/jquery-fancybox/jquery.fancybox.css') }}">
+@endsection
 @section('container')
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-6 mb-3">
         <div class="card card-primary">
             <form action="{{ route('outgoing-letters.update', $data) }}" method="post" enctype="multipart/form-data">
                 @csrf @method('put')
                 <div class="card-body">
-                    <div class="form-group">
-                        <label for="number">Nomor Surat</label>
-                        <input type="text" class="form-control @error('number') is-invalid @enderror" id="number" name="number" placeholder="Masukkan Nomor Surat" value="{{ old('number', $data->number) }}">
-                        @error('number')<div class="invalid-feedback">{{ $message }}</div>@enderror
-                    </div>
+                    @role('Admin')
+                        <div class="form-group">
+                            <label for="number">Nomor Surat</label>
+                            <input type="text" class="form-control @error('number') is-invalid @enderror" id="number" name="number" placeholder="Masukkan Nomor Surat" value="{{ old('number', $data->number) }}">
+                            @error('number')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                        </div>
+                    @endrole
                     <div class="form-group">
                         <label for="subject">Perihal</label>
                         <input type="text" class="form-control @error('subject') is-invalid @enderror" id="subject" name="subject" placeholder="Masukkan Perihal" value="{{ old('subject', $data->subject) }}">
@@ -35,11 +40,8 @@
                         <label for="file">File</label>
                         <div class="input-group">
                             <div class="custom-file">
-                                <input type="file" accept=".docx,.pdf" class="custom-file-input" id="file" aria-describedby="file" aria-label="Upload">
-                                <label class="custom-file-label" for="inputGroupFile04">Choose file</label>
-                            </div>
-                            <div class="input-group-append">
-                                <a class="btn btn-outline-success" target="_blank" href="{{ asset(Storage::url($data->file)) }}" title="Download"><i class="fas fa-download"></i></a>
+                                <input type="file" multiple class="custom-file-input" id="file" name="file[]" aria-describedby="file" aria-label="Upload">
+                                <label class="custom-file-label" for="file">Masukkan beberapa lampiran ... </label>
                             </div>
                         </div>
                         @error('file')<div class="invalid-feedback">{{ $message }}</div>@enderror
@@ -70,10 +72,33 @@
             </form>
         </div>
     </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <label>Lampiran</label>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    @foreach ($data->additionals as $item)
+                        <div class="col-md-6 mb-3">
+                            <a href="{{ asset(Storage::url($item->file)) }}" data-fancybox="lampiran">
+                                <img src="{{ asset(Storage::url($item->file)) }}" class="img-thumbnail">
+                            </a>
+                            <form action="{{ route('additionals.destroy', $item) }}" method="post">
+                                @csrf @method('delete')
+                                <button type="submit" class="btn btn-danger btn-sm btn-block mt-2" onclick="return confirm('Apakah anda yakin?')">Hapus</button>
+                            </form>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 @endsection
 
 @section('scripts')
+<script src="{{ asset('plugins/jquery-fancybox/jquery.fancybox.js') }}"></script>
 <script>
     $(document).ready(function() {
         if ($("#revision").val() == "") {
@@ -89,6 +114,20 @@
                 $("#revision").val("");
                 $('.revision').hide();
             }
+        });
+        $("#description").summernote({
+            height: 200,
+            placeholder: 'Masukkan Deskripsi',
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'underline', 'clear']],
+                ['fontname', ['fontname']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture', 'video']],
+                ['view', ['fullscreen', 'codeview', 'help']],
+            ],
         });
     });
 </script>
