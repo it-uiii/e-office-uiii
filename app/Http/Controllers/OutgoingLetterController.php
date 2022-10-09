@@ -118,7 +118,7 @@ class OutgoingLetterController extends Controller
     {
         $data = $request->validate([
             'acc'                   => [!auth()->user()->hasRole('Staff') ? 'required' : ''],
-            'number'                => [!auth()->user()->hasRole('Staff') ? 'required' : '','string','max:128'],
+            'number'                => [auth()->user()->hasRole('Admin') ? 'required' : 'nullable','string','max:128'],
             'subject'               => ['required','string','max:128'],
             'date'                  => ['required','date'],
             'destination'           => ['required','string','max:128'],
@@ -126,6 +126,7 @@ class OutgoingLetterController extends Controller
             'file.*'                => ['nullable','image','max:2048'],
             'revision'              => ['nullable'],
             'revision_description'  => ['nullable','required_if:revision,1'],
+            'signature'             => [auth()->user()->position->name == "Rektor" ? 'required' : 'nullable']
         ],[
             'revision_description.required_if'  => 'Keterangan revisi harus diisi jika tidak disetujui',
         ],[
@@ -136,6 +137,7 @@ class OutgoingLetterController extends Controller
             'description'           => 'Keterangan',
             'file'                  => 'File',
             'revision'              => 'Revisi',
+            'signature'             => 'Tanda Tangan',
         ]);
 
         if (auth()->user()->hasRole('Admin') && auth()->user()->position->name == 'Pelaksana Sekretariat') {
@@ -169,6 +171,18 @@ class OutgoingLetterController extends Controller
                 $data['status'] = 4;
                 $data['revision'] = null;
                 $data['revision_description'] = null;
+
+                if ($request->signature) {
+                    if (!file_exists(storage_path('app/public/ttd'))) {
+                        mkdir(storage_path('app/public/ttd'), 0777, true);
+                    }
+                    $image_parts = explode(";base64,", $request->signature);
+                    $image_type_aux = explode("image/", $image_parts[0]);
+                    $image_type = $image_type_aux[1];
+                    $image_base64 = base64_decode($image_parts[1]);
+                    Storage::put('public/ttd/' . $outgoing_letter->number . ' - '. $data['subject'] .'.'. $image_type, $image_base64);
+                    $data['signature'] = 'public/ttd/' . $outgoing_letter->number . ' - '. $data['subject'] .'.'. $image_type;
+                }
             }
         }
 
@@ -183,7 +197,10 @@ class OutgoingLetterController extends Controller
         $data['updated_by'] = auth()->user()->id;
 
         $outgoing_letter->update($data);
-        return back()->with('success', 'Surat Keluar berhasil disimpan');
+        if ($request->file) {
+            return back()->with('success', 'Surat Keluar berhasil disimpan');
+        }
+        return redirect()->route('outgoing-letters.index')->with('success', 'Surat Keluar berhasil disimpan');
     }
 
     /**

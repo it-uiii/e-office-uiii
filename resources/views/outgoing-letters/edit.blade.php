@@ -1,6 +1,29 @@
 @extends('layout.main')
 @section('styles')
 <link rel="stylesheet" href="{{ asset('plugins/jquery-fancybox/jquery.fancybox.css') }}">
+<style>
+    .wrapper-ttd {
+        position: relative;
+        width: 100%;
+        height: 200px;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        border: solid 1px #ddd;
+        margin: 10px 0px;
+    }
+    .signature-pad {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 400px;
+        height:200px;
+    }
+    #signature {
+        display: none;
+    }
+</style>
 @endsection
 @section('container')
 <div class="row">
@@ -63,6 +86,17 @@
                             <textarea type="text" class="form-control @error('revision_description') is-invalid @enderror" id="revision_description" name="revision_description" placeholder="Masukkan Revisi">{{ old('revision_description', $data->revision_description) }}</textarea>
                             @error('revision_description')<div class="invalid-feedback">{{ $message }}</div>@enderror
                         </div>
+                        @if (auth()->user()->position->name == 'Rektor')
+                            <div class="form-group signature d-none">
+                                <i>Tanda Tangan</i>
+                                <div class="wrapper-ttd">
+                                    <canvas id="signature-pad" class="signature-pad" width="400" height="200"></canvas>
+                                </div>
+                                <button id="clear" type="button" class="btn btn-secondary">Hapus TTD</button>
+                                <button id="submit-signature" type="button" class="btn btn-success">Simpan TTD</button>
+                                <textarea type="hidden" id='signature' name="signature"></textarea>
+                            </div>
+                        @endif
                     @endrole
                 </div>
                 <div class="card-footer">
@@ -98,9 +132,31 @@
 @endsection
 
 @section('scripts')
+<script src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js"></script>
 <script src="{{ asset('plugins/jquery-fancybox/jquery.fancybox.js') }}"></script>
 <script>
+    var signaturePad = new SignaturePad(document.getElementById('signature-pad'), {
+                backgroundColor: 'rgba(255, 255, 255, 0)',
+        penColor: 'rgb(0, 0, 0)'
+        });
     $(document).ready(function() {
+        $('#submit-signature').click(function() {
+            var imageData = signaturePad.toDataURL('image/png');
+            $('#signature').val(imageData);
+            toastr.options = {
+                "closeButton": true,
+                "progressBar": true
+            }
+            toastr.success("tanda tangan berhasil disimpan");
+        });
+
+        // action on click button clea
+        $('#clear').click(function(e) {
+            e.preventDefault();
+            signaturePad.clear();
+            $('#signature').val('');
+        });
+
         if ($("#revision").val() == "") {
             $('.revision').hide();
         } else {
@@ -110,9 +166,11 @@
             if (this.value == 2) {
                 $("#revision").val(1);
                 $('.revision').show();
+                $(".signature").addClass('d-none');
             } else {
                 $("#revision").val("");
                 $('.revision').hide();
+                $(".signature").removeClass('d-none');
             }
         });
         $("#description").summernote({

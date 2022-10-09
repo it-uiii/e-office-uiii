@@ -10,10 +10,27 @@
         .page-break {
             page-break-after: always;
         }
+
+        body {
+            margin-top: 2.5cm;
+            margin-left: 1cm;
+            margin-right: 1cm;
+        }
+
+        /** Define the header rules **/
+        header {
+            position: fixed;
+            top: 0cm;
+            left: 0cm;
+            right: 0cm;
+            height: 2cm;
+        }
     </style>
 </head>
 <body>
-    <img src="{{ asset('img/header.png') }}" alt="Header">
+    <header>
+        <img src="{{ asset('img/header.png') }}" alt="Header">
+    </header>
     <div class="text-right mt-3">
         {{ tgl($data->date) }}
     </div>
@@ -44,11 +61,17 @@
     <div class="mt-5" style="width: 30%; margin-left: 70%;">
         Hormat Saya,
         <br>
-        {{ auth()->user()->position->name }}
-        <br>
-        <br>
-        <br>
-        <br>
+        {{ auth()->user()->position ? auth()->user()->position->name : ''}}
+        @if ($data->signature)
+            <br>
+            <img src="{{ asset(Storage::url($data->signature)) }}" alt="Signature" style="width: 100px;">
+            <br>
+        @else
+            <br>
+            <br>
+            <br>
+            <br>
+        @endif
         <strong>{{ auth()->user()->name }}</strong>
     </div>
     {{-- Page Break --}}
@@ -58,6 +81,7 @@
     </div>
     @foreach ($data->additionals as $item)
         <img src="{{ asset(Storage::url($item->file)) }}" alt="{{ $item->file }}" width="100%">
+        <div class="pagenum"></div>
     @endforeach
 </body>
 </html>

@@ -23,7 +23,7 @@ class CreateOutgoingLettersTable extends Migration
             $table->text('description')->nullable();
             $table->boolean('revision')->nullable();
             $table->text('revision_description')->nullable();
-            $table->string('signature')->nullable();
+            $table->longText('signature')->nullable();
             $table->foreignId('created_by')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('updated_by')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
