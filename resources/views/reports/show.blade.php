@@ -1,34 +1,89 @@
 @extends('layout.main')
 @section('container')
-    <div class="col-md-6">
-    <div class="card card-primary">
-        <form action="/users" method="post">
-        <div class="card-body">
-            <div class="form-group">
-                <label>Name</label>
-                <input type="text" class="form-control" value="{{ $user->name }}" disabled>
+    <div class="row">
+        <div class="col-12">
+            <div class="callout callout-info">
+                <h5><i class="fas fa-info"></i> Note:</h5>
+                This page has been enhanced for printing. Click the print button at the bottom of the invoice to test.
             </div>
-            <div class="form-group">
-                <label>Username</label>
-                <input type="text" class="form-control" value="{{ $user->username }}" disabled>
+
+            <!-- Main content -->
+            <div class="invoice p-3 mb-3">
+            <!-- title row -->
+            <div class="row">
+                <div class="col-12">
+                    <h4>
+                        <img class="img-fluid" src="{{ asset('logo/logo-uiii.png') }}" style="max-width: 300px">
+                        <small class="float-right">Hari, Tanggal: {{ date('D, d M Y', strtotime($data->tanggal_dibuat)) }}</small>
+                    </h4>
+                </div>
+                <!-- /.col -->
             </div>
-            <div class="form-group">
-                <label>Email</label>
-                <input type="email" class="form-control" value="{{ $user->email }}" disabled>
+            <!-- info row -->
+            <div class="row mt-4 invoice-info">
+                <div class="col-sm-2 invoice-col">
+                <strong>Name</strong>
+                <address>
+                    <strong>Jabatan</strong><br>
+                    <strong>NRP</strong><br>
+                    <strong>Email</strong>
+                </address>
+                </div>
+                <div class=" invoice-col">
+                : {{ $data->user->name }}<br>
+                <address>
+                    : Staff IT<br>
+                    : {{ $data->user->nrp }}<br>
+                    : {{ $data->user->email }}<br>
+                    
+                </address>
+                </div>
             </div>
-            <div class="form-group">
-                <label>Role : </label>
-                @if(!empty($user->getRoleNames()))
-                    @foreach($user->getRoleNames() as $v)
-                        <label class="badge badge-success">{{ $v }}</label>
-                    @endforeach
-                @endif
+            <!-- /.row -->
+
+            <!-- Table row -->
+            <div class="row">
+                <div class="col-12 table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                    <th>No</th>
+                    <th width=20%>Kegiatan</th>
+                    <th>Keterangan</th>
+                    <th>Lampiran</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        @php
+                        $images = explode('|', $data->filenames);    
+                        @endphp
+                        <td>1</td>
+                        <td>{{ $data->kegiatan }}</td>
+                        <td>{{ $data->keterangan }}</td>
+                        <td>
+                            @foreach ($images as $image)
+                                <img src="{{ $image }}" alt="{{ $image }}">
+                            @endforeach
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                </div>
             </div>
-        </div>
-        <div class="card-footer">
-            <a class="btn btn-danger" href="/users">Back</a>
-        </div>
-        </form>
-    </div>
-</div>
+
+            <!-- this row will not appear when printing -->
+            <div class="row no-print">
+                <div class="col-12">
+                    <a href="/reports" class="btn btn-danger"><i class="fas fa-chevron-left"></i> Back</a>
+                    <a href="invoice-print.html" rel="noopener" target="_blank" class="btn btn-default"><i class="fas fa-print"></i> Print</a>
+                    <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
+                        <i class="fas fa-download"></i> Generate PDF
+                    </button>
+                </div>
+            </div>
+            </div>
+            <!-- /.invoice -->
+        </div><!-- /.col -->
+    </div><!-- /.row -->
 @endsection
