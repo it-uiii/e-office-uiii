@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class OutgoingLetter extends Model
@@ -12,20 +13,20 @@ class OutgoingLetter extends Model
         'subject',
         'destination',
         'description',
-        'file',
         'status',
         'revision',
         'revision_description',
+        'signature',
         'created_by',
         'update_by'
     ];
 
-    public function letter_created_by()
+    public function outgoing_created_by()
     {
         return $this->belongsTo(User::class, 'created_by');
     }
 
-    public function letter_updated_by()
+    public function outgoing_updated_by()
     {
         return $this->belongsTo(User::class, 'updated_by');
     }
@@ -52,5 +53,10 @@ class OutgoingLetter extends Model
                 return '<span class="badge bg-danger">Unknown</span>';
                 break;
         }
+    }
+
+    public function additionals()
+    {
+        return $this->hasMany(Additional::class);
     }
 }

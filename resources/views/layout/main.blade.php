@@ -44,6 +44,8 @@
     <link rel="stylesheet" href="{{ asset('plugins/summernote/summernote-bs4.min.css') }}">
     <!-- livewire-->
     @livewireStyles
+
+    @yield('styles')
 </head>
 
 <body class="hold-transition sidebar-mini sidebar-collapse">

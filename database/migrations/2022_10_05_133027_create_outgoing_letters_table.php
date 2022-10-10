@@ -19,11 +19,11 @@ class CreateOutgoingLettersTable extends Migration
             $table->string('subject');
             $table->date('date');
             $table->string('destination');
-            $table->text('file');
             $table->tinyInteger('status')->default(0)->comment('0: Draft, 1: Acc Pelaksana Sekretariat, 2: Acc KTU Sekretaris, 3: Acc Sekretaris Universitas, 4: Acc Rektor');
             $table->text('description')->nullable();
             $table->boolean('revision')->nullable();
             $table->text('revision_description')->nullable();
+            $table->longText('signature')->nullable();
             $table->foreignId('created_by')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('updated_by')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();

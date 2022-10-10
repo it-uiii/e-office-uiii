@@ -7,7 +7,7 @@
             @csrf
             <div class="card-body">
                 <div class="form-group">
-                    <label for="name">Name</label>
+                    <label for="name">Nama</label>
                     <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" placeholder="Enter fullname" value="{{ old('name') }}">
                     @error('name')
                         <div class="invalid-feedback">
@@ -39,6 +39,15 @@
                         <option>Pilih Jabatan</option>
                         @foreach ($positions as $item)
                             <option value="{{ $item->id }}" {{ old('position_id') == $item->id ? 'selected' : '' }}>{{ $item->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Atasan</label>
+                    <select class="form-control" name="head_id">
+                        <option>Pilih Jabatan</option>
+                        @foreach ($heads as $item)
+                            <option value="{{ $item->id }}" {{ old('head_id') == $item->id ? 'selected' : '' }}>{{ $item->name }}</option>
                         @endforeach
                     </select>
                 </div>
