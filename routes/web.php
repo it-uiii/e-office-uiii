@@ -8,6 +8,8 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SummaryController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ItemsManagementController;
+use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\EntryLetterController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\LaporanKinerjaController;
@@ -26,12 +28,12 @@ use App\Http\Controllers\PositionController;
 |
 */
 
-Route::group(['middleware' => ['web','guest']], function () {
+Route::group(['middleware' => ['web', 'guest']], function () {
     Route::get('/login', [LoginController::class, 'index'])->name('login');
     Route::post('/login', [LoginController::class, 'auth'])->name('login.auth');
 });
 
-Route::group(['middleware' => ['web','auth']], function () {
+Route::group(['middleware' => ['web', 'auth']], function () {
     Route::post('/logout', [LoginController::class, 'logout']);
     Route::get('/', [DashboardController::class, 'index']);
     Route::get('/profile/{id}/index', [ProfileController::class, 'index']);
@@ -57,4 +59,6 @@ Route::group(['middleware' => ['web','auth']], function () {
     Route::get('/summary', [SummaryController::class, 'summary']);
     Route::get('/report', [SummaryController::class, 'report']);
     Route::get('/review', [SummaryController::class, 'review']);
+
+    Route::resource('assets', ItemsManagementController::class);
 });

@@ -21,6 +21,7 @@ class CreateLaporansTable extends Migration
             $table->string('filenames')->nullable();
             $table->date('tanggal_dibuat');
             $table->string('status');
+            $table->text('revisi')->nullable();
             $table->timestamps();
         });
     }

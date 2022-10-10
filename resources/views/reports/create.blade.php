@@ -10,16 +10,23 @@
                         <label for="kegiatan" class="col-sm-2 col-form-label">Kegiatan</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control @error('kegiatan') is-invalid @enderror" id="kegiatan" name="kegiatan" placeholder="Example: monitoring acara" autofocus>
+                            @error('kegiatan')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="tanggal_dibuat" class="col-sm-2 col-form-label">Tanggal Dibuat</label>
                         <div class="col-sm-10">
                             <div class="input-group date" id="reservationdate" data-target-input="nearest">
-                                <input type="text" class="form-control datetimepicker-input" id="tanggal_dibuat" name="tanggal_dibuat" data-target="#reservationdate"/>
-                                <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
-                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                </div>
+                                <input type="date" class="form-control" id="tanggal_dibuat" name="tanggal_dibuat" >
+                                @error('tanggal_dibuat')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
                         </div>
                     </div>

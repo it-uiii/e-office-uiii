@@ -10,6 +10,14 @@ class Laporan extends Model
     use HasFactory;
 
     protected $guarded = ['id'];
+    // protected $fillable = [
+    //     'kegiatan',
+    //     'keterangan',
+    //     'filenames',
+    //     'tanggal_dibuat',
+    //     'revisi',
+    //     'status'
+    // ];
 
     public function user()
     {
