@@ -17,14 +17,14 @@ class LoginController extends Controller
     public function auth(Request $request)
     {
         $credential = $request->validate([
-            'email' => 'required|email:dns',
+            'email' => 'required|email',
             'password' => 'required'
         ]);
 
 
         if (Auth::attempt($credential)) {
             $request->session()->regenerate();
-            return redirect()->intended('/dashboard');
+            return redirect('/')->with('success', 'Selamat datang kembali, ' . auth()->user()->name);
         }
 
         return back()->with('loginError', 'Please enter a correctly email and password. ');
