@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class items extends Model
+class lokasi extends Model
 {
     use HasFactory;
 
-    protected $protected = ['id'];
+    protected $guarded = ['id'];
 
-    public function lokasi()
+    public function item()
     {
-        return $this->belongsTo(lokasi::class);
+        return $this->hasMany(item::class);
     }
 }

@@ -36,7 +36,11 @@ class ItemsManagementController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'nama_barang' => ['required', 'string', 'max:255'],
+            'nilai_perolehan' => ['required', 'max:255'],
+            'tanggal_invoice' => ['required'],
+        ]);
     }
 
     /**

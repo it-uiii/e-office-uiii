@@ -48,7 +48,7 @@
     @yield('styles')
 </head>
 
-<body class="hold-transition sidebar-mini sidebar-collapse">
+<body class="hold-transition sidebar-mini">
     <div class="wrapper">
 
         <!-- Preloader -->
@@ -160,18 +160,6 @@
             height: 500,
             popatmouse: true
 
-        });
-
-        //Date picker
-        $('#reservationdate').datetimepicker({
-            format: 'L'
-        });
-
-        //Date and time picker
-        $('#reservationdatetime').datetimepicker({
-            icons: {
-                time: 'far fa-clock'
-            }
         });
 
         $(document).ready(function() {

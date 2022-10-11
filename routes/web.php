@@ -9,7 +9,6 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SummaryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ItemsManagementController;
-use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\EntryLetterController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\LaporanKinerjaController;
