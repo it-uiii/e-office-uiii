@@ -15,6 +15,7 @@ class CreateItemsTable extends Migration
     {
         Schema::create('items', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id');
             $table->string('nama_barang')->nullable();
             $table->integer('nilai_perolehan')->nullable();
             $table->string('jumlah_item')->nullable();
@@ -26,8 +27,6 @@ class CreateItemsTable extends Migration
             $table->foreignId('jenis_item_id'); //kategori (jenis item) model
             $table->foreignId('kelompok_item_id'); //supplier
             $table->date('tahun')->nullable(); //tahun model
-            $table->string('supplier')->nullable();
-            $table->string('brand')->nullable();
             $table->foreignId('supplier_id')->nullable(); //supplier model
             $table->foreignId('brand_id')->nullable(); //brand model
             $table->text('keterangan')->nullable();

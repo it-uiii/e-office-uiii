@@ -82,4 +82,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Position::class);
     }
+
+    public function item()
+    {
+        return $this->hasMany(items::class);
+    }
 }

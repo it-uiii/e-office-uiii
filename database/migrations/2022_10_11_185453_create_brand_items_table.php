@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLokasisTable extends Migration
+class CreateBrandItemsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateLokasisTable extends Migration
      */
     public function up()
     {
-        Schema::create('lokasis', function (Blueprint $table) {
+        Schema::create('brand_items', function (Blueprint $table) {
             $table->id();
-            $table->string('lokasi');
-            $table->string('kode_lokasi')->unique();
+            $table->string('nama_brand');
+            $table->string('kode_brand');
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CreateLokasisTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('lokasis');
+        Schema::dropIfExists('brand_items');
     }
 }
