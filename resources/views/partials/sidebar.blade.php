@@ -22,7 +22,7 @@
                     <li class="nav-item">
                         <a href="{{ route('entry-letters.index') }}" class="nav-link">
                             <i class="fas fa-notes-medical nav-icon"></i>
-                            <p>Disposisi</p>
+                            <p>Surat Masuk</p>
                         </a>
                     </li>
                     <li class="nav-item">
