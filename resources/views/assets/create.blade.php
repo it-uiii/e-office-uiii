@@ -201,7 +201,8 @@
             <label for="" class="col-sm-2 col-form-label">Upload Gambar</label>
             <div class="col-sm-10">
                 <div class="custom-file">
-                    <input type="file" class="custom-file-input" name="image" id="image" onchange="previewImage()">
+                    {{-- <input type="file" class="custom-file-input" name="image" id="image" onchange="previewImage()"> --}}
+                    <input type="file" multiple class="custom-file-input" id="image" name="image[]" aria-describedby="image" aria-label="Upload" onchange="previewImage()">
                     <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                     @error('image')
                         <div class="invalid-feedback">

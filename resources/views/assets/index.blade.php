@@ -34,7 +34,8 @@
                                     @if (empty($item->image))
                                         no image
                                     @else
-                                        <img style="max-width: 100px" class="img-fluid" src="{{ asset('storage/'.$item->image) }}" alt="{{ $item->image }}">
+                                        {{-- <img style="max-width: 100px" class="img-fluid" src="{{ asset($item->image) }}" alt="{{ $item->image }}"> --}}
+                                        <img src="{{ asset(Storage::url($item->image)) }}" class="img-fluid" style="max-width: 100px">
                                     @endif
                                 </td>
                                 <td>{{ $item->jumlah_item }}</td>

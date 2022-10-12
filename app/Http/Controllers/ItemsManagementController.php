@@ -76,42 +76,43 @@ class ItemsManagementController extends Controller
             'supplier_id' => ['required'],
             'brand_id' => ['required'],
             'stock' => ['required', 'boolean'],
-            'image' => ['image', 'mimes:png,jpg,jpeg,JPG,JPEG']
+            'image.*' => ['image', 'mimes:png,jpg,jpeg,JPG,JPEG']
         ]);
 
-        if ($request->file('image')) {
-            $data['image'] = $request->file('image')->store('assets-img');
+        // if ($request->file('image')) {
+        //     $data['image'] = $request->file('image')->store('assets-img');
+        // }
+
+        if ($request->image) {
+            foreach ($request->image as $image) {
+                $data['image']   = $image->storeAs('public/asset-img', $image->getClientOriginalName());
+            }
         }
 
         $lokasi = explode(".", $request->lokasi_id);
         $id_lokasi = $lokasi[0];
         $kode_lokasi = $lokasi[1];
-        // dd($nama_lokasi, $kode_lokasi);
         $data['lokasi_id'] = $id_lokasi;
 
 
         $sumber_perolehan = explode(".", $request->sumber_perolehan_id);
         $id_sumber = $sumber_perolehan[0];
         $kode_sumber = $sumber_perolehan[1];
-        // dd($id_sumber, $kode_sumber);
         $data['sumber_perolehan_id'] = $id_sumber;
 
         $golongan = explode(".", $request->golongan_item_id);
         $id_golongan = $golongan[0];
         $kode_golongan = $golongan[1];
-        // dd($id_golongan, $kode_golongan);
         $data['golongan_item_id'] = $id_golongan;
 
         $jenis = explode(".", $request->jenis_item_id);
         $id_jenis = $jenis[0];
         $kode_jenis = $jenis[1];
-        // dd($id_jenis, $kode_jenis);
         $data['jenis_item_id'] = $id_jenis;
 
         $kelompok = explode(".", $request->kelompok_item_id);
         $id_kelompok = $kelompok[0];
         $kode_kelompok = $kelompok[1];
-        // dd($id_kelompok, $kode_kelompok);
         $data['kelompok_item_id'] = $id_kelompok;
 
         $nourut = items::max('id');
