@@ -10,10 +10,12 @@ class EntryLetter extends Model
         'number',
         'subject',
         'date_in',
-        'date_letters',
         'sender',
         'file',
         'description',
+        'status',
+        'revision',
+        'revision_description',
         'created_by',
         'update_by'
     ];
@@ -50,5 +52,23 @@ class EntryLetter extends Model
     public function disposition_names()
     {
         return $this->hasManyThrough(User::class, Disposition::class, 'entry_letter_id', 'id', 'id', 'user_id');
+    }
+
+    public function getDisplayStatusAttribute()
+    {
+        switch ($this->status) {
+            case 0:
+                return '<span class="badge bg-light">Draft</span>' . ($this->revision ? '<span class="badge bg-danger ml-2">Revisi</span>' : '');
+                break;
+            case 1:
+                return '<span class="badge bg-info">Acc KTU Sekretaris</span>' . ($this->revision ? '<span class="badge bg-danger ml-2">Revisi</span>' : '');
+                break;
+            case 2:
+                return '<span class="badge bg-success">Acc Rektor</span>' . ($this->revision ? '<span class="badge bg-danger ml-2">Revisi</span>' : '');
+                break;
+            default:
+                return '<span class="badge bg-danger">Unknown</span>';
+                break;
+        }
     }
 }

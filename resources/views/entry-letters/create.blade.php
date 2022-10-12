@@ -20,11 +20,6 @@
                         @error('subject')<div class="invalid-feedback">{{ $message }}</div>@enderror
                     </div>
                     <div class="form-group">
-                        <label for="date_letters">Tanggal Surat</label>
-                        <input type="date" class="form-control @error('date_letters') is-invalid @enderror" id="date_letters" name="date_letters" placeholder="" value="{{ old('date_letters') }}">
-                        @error('date_letters')<div class="invalid-feedback">{{ $message }}</div>@enderror
-                    </div>
-                    <div class="form-group">
                         <label for="date_in">Tanggal Diterima</label>
                         <input type="date" class="form-control @error('date_in') is-invalid @enderror" id="date_in" name="date_in" placeholder="" value="{{ old('date_in') }}">
                         @error('date_in')<div class="invalid-feedback">{{ $message }}</div>@enderror
@@ -33,15 +28,6 @@
                         <label for="sender">Pengirim</label>
                         <input type="text" class="form-control @error('sender') is-invalid @enderror" id="sender" name="sender" placeholder="Nama Instansi" value="{{ old('sender') }}">
                         @error('sender')<div class="invalid-feedback">{{ $message }}</div>@enderror
-                    </div>
-                    <div class="form-group">
-                        <label for="disposition_id">Disposisi</label>
-                        <select multiple class="form-control @error('disposition_id') is-invalid @enderror" id="disposition_id" name="disposition_id[]">
-                            @foreach ($users as $item)
-                                <option value="{{ $item->id }}" {{ in_array($item->id, old('disposition_id',[])) ? 'selected' : '' }}>{{ $item->name }}</option>
-                            @endforeach
-                        </select>
-                        @error('disposition_id')<div class="invalid-feedback">{{ $message }}</div>@enderror
                     </div>
                     <div class="form-group">
                         <label for="description">Keterangan</label>
@@ -67,12 +53,37 @@
 @endsection
 @section('scripts')
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+@if (auth()->user()->position && auth()->user()->position->name == 'Rektor')
+    <script>
+        $(document).ready(function() {
+            $("#disposition_id").select2({
+                placeholder: "Pilih Disposisi",
+                allowClear: true,
+                width: '100%',
+            });
+        });
+    </script>
+@endif
 <script>
     $(document).ready(function() {
         $("#disposition_id").select2({
             placeholder: "Pilih Disposisi",
             allowClear: true,
             width: '100%',
+        });
+        $("#description").summernote({
+            height: 200,
+            placeholder: 'Masukkan Deskripsi',
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'underline', 'clear']],
+                ['fontname', ['fontname']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture', 'video']],
+                ['view', ['fullscreen', 'codeview', 'help']],
+            ],
         });
     });
 </script>

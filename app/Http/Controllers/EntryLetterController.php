@@ -24,15 +24,13 @@ class EntryLetterController extends Controller
      */
     public function index()
     {
-        if (auth()->user()->hasRole('Super Admin')) {
-            $data = EntryLetter::filter()->paginate(10);
-        } elseif (auth()->user()->hasRole('Staff')) {
-            $data = EntryLetter::filter()->where('created_by', auth()->user()->id)->paginate(10);
-        } else {
-            $data = EntryLetter::filter()->whereHas('dispositions', function ($query) {
-                $query->where('user_id', auth()->user()->id);
-            })->paginate(10);
-        }
+        $data = EntryLetter::filter()->when(auth()->user()->hasRole('Admin') && auth()->user()->position->name == 'Pelaksana Sekretariat', function ($query) {
+            $query->where('created_by', auth()->user()->id);
+        })->when(auth()->user()->hasRole('Admin') && auth()->user()->position->name == 'KTU Sekretaris', function ($query) {
+            $query->where('status',0)->orWhere('status',1);
+        })->when(auth()->user()->hasRole('Admin') && auth()->user()->position->name == 'Rektor', function ($query) {
+            $query->where('status',1)->orWhere('status',2);
+        })->paginate(10);
         $data->appends(request()->query());
         return view('entry-letters.index', ['title' => 'Surat Masuk', 'subtitle' => 'List'], compact('data'));
     }
@@ -57,43 +55,72 @@ class EntryLetterController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'id'                => ['nullable','integer'],
-            'number'            => ['required','string','max:128'],
-            'subject'           => ['required','string','max:128'],
-            'date_letters'      => ['required','date'],
-            'date_in'           => ['required','date'],
-            'sender'            => ['required','string','max:128'],
-            'disposition_id'    => ['required'],
-            'description'       => ['nullable','string','max:255'],
-            'file'              => [($request->id ? 'nullable': 'required'),'file','mimes:pdf,doc,docx','max:2048'],
-        ],[],[
-            'number'            => 'Nomor Surat',
-            'subject'           => 'Perihal',
-            'date_letters'      => 'Tanggal Surat',
-            'date_in'           => 'Tanggal Masuk',
-            'sender'            => 'Pengirim',
-            'disposition_id'    => 'Disposisi',
-            'description'       => 'Keterangan',
-            'file'              => 'File',
+            'id'                    => ['nullable','integer'],
+            'number'                => ['required','string','max:128'],
+            'subject'               => ['required','string','max:128'],
+            'date_in'               => ['required','date'],
+            'sender'                => ['required','string','max:128'],
+            'disposition_id'        => [(auth()->user()->position && auth()->user()->position->name == 'Rektor' ? 'required' : 'nullable')],
+            'description'           => ['nullable'],
+            'file'                  => [($request->id ? 'nullable' : 'required'),'file','mimes:pdf,doc,docx','max:2048'],
+            'acc'                   => ['nullable','required_with:id'],
+            'revision'              => ['nullable'],
+            'revision_description'  => ['nullable','required_if:revision,1'],
+        ],[
+            'revision_description.required_if' => 'Keterangan revisi harus diisi',
+        ],[
+            'number'                => 'Nomor Surat',
+            'subject'               => 'Perihal',
+            'date_in'               => 'Tanggal Masuk',
+            'sender'                => 'Pengirim',
+            'disposition_id'        => 'Disposisi',
+            'description'           => 'Keterangan',
+            'file'                  => 'File',
+            'acc'                   => 'Acc',
         ]);
 
-        $data['created_by'] = auth()->user()->id;
+        if ($request->id) {
+            $data['updated_by'] = auth()->user()->id;
+        } else {
+            $data['created_by'] = auth()->user()->id;
+        }
         if ($request->file) {
             $data['file']       = $request->file('file')->storeAs('public/entry-letters', $request->file('file')->getClientOriginalName());
+        }
+
+        if (auth()->user()->hasRole('Admin') && auth()->user()->position->name == 'KTU Sekretaris') {
+            if ($request->revision) {
+                $data['status'] = 0;
+            } else {
+                $data['status'] = 1;
+                $data['revision'] = null;
+                $data['revision_description'] = null;
+            }
+        } elseif (auth()->user()->hasRole('Pimpinan') && auth()->user()->position->name == 'Rektor') {
+            if ($request->revision) {
+                $data['status'] = 1;
+            } else {
+                $data['status'] = 2;
+                $data['revision'] = null;
+                $data['revision_description'] = null;
+            }
         }
 
         try {
             $entry_letter = EntryLetter::updateOrCreate(['id' => $request->id],$data);
             if ($request->id) {
-                foreach ($entry_letter->dispositions as $item) {
-                    $item->delete();
+                if (auth()->user()->position && auth()->user()->position->name == 'Rektor') {
+                    foreach ($entry_letter->dispositions as $item) {
+                        $item->delete();
+                    }
+                    if ($request->disposition_id) {
+                        foreach ($request->disposition_id as $item) {
+                            $entry_letter->dispositions()->create([
+                                'user_id' => $item,
+                            ]);
+                        }
+                    }
                 }
-            }
-
-            foreach ($request->disposition_id as $item) {
-                $entry_letter->dispositions()->create([
-                    'user_id' => $item
-                ]);
             }
         } catch (\Throwable $th) {
             return back()->with('danger', 'Surat Masuk gagal disimpan. '. $th->getMessage());

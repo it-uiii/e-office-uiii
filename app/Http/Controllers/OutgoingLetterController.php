@@ -92,9 +92,12 @@ class OutgoingLetterController extends Controller
      */
     public function show(OutgoingLetter $outgoing_letter)
     {
-        $pdf = App::make('dompdf.wrapper');
-        $pdf->loadView('outgoing-letters.pdf', ['data' => $outgoing_letter])->setPaper(array(0,0,609.449,935.433));
-        return $pdf->stream($outgoing_letter->perihal. '.pdf');
+        if (auth()->user()->position && auth()->user()->position->name == 'Rektor') {
+            $pdf = App::make('dompdf.wrapper');
+            $pdf->loadView('outgoing-letters.pdf', ['data' => $outgoing_letter])->setPaper(array(0,0,609.449,935.433));
+            return $pdf->stream($outgoing_letter->perihal. '.pdf');
+        }
+        return view('outgoing-letters.show', ['title' => 'Surat Keluar', 'subtitle' => 'Detail'], compact('outgoing_letter'));
     }
 
     /**
@@ -118,7 +121,7 @@ class OutgoingLetterController extends Controller
     {
         $data = $request->validate([
             'acc'                   => [!auth()->user()->hasRole('Staff') ? 'required' : ''],
-            'number'                => [auth()->user()->hasRole('Admin') ? 'required' : 'nullable','string','max:128'],
+            'number'                => [auth()->user()->position && auth()->user()->position->name == 'Pelaksana Sekretariat' ? 'required' : 'nullable','string','max:128'],
             'subject'               => ['required','string','max:128'],
             'date'                  => ['required','date'],
             'destination'           => ['required','string','max:128'],
@@ -139,6 +142,7 @@ class OutgoingLetterController extends Controller
             'revision'              => 'Revisi',
             'signature'             => 'Tanda Tangan',
         ]);
+
 
         if (auth()->user()->hasRole('Admin') && auth()->user()->position->name == 'Pelaksana Sekretariat') {
             if ($request->revision) {

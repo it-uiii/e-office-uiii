@@ -16,10 +16,6 @@
                     <input disabled type="text" class="form-control" id="subject" name="subject" placeholder="Masukkan Perihal" value="{{ $data->subject }}">
                 </div>
                 <div class="form-group">
-                    <label for="date_letters">Tanggal Surat</label>
-                    <input disabled type="date" class="form-control" id="date_letters" name="date_letters" placeholder="" value="{{ $data->date_letters }}">
-                </div>
-                <div class="form-group">
                     <label for="date_in">Tanggal Diterima</label>
                     <input disabled type="date" class="form-control" id="date_in" name="date_in" placeholder="" value="{{ $data->date_in }}">
                 </div>
@@ -29,18 +25,23 @@
                 </div>
                 <div class="form-group">
                     <label for="disposition_id">Disposisi</label>
-                    <select disabled multiple class="form-control" id="disposition_id" name="disposition_id[]">
-                        @foreach ($data->dispositions as $item)
-                            <option value="{{ $item->user_id }}" selected>{{ $item->user->name }}</option>
-                        @endforeach
-                    </select>
+                    <div class="border rounded p-2" style="background-color: #e9ecef; color: #495057; min-height: 40px;" id="description" name="description">{!! $data->disposition_names->pluck('name')->join(', ') !!}</div>
                 </div>
                 <div class="form-group">
                     <label for="description">Keterangan</label>
-                    <textarea disabled type="text" class="form-control @error('description') is-invalid @enderror" id="description" name="description" placeholder="Masukkan Keterangan">{{ $data->description }}</textarea>
+                    <div class="border rounded p-2" style="background-color: #e9ecef; color: #495057;" id="description" name="description">{!! $data->description !!}</div>
+                </div>
+                @if ($data->revision)
+                    <div class="form-group">
+                        <label for="">Revision</label>
+                        <textarea disabled class="form-control" id="revision_description" name="revision_description" placeholder="Masukkan Keterangan">{{ old('revision_description', $data->revision_description) }}</textarea>
+                    </div>
+                @endif
+                <div class="form-group mt-3">
+                    <a class="btn btn-outline-success" target="_blank" href="{{ asset(Storage::url($data->file)) }}" title="Download"><i class="fas fa-download"></i> Download Surat Masuk</a>
                 </div>
                 <div class="form-group">
-                    <a class="btn btn-outline-success" target="_blank" href="{{ asset(Storage::url($data->file)) }}" title="Download"><i class="fas fa-download"></i> Download Surat Masuk</a>
+                    {!! $data->display_status !!}
                 </div>
             </div>
             <div class="card-footer">
@@ -49,16 +50,4 @@
         </div>
     </div>
 </div>
-@endsection
-@section('scripts')
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-<script>
-    $(document).ready(function() {
-        $("#disposition_id").select2({
-            placeholder: "Pilih Disposisi",
-            allowClear: true,
-            width: '100%',
-        });
-    });
-</script>
 @endsection

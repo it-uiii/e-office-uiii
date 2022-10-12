@@ -4,9 +4,11 @@
         <div class="card-header">
             <div class="d-flex justify-content-between">
                 @can('entry-letter-create')
-                    <a class="btn btn-primary" href="{{ route('entry-letters.create') }}">
-                        <i class="fas fa-plus"></i>
-                    </a>
+                    @if (auth()->user()->position && auth()->user()->position->name == 'Pelaksana Sekretariat')
+                        <a class="btn btn-primary" href="{{ route('entry-letters.create') }}">
+                            <i class="fas fa-plus"></i>
+                        </a>
+                    @endif
                 @endcan
                 <form>
                     <div class="input-group input-group-sm">
@@ -28,12 +30,12 @@
                             <th style="width: 10px">#</th>
                             <th>Nomor Surat</th>
                             <th>Perihal</th>
-                            <th>Tanggal Surat</th>
                             <th>Tanggal Diterima</th>
                             <th>Pengirim</th>
                             <th>Disposisi</th>
                             <th>Keterangan</th>
-                            <th>Action</ths>
+                            <th>Status</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -42,26 +44,34 @@
                                 <td>{{ $data->firstItem() + $loop->index }}</td>
                                 <td>{{ $item->number }}</td>
                                 <td>{{ $item->subject }}</td>
-                                <td>{{ date('d/m/Y',strtotime($item->date_letters)) }}</td>
                                 <td>{{ date('d/m/Y',strtotime($item->date_in)) }}</td>
                                 <td>{{ $item->sender }}</td>
                                 <td>{{ $item->disposition_names->pluck('name')->join(', ') }}</td>
-                                <td>{{ $item->description }}</td>
+                                <td>{!! $item->description !!}</td>
+                                <td>{!! $item->display_status !!}</td>
                                 <td>
                                     <a class="btn btn-outline-success mb-1" target="_blank" href="{{ asset(Storage::url($item->file)) }}" title="Download"><i class="fas fa-download"></i></a>
                                     <a class="btn btn-info mb-1" href="{{ route('entry-letters.show', $item) }}"><i class="fas fa-eye"></i></a>
                                     @can('entry-letter-edit')
-                                        <a class="btn btn-warning mb-1" href="{{ route('entry-letters.edit', $item) }}"><i class="fas fa-pen"></i></a>
+                                        @if (auth()->user()->hasRole('Admin') && auth()->user()->position && auth()->user()->position->name == 'Pelaksana Sekretariat' && $item->status == 0)
+                                            <a class="mb-1 btn btn-warning" href="{{ route('entry-letters.edit', $item) }}"><i class="fas fa-pen"></i></a>
+                                        @endif
+
+                                        @if(auth()->user()->position && (auth()->user()->position->name == 'KTU Sekretaris' || auth()->user()->position->name == 'Rektorat'))
+                                            <a class="mb-1 btn btn-warning" href="{{ route('entry-letters.edit', $item) }}"><i class="fas fa-pen"></i></a>
+                                        @endif
                                     @endcan
                                     @can('entry-letter-delete')
-                                        <form action="{{ route('entry-letters.destroy', $item) }}" method="post"
-                                            class="d-inline">
-                                            @csrf @method('delete')
-                                            <button class="btn btn-danger mb-1"
-                                                onclick="return confirm('Are you sure want delete this data?')">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                        </form>
+                                        @if ($item->status == 0)
+                                            <form action="{{ route('entry-letters.destroy', $item) }}" method="post"
+                                                class="d-inline">
+                                                @csrf @method('delete')
+                                                <button class="btn btn-danger mb-1"
+                                                    onclick="return confirm('Are you sure want delete this data?')">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </form>
+                                        @endif
                                     @endcan
                                 </td>
                             </tr>

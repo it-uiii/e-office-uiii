@@ -42,7 +42,14 @@
                                 <td>{{ $item->created_at }}</td>
                                 <td>{{ $item->updated_at }}</td>
                                 <td>
-                                    <a target="_blank" class="mb-1 btn btn-info" href="{{ route('outgoing-letters.show', $item) }}"><i class="fas fa-eye"></i></a>
+                                    @if (auth()->user()->position && auth()->user()->position->name == 'Rektor')
+                                        <!-- Button trigger modal -->
+                                        <button type="button" class="mb-1 btn btn-info" data-toggle="modal" data-target="#pdfModal" data-title="{{ $item->subject }}" data-url="{{ route('outgoing-letters.show', $item) }}">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    @else
+                                        <a class="mb-1 btn btn-info" href="{{ route('outgoing-letters.show', $item) }}"><i class="fas fa-eye"></i></a>
+                                    @endif
                                     @can('outgoing-letter-edit')
                                         @if (auth()->user()->hasRole('Staff') && $item->status == 0)
                                             <a class="mb-1 btn btn-warning" href="{{ route('outgoing-letters.edit', $item) }}"><i class="fas fa-pen"></i></a>
@@ -80,4 +87,36 @@
             {{ $data->links('partials.pagination') }}
         </div>
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="pdfModal" tabindex="-1" aria-labelledby="pdfModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="pdfModalLabel"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <iframe id="embed-pdf" src="" frameborder="0" width="100%" height="450px"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+
+@section('scripts')
+    <script>
+        $(document).ready(function() {
+            $('#pdfModal').on('show.bs.modal', function(event) {
+                var button = $(event.relatedTarget)
+                var title = button.data('title')
+                var url = button.data('url')
+                var modal = $(this)
+                modal.find('.modal-title').text(title)
+                modal.find('#embed-pdf').attr('src', url)
+            });
+        });
+    </script>
 @endsection

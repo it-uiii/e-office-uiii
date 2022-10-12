@@ -58,8 +58,21 @@ class UserSeeder extends Seeder
         Permission::create(['name' => 'entry-letter-create']);
         Permission::create(['name' => 'entry-letter-edit']);
         Permission::create(['name' => 'entry-letter-delete']);
+        Permission::create(['name' => 'performance-report-list']);
+        Permission::create(['name' => 'performance-report-create']);
+        Permission::create(['name' => 'performance-report-edit']);
+        Permission::create(['name' => 'performance-report-delete']);
+        Permission::create(['name' => 'activity-list']);
+        Permission::create(['name' => 'activity-create']);
+        Permission::create(['name' => 'activity-edit']);
+        Permission::create(['name' => 'activity-delete']);
+        Permission::create(['name' => 'additional-report-list']);
+        Permission::create(['name' => 'additional-report-create']);
+        Permission::create(['name' => 'additional-report-edit']);
+        Permission::create(['name' => 'additional-report-delete']);
 
         $permissions = Permission::pluck('id', 'id')->all();
+
         $role1->syncPermissions($permissions);
         $role2->givePermissionTo('outgoing-letter-list');
         $role2->givePermissionTo('outgoing-letter-edit');
@@ -68,15 +81,25 @@ class UserSeeder extends Seeder
         $role3->givePermissionTo('outgoing-letter-list');
         $role3->givePermissionTo('outgoing-letter-edit');
         $role3->givePermissionTo('entry-letter-list');
+        $role3->givePermissionTo('entry-letter-create');
         $role3->givePermissionTo('entry-letter-edit');
+        $role3->givePermissionTo('entry-letter-delete');
         $role4->givePermissionTo('outgoing-letter-list');
         $role4->givePermissionTo('outgoing-letter-create');
         $role4->givePermissionTo('outgoing-letter-edit');
         $role4->givePermissionTo('outgoing-letter-delete');
-        $role4->givePermissionTo('entry-letter-list');
-        $role4->givePermissionTo('entry-letter-create');
-        $role4->givePermissionTo('entry-letter-edit');
-        $role4->givePermissionTo('entry-letter-delete');
+        $role4->givePermissionTo('performance-report-list');
+        $role4->givePermissionTo('performance-report-create');
+        $role4->givePermissionTo('performance-report-edit');
+        $role4->givePermissionTo('performance-report-delete');
+        $role4->givePermissionTo('activity-list');
+        $role4->givePermissionTo('activity-create');
+        $role4->givePermissionTo('activity-edit');
+        $role4->givePermissionTo('activity-delete');
+        $role4->givePermissionTo('additional-report-list');
+        $role4->givePermissionTo('additional-report-create');
+        $role4->givePermissionTo('additional-report-edit');
+        $role4->givePermissionTo('additional-report-delete');
 
         User::create([
             'name'      => 'Root',

@@ -21,11 +21,6 @@
                         @error('subject')<div class="invalid-feedback">{{ $message }}</div>@enderror
                     </div>
                     <div class="form-group">
-                        <label for="date_letters">Tanggal Surat</label>
-                        <input type="date" class="form-control @error('date_letters') is-invalid @enderror" id="date_letters" name="date_letters" placeholder="" value="{{ old('date_letters', $data->date_letters) }}">
-                        @error('date_letters')<div class="invalid-feedback">{{ $message }}</div>@enderror
-                    </div>
-                    <div class="form-group">
                         <label for="date_in">Tanggal Diterima</label>
                         <input type="date" class="form-control @error('date_in') is-invalid @enderror" id="date_in" name="date_in" placeholder="" value="{{ old('date_in', $data->date_in) }}">
                         @error('date_in')<div class="invalid-feedback">{{ $message }}</div>@enderror
@@ -35,15 +30,17 @@
                         <input type="text" class="form-control @error('sender') is-invalid @enderror" id="sender" name="sender" placeholder="Nama Instansi" value="{{ old('sender', $data->sender) }}">
                         @error('sender')<div class="invalid-feedback">{{ $message }}</div>@enderror
                     </div>
-                    <div class="form-group">
-                        <label for="disposition_id">Disposisi</label>
-                        <select multiple class="form-control @error('disposition_id') is-invalid @enderror" id="disposition_id" name="disposition_id[]">
-                            @foreach ($users as $item)
-                                <option value="{{ $item->id }}" {{ in_array($item->id, old('disposition_id', $data->dispositions->pluck('user_id')->toArray(),[])) ? 'selected' : '' }}>{{ $item->name }}</option>
-                            @endforeach
-                        </select>
-                        @error('disposition_id')<div class="invalid-feedback">{{ $message }}</div>@enderror
-                    </div>
+                    @if (auth()->user()->position && auth()->user()->position->name == 'Rektor')
+                        <div class="form-group">
+                            <label for="disposition_id">Disposisi</label>
+                            <select multiple class="form-control @error('disposition_id') is-invalid @enderror" id="disposition_id" name="disposition_id[]">
+                                @foreach ($users as $item)
+                                    <option value="{{ $item->id }}" {{ in_array($item->id, old('disposition_id', $data->dispositions->pluck('user_id')->toArray(),[])) ? 'selected' : '' }}>{{ $item->name }}</option>
+                                @endforeach
+                            </select>
+                            @error('disposition_id')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                        </div>
+                    @endif
                     <div class="form-group">
                         <label for="description">Keterangan</label>
                         <textarea type="text" class="form-control @error('description') is-invalid @enderror" id="description" name="description" placeholder="Masukkan Keterangan">{{ old('description', $data->description) }}</textarea>
@@ -62,6 +59,24 @@
                         </div>
                         @error('file')<div class="invalid-feedback">{{ $message }}</div>@enderror
                     </div>
+                    @if (auth()->user()->position && (auth()->user()->position->name == 'Rektor' || auth()->user()->position->name == 'KTU Sekretaris'))
+                        <div class="form-group">
+                            <div class="custom-control custom-radio custom-control-inline">
+                                <input type="radio" id="acc1" name="acc" class="custom-control-input" value="1" {{ old('acc') == 1 ? 'checked' : '' }}>
+                                <label class="custom-control-label" for="acc1">Acc</label>
+                            </div>
+                            <div class="custom-control custom-radio custom-control-inline">
+                                <input type="radio" id="acc2" name="acc" class="custom-control-input" value="2" {{ old('acc') == 2 ? 'checked' : '' }}>
+                                <label class="custom-control-label" for="acc2">Tidak</label>
+                            </div>
+                        </div>
+                        <div class="form-group revision">
+                            <input type="hidden" id="revision" name="revision" value="{{ old('revision',$data->revision) }}">
+                            <label for="revision_description">Revisi</label>
+                            <textarea type="text" class="form-control @error('revision_description') is-invalid @enderror" id="revision_description" name="revision_description" placeholder="Masukkan Revisi">{{ old('revision_description', $data->revision_description) }}</textarea>
+                            @error('revision_description')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                        </div>
+                    @endif
                 </div>
                 <div class="card-footer">
                     <button type="submit" class="btn btn-primary">Simpan</button>
@@ -74,12 +89,48 @@
 @endsection
 @section('scripts')
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+@if (auth()->user()->position && auth()->user()->position->name == 'Rektor')
 <script>
     $(document).ready(function() {
         $("#disposition_id").select2({
             placeholder: "Pilih Disposisi",
             allowClear: true,
             width: '100%',
+        });
+    });
+</script>
+@endif
+<script>
+    $(document).ready(function () {
+        if ($("#revision").val() == "") {
+            $('.revision').hide();
+        } else {
+            $('.revision').show();
+        }
+        $('input[type=radio][name=acc]').change(function() {
+            if (this.value == 2) {
+                $("#revision").val(1);
+                $('.revision').show();
+                $(".signature").addClass('d-none');
+            } else {
+                $("#revision").val("");
+                $('.revision').hide();
+                $(".signature").removeClass('d-none');
+            }
+        });
+        $("#description").summernote({
+            height: 200,
+            placeholder: 'Masukkan Deskripsi',
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'underline', 'clear']],
+                ['fontname', ['fontname']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture', 'video']],
+                ['view', ['fullscreen', 'codeview', 'help']],
+            ],
         });
     });
 </script>
