@@ -77,6 +77,7 @@ class UserSeeder extends Seeder
         $role2->givePermissionTo('outgoing-letter-list');
         $role2->givePermissionTo('outgoing-letter-edit');
         $role2->givePermissionTo('entry-letter-list');
+        $role2->givePermissionTo('entry-letter-create');
         $role2->givePermissionTo('entry-letter-edit');
         $role3->givePermissionTo('outgoing-letter-list');
         $role3->givePermissionTo('outgoing-letter-edit');
