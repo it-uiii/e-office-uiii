@@ -1,34 +1,45 @@
 @extends('layout.main')
+@section('styles')
+<link rel="stylesheet" href="{{ asset('plugins/jquery-fancybox/jquery.fancybox.css') }}">
+<style>
+    .image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+    }
+</style>
+@endsection
 @section('container')
 <div class="row">
     <div class="col-md-6">
         <div class="card card-primary">
             <div class="card-body">
                 <div class="form-group">
+                    <label for="number">Nomor Surat</label>
+                    <input disabled type="text" class="form-control" id="number" name="number" placeholder="Masukkan Nomor Surat" value="{{ old('number', $outgoing_letter->number) }}">
+                </div>
+                <div class="form-group">
                     <label for="subject">Perihal</label>
-                    <input disabled type="text" class="form-control" id="subject" name="subject" placeholder="Masukkan Perihal" value="{{ old('subject', $data->subject) }}">
+                    <input disabled type="text" class="form-control" id="subject" name="subject" placeholder="Masukkan Perihal" value="{{ old('subject', $outgoing_letter->subject) }}">
                 </div>
                 <div class="form-group">
                     <label for="date">Tanggal Surat</label>
-                    <input disabled type="date" class="form-control" id="date" name="date" placeholder="" value="{{ old('date', $data->date) }}">
+                    <input disabled type="date" class="form-control" id="date" name="date" placeholder="" value="{{ old('date', $outgoing_letter->date) }}">
                 </div>
                 <div class="form-group">
                     <label for="destination">Tujuan</label>
-                    <input disabled type="text" class="form-control" id="destination" name="destination" placeholder="Masukkan Tujuan" value="{{ old('destination', $data->destination) }}">
+                    <input disabled type="text" class="form-control" id="destination" name="destination" placeholder="Masukkan Tujuan" value="{{ old('destination', $outgoing_letter->destination) }}">
                 </div>
                 <div class="form-group">
                     <label for="description">Keterangan</label>
-                    <textarea disabled type="text" class="form-control" id="description" name="description" placeholder="Masukkan Keterangan">{{ old('description', $data->description) }}</textarea>
+                    <div class="border rounded p-2" style="background-color: #e9ecef; color: #495057;" id="description" name="description">{!! old('description', $outgoing_letter->description) !!}</div>
                 </div>
                 <div class="form-group">
-                    <a class="btn btn-outline-success" target="_blank" href="{{ asset(Storage::url($data->file)) }}" title="Download"><i class="fas fa-download"></i> Download Surat Keluar</a>
+                    {!! $outgoing_letter->display_status !!}
                 </div>
-                <div class="form-group">
-                    {!! $data->display_status !!}
-                </div>
-                @if ($data->revision)
+                @if ($outgoing_letter->revision)
                     <div class="form-group">Revision</div>
-                    <textarea disabled type="text" class="form-control" id="revision_description" name="revision_description" placeholder="Masukkan Keterangan">{{ old('revision_description', $data->revision_description) }}</textarea>
+                    <textarea disabled type="text" class="form-control" id="revision_description" name="revision_description" placeholder="Masukkan Keterangan">{{ old('revision_description', $outgoing_letter->revision_description) }}</textarea>
                 @endif
             </div>
             <div class="card-footer">
@@ -36,5 +47,26 @@
             </div>
         </div>
     </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <label>Lampiran</label>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    @foreach ($outgoing_letter->additionals as $item)
+                        <div class="col-md-6 mb-3">
+                            <a href="{{ asset(Storage::url($item->file)) }}" data-fancybox="lampiran">
+                                <img src="{{ asset(Storage::url($item->file)) }}" class="image">
+                            </a>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+@endsection
+@section('scripts')
+<script src="{{ asset('plugins/jquery-fancybox/jquery.fancybox.js') }}"></script>
 @endsection

@@ -2,6 +2,11 @@
 @section('styles')
 <link rel="stylesheet" href="{{ asset('plugins/jquery-fancybox/jquery.fancybox.css') }}">
 <style>
+    .image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+    }
     .wrapper-ttd {
         position: relative;
         width: 100%;
@@ -32,13 +37,11 @@
             <form action="{{ route('outgoing-letters.update', $data) }}" method="post" enctype="multipart/form-data">
                 @csrf @method('put')
                 <div class="card-body">
-                    @role('Admin')
-                        <div class="form-group">
-                            <label for="number">Nomor Surat</label>
-                            <input type="text" class="form-control @error('number') is-invalid @enderror" id="number" name="number" placeholder="Masukkan Nomor Surat" value="{{ old('number', $data->number) }}">
-                            @error('number')<div class="invalid-feedback">{{ $message }}</div>@enderror
-                        </div>
-                    @endrole
+                    <div class="form-group">
+                        <label for="number">Nomor Surat</label>
+                        <input @if(auth()->user()->position && auth()->user()->position->name != 'Pelaksana Sekretariat') disabled @endif type="text" class="form-control @error('number') is-invalid @enderror" id="number" name="number" placeholder="Masukkan Nomor Surat" value="{{ old('number', $data->number) }}">
+                        @error('number')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                    </div>
                     <div class="form-group">
                         <label for="subject">Perihal</label>
                         <input type="text" class="form-control @error('subject') is-invalid @enderror" id="subject" name="subject" placeholder="Masukkan Perihal" value="{{ old('subject', $data->subject) }}">
@@ -72,11 +75,11 @@
                     @role('Admin|Pimpinan')
                         <div class="form-group">
                             <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" id="acc1" name="acc" class="custom-control-input" value="1">
+                                <input type="radio" id="acc1" name="acc" class="custom-control-input" value="1" {{ old('acc') == 1 ? 'checked' : '' }}>
                                 <label class="custom-control-label" for="acc1">Acc</label>
                             </div>
                             <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" id="acc2" name="acc" class="custom-control-input" value="2">
+                                <input type="radio" id="acc2" name="acc" class="custom-control-input" value="2" {{ old('acc') == 2 ? 'checked' : '' }}>
                                 <label class="custom-control-label" for="acc2">Tidak</label>
                             </div>
                         </div>
@@ -116,11 +119,11 @@
                     @foreach ($data->additionals as $item)
                         <div class="col-md-6 mb-3">
                             <a href="{{ asset(Storage::url($item->file)) }}" data-fancybox="lampiran">
-                                <img src="{{ asset(Storage::url($item->file)) }}" class="img-thumbnail">
+                                <img src="{{ asset(Storage::url($item->file)) }}" class="image">
                             </a>
                             <form action="{{ route('additionals.destroy', $item) }}" method="post">
                                 @csrf @method('delete')
-                                <button type="submit" class="btn btn-danger btn-sm btn-block mt-2" onclick="return confirm('Apakah anda yakin?')">Hapus</button>
+                                <button type="submit" class="btn btn-danger btn-sm btn-block mt-1" onclick="return confirm('Apakah anda yakin?')">Hapus</button>
                             </form>
                         </div>
                     @endforeach
@@ -132,13 +135,13 @@
 @endsection
 
 @section('scripts')
+@if (auth()->user()->position->name == 'Rektor')
 <script src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js"></script>
-<script src="{{ asset('plugins/jquery-fancybox/jquery.fancybox.js') }}"></script>
 <script>
     var signaturePad = new SignaturePad(document.getElementById('signature-pad'), {
-                backgroundColor: 'rgba(255, 255, 255, 0)',
-        penColor: 'rgb(0, 0, 0)'
-        });
+            backgroundColor: 'rgba(255, 255, 255, 0)',
+    penColor: 'rgb(0, 0, 0)'
+    });
     $(document).ready(function() {
         $('#submit-signature').click(function() {
             var imageData = signaturePad.toDataURL('image/png');
@@ -156,7 +159,12 @@
             signaturePad.clear();
             $('#signature').val('');
         });
-
+    });
+</script>
+@endif
+<script src="{{ asset('plugins/jquery-fancybox/jquery.fancybox.js') }}"></script>
+<script>
+    $(document).ready(function() {
         if ($("#revision").val() == "") {
             $('.revision').hide();
         } else {
