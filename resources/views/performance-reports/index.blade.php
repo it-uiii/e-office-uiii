@@ -26,7 +26,10 @@
                     <thead>
                         <tr>
                             <th style="width: 10px">#</th>
-                            <th>Tanggal</th>
+                            @if (!auth()->user()->hasRole('Staff'))
+                                <th>Pegawai</th>
+                            @endif
+                            <th>Hari, Tanggal</th>
                             <th>Kegiatan</th>
                             <th>Status</th>
                             <th>Created At</th>
@@ -38,7 +41,10 @@
                         @forelse ($data as $item)
                             <tr>
                                 <td>{{ $data->firstItem() + $loop->index }}</td>
-                                <td>{{ tgl($item->date) }}</td>
+                                @if (!auth()->user()->hasRole('Staff'))
+                                    <td>{{ $item->report_created_by->name }}</td>
+                                @endif
+                                <td>{{ hari(date('N', strtotime($item->date))) }}, {{ tgl($item->date) }}</td>
                                 <td>
                                     <ul class="pl-4">
                                         @foreach ($item->activities as $activity)

@@ -5,10 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Laporan Kinerja Harian - {{ $data->report_created_by->name }} - {{ tgl($data->date) }}</title>
-    <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
     <style>
         .page-break {
             page-break-after: always;
+        }
+
+        html {
+            font-family: sans-serif;
+            line-height: 1.5;
+            -webkit-text-size-adjust: 100%;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
         }
 
         body {
@@ -25,6 +31,57 @@
             right: 0cm;
             height: 2cm;
         }
+
+        .font-weight-bold {
+            font-weight: bold;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        .text-left {
+            text-align: left;
+        }
+
+        .table {
+            width: 100%;
+        }
+
+        .table th {
+            padding: 5px;
+        }
+
+        .table td {
+            padding: 5px;
+            vertical-align: text-top;
+        }
+
+        .table-bordered {
+            border: 1px solid #000;
+            border-collapse: collapse;
+        }
+
+        .table-bordered td, .table-bordered th {
+            border: 1px solid #000;
+        }
+
+        .mt-3 {
+            margin-top: 1rem;
+        }
+
+        .mt-5 {
+            margin-top: 3rem;
+        }
+
+        .w-100 {
+            width: 100%;
+        }
+
     </style>
 </head>
 <body>
@@ -32,8 +89,7 @@
         <img src="{{ asset('img/header.png') }}" alt="Header">
     </header>
     <div class="text-center mt-3">
-        <h6 class="font-weight-bold">LAPORAN KINERJA HARIAN</h6>
-        <h6 class="font-weight-bold">PEGAWAI UNIVERSITAS ISLAM INTERNASIONAL INDONESIA</h6>
+        <h4>LAPORAN KINERJA HARIAN<br>PEGAWAI UNIVERSITAS ISLAM INTERNASIONAL INDONESIA</h4>
     </div>
     <div class="mt-3">
         <table>
@@ -68,7 +124,7 @@
             <tbody>
                 @foreach ($data->activities as $item)
                     <tr>
-                        <td>{{ $loop->iteration }}</td>
+                        <td class="text-center">{{ $loop->iteration }}</td>
                         <td>{{ $item->activity }}</td>
                         <td>{{ $item->output }}</td>
                         <td>{{ $item->volume }}</td>
@@ -97,7 +153,7 @@
     {{-- Page Break --}}
     <div class="page-break"></div>
     <div class="text-center">
-        <h6>LAMPIRAN</h6>
+        <h4>LAMPIRAN</h4>
     </div>
     @foreach ($data->additional_reports as $item)
         <img src="{{ asset(Storage::url($item->file)) }}" alt="{{ $item->file }}" width="100%">
