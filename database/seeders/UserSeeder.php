@@ -74,17 +74,42 @@ class UserSeeder extends Seeder
         $permissions = Permission::pluck('id', 'id')->all();
 
         $role1->syncPermissions($permissions);
+
         $role2->givePermissionTo('outgoing-letter-list');
         $role2->givePermissionTo('outgoing-letter-edit');
         $role2->givePermissionTo('entry-letter-list');
         $role2->givePermissionTo('entry-letter-create');
         $role2->givePermissionTo('entry-letter-edit');
+        $role2->givePermissionTo('performance-report-list');
+        $role2->givePermissionTo('performance-report-edit');
+        $role2->givePermissionTo('performance-report-delete');
+        $role2->givePermissionTo('activity-list');
+        $role2->givePermissionTo('activity-create');
+        $role2->givePermissionTo('activity-edit');
+        $role2->givePermissionTo('activity-delete');
+        $role2->givePermissionTo('additional-report-list');
+        $role2->givePermissionTo('additional-report-create');
+        $role2->givePermissionTo('additional-report-edit');
+        $role2->givePermissionTo('additional-report-delete');
+
         $role3->givePermissionTo('outgoing-letter-list');
         $role3->givePermissionTo('outgoing-letter-edit');
         $role3->givePermissionTo('entry-letter-list');
         $role3->givePermissionTo('entry-letter-create');
         $role3->givePermissionTo('entry-letter-edit');
         $role3->givePermissionTo('entry-letter-delete');
+        $role3->givePermissionTo('performance-report-list');
+        $role3->givePermissionTo('performance-report-edit');
+        $role3->givePermissionTo('performance-report-delete');
+        $role3->givePermissionTo('activity-list');
+        $role3->givePermissionTo('activity-create');
+        $role3->givePermissionTo('activity-edit');
+        $role3->givePermissionTo('activity-delete');
+        $role3->givePermissionTo('additional-report-list');
+        $role3->givePermissionTo('additional-report-create');
+        $role3->givePermissionTo('additional-report-edit');
+        $role3->givePermissionTo('additional-report-delete');
+
         $role4->givePermissionTo('outgoing-letter-list');
         $role4->givePermissionTo('outgoing-letter-create');
         $role4->givePermissionTo('outgoing-letter-edit');
@@ -139,7 +164,7 @@ class UserSeeder extends Seeder
             'email'         => 'ktusekretaris@uiii.ac.id',
             'status'        => true,
             'password'      => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-        ])->assignRole('Admin');
+        ])->assignRole('Pimpinan');
 
         User::create([
             'position_id'   => 4,
@@ -153,6 +178,7 @@ class UserSeeder extends Seeder
 
         User::create([
             'position_id'   => 5,
+            'head_id'       => 4,
             'name'          => 'Staff',
             'nrp'           => '66666666666666',
             'username'      => 'staff',

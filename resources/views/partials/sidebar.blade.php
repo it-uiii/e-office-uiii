@@ -35,7 +35,7 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="/reports" class="nav-link">
+                                <a href="{{ route('performance-reports.index') }}" class="nav-link">
                                     <i class="fas fa-file nav-icon"></i>
                                     <p>Management Laporan</p>
                                 </a>
@@ -82,7 +82,7 @@
                     </ul>
                 </li>
             @endforeach --}}
-            
+
             <li class="nav-item">
                 <a href="" class="nav-link">
                     <i class="nav-icon fas fa-cubes"></i>
@@ -100,7 +100,7 @@
                         </li>
                 </ul>
             </li>
-            
+
 
             @can('admin-list')
                 <li class="nav-item">

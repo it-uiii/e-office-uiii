@@ -2,7 +2,7 @@
 
 @section('styles')
     <style>
-        #body-pdf {
+        .modal-body {
             background-image: url('/img/loading.gif');
             background-repeat: no-repeat;
             background-position: center;
@@ -13,8 +13,8 @@
     <div class="card">
         <div class="card-header">
             <div class="card-title">
-                @can('outgoing-letter-create')
-                    <a class="btn btn-primary" href="{{ route('outgoing-letters.create') }}">
+                @can('performance-report-create')
+                    <a class="btn btn-primary" href="{{ route('performance-reports.create') }}">
                         <i class="fas fa-plus"></i>
                     </a>
                 @endcan
@@ -26,12 +26,8 @@
                     <thead>
                         <tr>
                             <th style="width: 10px">#</th>
-                            <th>Nomor Surat</th>
-                            @role('Super Admin|Admin|Pimpinan')
-                                <th>Staff</th>
-                            @endrole
-                            <th>Perihal</th>
-                            <th>Tujuan</th>
+                            <th>Tanggal</th>
+                            <th>Kegiatan</th>
                             <th>Status</th>
                             <th>Created At</th>
                             <th>Updated At</th>
@@ -42,41 +38,35 @@
                         @forelse ($data as $item)
                             <tr>
                                 <td>{{ $data->firstItem() + $loop->index }}</td>
-                                <td>{{ $item->number }}</td>
-                                @role('Super Admin|Admin|Pimpinan')
-                                    <td>{{ $item->outgoing_created_by->name }}</td>
-                                @endrole
-                                <td>{{ $item->subject }}</td>
-                                <td>{{ $item->destination }}</td>
+                                <td>{{ tgl($item->date) }}</td>
+                                <td>
+                                    <ul class="pl-4">
+                                        @foreach ($item->activities as $activity)
+                                            <li>{{ $activity->activity }}</li>
+                                        @endforeach
+                                    </ul>
+                                </td>
                                 <td>{!! $item->display_status !!}</td>
                                 <td>{{ $item->created_at }}</td>
                                 <td>{{ $item->updated_at }}</td>
                                 <td>
-                                    @if (auth()->user()->position && auth()->user()->position->name == 'Rektor')
-                                        <!-- Button trigger modal -->
-                                        <button type="button" class="mb-1 btn btn-info" data-toggle="modal" data-target="#pdfModal" data-title="{{ $item->subject }}" data-url="{{ route('outgoing-letters.show', $item) }}">
-                                            <i class="fas fa-eye"></i>
-                                        </button>
-                                    @else
-                                        <a class="mb-1 btn btn-info" href="{{ route('outgoing-letters.show', $item) }}"><i class="fas fa-eye"></i></a>
-                                    @endif
-                                    @can('outgoing-letter-edit')
+                                    <button type="button" class="mb-1 btn btn-info" data-toggle="modal" data-target="#pdfModal" data-title="{{ $item->subject }}" data-url="{{ route('performance-reports.show', $item) }}">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+
+                                    @can('performance-report-edit')
                                         @if (auth()->user()->hasRole('Staff') && $item->status == 0)
-                                            <a class="mb-1 btn btn-warning" href="{{ route('outgoing-letters.edit', $item) }}"><i class="fas fa-pen"></i></a>
+                                            <a class="mb-1 btn btn-warning" href="{{ route('performance-reports.edit', $item) }}"><i class="fas fa-pen"></i></a>
                                         @endif
 
                                         @role("Admin|Pimpinan")
-                                            @if ((auth()->user()->position->name == 'Rektor' && ($item->status == 3 || $item->status == 4)) ||
-                                                (auth()->user()->position->name == 'Sekretaris Universitas' && ($item->status == 2 || $item->status == 3)) ||
-                                                (auth()->user()->position->name == 'KTU Sekretaris' && ($item->status == 1 || $item->status == 2)) ||
-                                                (auth()->user()->position->name == 'Pelaksana Sekretariat' && ($item->status == 0 || $item->status == 1)))
-                                                <a class="mb-1 btn btn-warning" href="{{ route('outgoing-letters.edit', $item) }}"><i class="fas fa-pen"></i></a>
-                                            @endif
+                                            <a class="mb-1 btn btn-warning" href="{{ route('performance-reports.edit', $item) }}"><i class="fas fa-pen"></i></a>
                                         @endrole
                                     @endcan
-                                    @can('outgoing-letter-delete')
+
+                                    @can('performance-report-delete')
                                         @if ($item->status == 0)
-                                            <form action="{{ route('outgoing-letters.destroy', $item) }}" method="post"
+                                            <form action="{{ route('performance-reports.destroy', $item) }}" method="post"
                                                 class="d-inline">
                                                 @csrf @method('delete')
                                                 <button class="mb-1 btn btn-danger"
@@ -108,12 +98,12 @@
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="pdfModalLabel"></h5>
+                    <h5 class="modal-title" id="pdfModalLabel">Laporan Kinerja Harian</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body" id="body-pdf">
+                <div class="modal-body">
                     <iframe id="embed-pdf" src="" frameborder="0" width="100%" height="450px"></iframe>
                 </div>
             </div>
@@ -126,10 +116,8 @@
         $(document).ready(function() {
             $('#pdfModal').on('show.bs.modal', function(event) {
                 var button = $(event.relatedTarget)
-                var title = button.data('title')
                 var url = button.data('url')
                 var modal = $(this)
-                modal.find('.modal-title').text(title)
                 modal.find('#embed-pdf').attr('src', url)
             });
         });

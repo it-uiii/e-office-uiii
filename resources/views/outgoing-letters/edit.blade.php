@@ -6,6 +6,10 @@
         width: 100%;
         height: 200px;
         object-fit: cover;
+        transition: all 0.3s ease-in-out;
+    }
+    .image:hover {
+        box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1);
     }
     .wrapper-ttd {
         position: relative;
@@ -119,7 +123,7 @@
                     @foreach ($data->additionals as $item)
                         <div class="col-md-6 mb-3">
                             <a href="{{ asset(Storage::url($item->file)) }}" data-fancybox="lampiran">
-                                <img src="{{ asset(Storage::url($item->file)) }}" class="image">
+                                <img src="{{ asset(Storage::url($item->file)) }}" class="image border rounded">
                             </a>
                             <form action="{{ route('additionals.destroy', $item) }}" method="post">
                                 @csrf @method('delete')

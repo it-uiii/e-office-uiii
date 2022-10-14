@@ -66,7 +66,7 @@
                                             <a class="mb-1 btn btn-warning" href="{{ route('entry-letters.edit', $item) }}"><i class="fas fa-pen"></i></a>
                                         @endif
 
-                                        @if(auth()->user()->position && (auth()->user()->position->name == 'KTU Sekretaris' || auth()->user()->position->name == 'Rektorat'))
+                                        @if(auth()->user()->position && (auth()->user()->position->name == 'KTU Sekretaris' || auth()->user()->position->name == 'Rektor'))
                                             <a class="mb-1 btn btn-warning" href="{{ route('entry-letters.edit', $item) }}"><i class="fas fa-pen"></i></a>
                                         @endif
                                     @endcan
