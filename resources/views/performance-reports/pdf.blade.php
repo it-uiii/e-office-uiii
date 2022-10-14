@@ -50,6 +50,7 @@
 
         .table {
             width: 100%;
+            font-size: 13px;
         }
 
         .table th {
