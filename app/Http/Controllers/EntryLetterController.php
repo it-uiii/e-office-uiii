@@ -63,7 +63,7 @@ class EntryLetterController extends Controller
             'disposition_id'        => [(auth()->user()->position && auth()->user()->position->name == 'Rektor' ? 'required' : 'nullable')],
             'description'           => ['nullable'],
             'file'                  => [($request->id ? 'nullable' : 'required'),'file','mimes:pdf,doc,docx','max:2048'],
-            'acc'                   => ['nullable','required_with:id'],
+            'acc'                   => ['nullable'],
             'revision'              => ['nullable'],
             'revision_description'  => ['nullable','required_if:revision,1'],
         ],[
@@ -88,7 +88,11 @@ class EntryLetterController extends Controller
             $data['file']       = $request->file('file')->storeAs('public/entry-letters', $request->file('file')->getClientOriginalName());
         }
 
-        if (auth()->user()->hasRole('Admin') && auth()->user()->position->name == 'KTU Sekretaris') {
+        if (auth()->user()->hasRole('Admin') && auth()->user()->position->name == 'Pelaksana Sekretariat') {
+            $data['status'] = 0;
+            $data['revision'] = null;
+            $data['revision_description'] = null;
+        } elseif (auth()->user()->hasRole('Pimpinan') && auth()->user()->position->name == 'KTU Sekretaris') {
             if ($request->revision) {
                 $data['status'] = 0;
             } else {
