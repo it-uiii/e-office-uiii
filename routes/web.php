@@ -49,6 +49,7 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::resource('reports', LaporanKinerjaController::class);
     Route::post('/positions/import', [PositionController::class, 'import'])->name('positions.import');
     Route::resource('positions', PositionController::class);
+    Route::get('outgoing-letters/{outgoing_letter}/pdf', [OutgoingLetterController::class, 'pdf'])->name('outgoing-letters.pdf');
     Route::resource('outgoing-letters', OutgoingLetterController::class);
     Route::resource('entry-letters', EntryLetterController::class)->except('update');
     Route::get('/performance-reports/archive', [PerformanceReportController::class, 'archive'])->name('performance-reports.archive');

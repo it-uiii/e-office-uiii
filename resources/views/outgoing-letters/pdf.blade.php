@@ -116,7 +116,7 @@
     {{-- Page Break --}}
     <div class="page-break"></div>
     <div class="text-center">
-        <h5>Lampiran</h5>
+        <h4>LAMPIRAN</h4>
     </div>
     @foreach ($data->additionals as $item)
         <img src="{{ asset(Storage::url($item->file)) }}" alt="{{ $item->file }}" width="100%">

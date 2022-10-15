@@ -30,7 +30,7 @@
                         <label for="file">Lampiran File</label>
                         <div class="input-group">
                             <div class="custom-file">
-                                <input type="file" multiple class="custom-file-input" id="file" name="file[]" aria-describedby="file" aria-label="Upload">
+                                <input type="file" multiple accept="image/*" class="custom-file-input" id="file" name="file[]" aria-describedby="file" aria-label="Upload">
                                 <label class="custom-file-label" for="file">Masukkan beberapa lampiran ...</label>
                             </div>
                         </div>
