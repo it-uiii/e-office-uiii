@@ -27,8 +27,7 @@
                         @error('description')<div class="invalid-feedback">{{ $message }}</div>@enderror
                     </div>
                     <div class="form-group">
-                        <label for="file">Lampiran</label>
-                        <label for="file">File</label>
+                        <label for="file">Lampiran File</label>
                         <div class="input-group">
                             <div class="custom-file">
                                 <input type="file" multiple class="custom-file-input" id="file" name="file[]" aria-describedby="file" aria-label="Upload">

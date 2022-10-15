@@ -45,3 +45,18 @@ if (! function_exists('bulan')) {
         return $data[$bulan];
     }
 }
+if (! function_exists('hari')) {
+    function hari($hari)
+    {
+        $data = array (
+            '1'    =>  'Senin',
+            '2'    =>  'Selasa',
+            '3'    =>  'Rabu',
+            '4'    =>  'Kamis',
+            '5'    =>  'Jum\'at',
+            '6'    =>  'Sabtu',
+            '7'    =>  'Minggu',
+        );
+        return $data[$hari];
+    }
+}

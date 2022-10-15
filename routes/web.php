@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\AdditionalController;
+use App\Http\Controllers\AdditionalReportController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
@@ -14,6 +16,7 @@ use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\LaporanKinerjaController;
 use App\Http\Controllers\MailingController;
 use App\Http\Controllers\OutgoingLetterController;
+use App\Http\Controllers\PerformanceReportController;
 use App\Http\Controllers\PositionController;
 
 /*
@@ -48,6 +51,10 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::resource('positions', PositionController::class);
     Route::resource('outgoing-letters', OutgoingLetterController::class);
     Route::resource('entry-letters', EntryLetterController::class)->except('update');
+    Route::get('/performance-reports/archive', [PerformanceReportController::class, 'archive'])->name('performance-reports.archive');
+    Route::resource('performance-reports', PerformanceReportController::class);
+    Route::resource('activities', ActivityController::class);
+    Route::delete('additional-reports/{additional_report}', [AdditionalReportController::class, 'destroy'])->name('additional-reports.destroy');
     Route::delete('additionals/{additional}', [AdditionalController::class, 'destroy'])->name('additionals.destroy');
 
     Route::get('/surat-keluar', [MailingController::class, 'index']);

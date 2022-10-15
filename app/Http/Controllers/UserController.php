@@ -166,4 +166,10 @@ class UserController extends Controller
         User::destroy($user->id);
         return redirect('/users')->with('danger', 'User has been deleted!');
     }
+
+    public function staff_list(Request $request)
+    {
+        $data = User::select('id', 'name')->role('Staff')->where('name', 'LIKE', "%{$request->input('query')}%")->get();
+        return response()->json($data);
+    }
 }

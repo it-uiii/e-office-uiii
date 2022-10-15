@@ -5,10 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ $data->subject }}</title>
-    <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
     <style>
         .page-break {
             page-break-after: always;
+        }
+
+        html {
+            font-family: sans-serif;
+            line-height: 1.5;
+            -webkit-text-size-adjust: 100%;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
         }
 
         body {
@@ -25,6 +31,39 @@
             right: 0cm;
             height: 2cm;
         }
+
+        .font-weight-bold {
+            font-weight: bold;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        .text-left {
+            text-align: left;
+        }
+
+        .mt-3 {
+            margin-top: 1rem;
+        }
+
+        .mt-5 {
+            margin-top: 3rem;
+        }
+
+        .w-100 {
+            width: 100%;
+        }
+
+        .align-top {
+            vertical-align: top;
+        }
+
     </style>
 </head>
 <body>

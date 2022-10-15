@@ -1,4 +1,14 @@
 @extends('layout.main')
+
+@section('styles')
+    <style>
+        #body-pdf {
+            background-image: url('/img/loading.gif');
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+    </style>
+@endsection
 @section('container')
     <div class="card">
         <div class="card-header">
@@ -56,7 +66,12 @@
                                         @endif
 
                                         @role("Admin|Pimpinan")
-                                            <a class="mb-1 btn btn-warning" href="{{ route('outgoing-letters.edit', $item) }}"><i class="fas fa-pen"></i></a>
+                                            @if ((auth()->user()->position->name == 'Rektor' && ($item->status == 3 || $item->status == 4)) ||
+                                                (auth()->user()->position->name == 'Sekretaris Universitas' && ($item->status == 2 || $item->status == 3)) ||
+                                                (auth()->user()->position->name == 'KTU Sekretaris' && ($item->status == 1 || $item->status == 2)) ||
+                                                (auth()->user()->position->name == 'Pelaksana Sekretariat' && ($item->status == 0 || $item->status == 1)))
+                                                <a class="mb-1 btn btn-warning" href="{{ route('outgoing-letters.edit', $item) }}"><i class="fas fa-pen"></i></a>
+                                            @endif
                                         @endrole
                                     @endcan
                                     @can('outgoing-letter-delete')
@@ -98,7 +113,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body" id="body-pdf">
                     <iframe id="embed-pdf" src="" frameborder="0" width="100%" height="450px"></iframe>
                 </div>
             </div>

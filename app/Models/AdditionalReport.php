@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class AdditionalReport extends Model
 {
     protected $fillable = [
+        'performance_report_id',
         'file',
     ];
 
