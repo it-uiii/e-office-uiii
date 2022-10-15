@@ -43,22 +43,23 @@
             @csrf @method('PUT')
             <div class="card card-primary">
                 <div class="card-body">
+
                     <div class="form-group">
                         <label for="date">Tanggal</label>
-                        <input type="date" class="form-control " id="date" name="date" value="{{ $performance_report->date }}">
-                        <div class="invalid-feedback"></div>
-                    </div>
-                    <div class="form-group">
-                        <label for="file">Lampiran</label>
-                        <div class="input-group">
-                            <div class="custom-file">
-                                <input type="file" accept="image/*" multiple class="custom-file-input" id="file" name="file[]" aria-describedby="file" aria-label="Upload">
-                                <label class="custom-file-label" for="file">Masukkan beberapa lampiran ...</label>
-                            </div>
-                        </div>
+                        <input @if ($performance_report->created_by != auth()->user()->id) disabled @endif type="date" class="form-control" id="date" name="date" value="{{ $performance_report->date }}">
                         <div class="invalid-feedback"></div>
                     </div>
                     @if ($performance_report->created_by == auth()->user()->id)
+                        <div class="form-group">
+                            <label for="file">Lampiran</label>
+                            <div class="input-group">
+                                <div class="custom-file">
+                                    <input type="file" accept="image/*" multiple class="custom-file-input" id="file" name="file[]" aria-describedby="file" aria-label="Upload">
+                                    <label class="custom-file-label" for="file">Masukkan beberapa lampiran ...</label>
+                                </div>
+                            </div>
+                            <div class="invalid-feedback"></div>
+                        </div>
                         <div class="form-group signature-reporter d-none">
                             <i>Tanda Tangan Yang Dinilai</i>
                             <div class="wrapper-ttd">
