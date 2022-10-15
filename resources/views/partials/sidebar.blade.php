@@ -22,7 +22,7 @@
                     <li class="nav-item">
                         <a href="{{ route('entry-letters.index') }}" class="nav-link">
                             <i class="fas fa-notes-medical nav-icon"></i>
-                            <p>Disposisi</p>
+                            <p>Surat Masuk</p>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -57,6 +57,60 @@
                             @endcan
                         </ul>
                     </li>
+                    <li class="nav-header">ASSET MANAGEMENT</li>
+                    <li class="nav-item">
+                        <a href="{{ route('assets.index') }}" class="nav-link">
+                            <i class="nav-icon fas fa-archive"></i>
+                            <p>
+                                Data Barang
+                            </p>
+                        </a>
+                    </li>
+                    @can('admin-list')
+                    <li class="nav-item">
+                        <a href="" class="nav-link">
+                            <i class="nav-icon fas fa-wrench"></i>
+                            <p>
+                                Settings
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            @can('user-list')
+                                <li class="nav-item">
+                                    <a href="{{ route('users.index') }}" class="nav-link">
+                                        <i class="fas fa-users nav-icon"></i>
+                                        <p>Users</p>
+                                    </a>
+                                </li>
+                            @endcan
+                            @can('position-list')
+                                <li class="nav-item">
+                                    <a href="{{ route('positions.index') }}" class="nav-link">
+                                        <i class="fas fa-user-tie nav-icon"></i>
+                                        <p>Jabatan</p>
+                                    </a>
+                                </li>
+                            @endcan
+                            @can('role-list')
+                                <li class="nav-item">
+                                    <a href="{{ route('roles.index') }}" class="nav-link">
+                                        <i class="fas fa-user-tag nav-icon"></i>
+                                        <p>Roles</p>
+                                    </a>
+                                </li>
+                            @endcan
+                            @can('permission-list')
+                                <li class="nav-item">
+                                    <a href="{{ route('permissions.index') }}" class="nav-link">
+                                        <i class="fas fa-user-lock nav-icon"></i>
+                                        <p>Permissions</p>
+                                    </a>
+                                </li>
+                            @endcan
+                        </ul>
+                    </li>
+                    @endcan
                 </ul>
             </li>
             {{-- @foreach ($menu as $item => $value)
@@ -82,8 +136,7 @@
                     </ul>
                 </li>
             @endforeach --}}
-
-            <li class="nav-item">
+           <li class="nav-item">
                 <a href="" class="nav-link">
                     <i class="nav-icon fas fa-cubes"></i>
                     <p>

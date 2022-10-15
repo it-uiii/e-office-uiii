@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class tipe extends Model
+class sumber extends Model
 {
     use HasFactory;
 
@@ -13,6 +13,6 @@ class tipe extends Model
 
     public function item()
     {
-        return $this->hasMany(items::class);
+        return $this->hasMany(item::class);
     }
 }

@@ -2,7 +2,7 @@
 @extends('layout.main')
 @section('container')
 <!-- Small boxes (Stat box) -->
-<div class="row">
+{{-- <div class="row">
   <div class="col-lg-3 col-6">
     <!-- small card -->
     <div class="small-box bg-info">
@@ -71,6 +71,6 @@
     </div>
   </div>
   <!-- ./col -->
-</div>
+</div> --}}
 <!-- /.row -->
 @endsection
