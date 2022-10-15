@@ -46,7 +46,7 @@
 
                     <div class="form-group">
                         <label for="date">Tanggal</label>
-                        <input @if ($performance_report->created_by != auth()->user()->id) disabled @endif type="date" class="form-control" id="date" name="date" value="{{ $performance_report->date }}">
+                        <input @if ($performance_report->created_by != auth()->user()->id) readonly @endif type="date" class="form-control" id="date" name="date" value="{{ $performance_report->date }}">
                         <div class="invalid-feedback"></div>
                     </div>
                     @if ($performance_report->created_by == auth()->user()->id)
