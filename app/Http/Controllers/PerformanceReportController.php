@@ -140,6 +140,19 @@ class PerformanceReportController extends Controller
         return $pdf->stream('Laporan kinerja '. $performance_report->report_created_by->name .' - '. $performance_report->date .'.pdf');
     }
 
+    public function archive(Request $request)
+    {
+        $performance_report = PerformanceReport::where('created_by', $request->created_by)->whereBetween('date', [$request->date_start, $request->date_end])->get();
+
+        if ($performance_report) {
+            $pdf = App::make('dompdf.wrapper');
+            $pdf->loadView('performance-reports.archive', ['performance_reports' => $performance_report])->setPaper(array(0,0,609.449,935.433));
+            return $pdf->stream('Laporan kinerja '. $performance_report->first()->report_created_by->name .' - '. $performance_report->first()->date .' - '. $performance_report->last()->date .'.pdf');
+        }
+
+        return '<div style="text-align: center;">Data tidak ditemukan<div>';
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

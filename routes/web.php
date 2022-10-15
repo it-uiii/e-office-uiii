@@ -52,6 +52,7 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::resource('positions', PositionController::class);
     Route::resource('outgoing-letters', OutgoingLetterController::class);
     Route::resource('entry-letters', EntryLetterController::class)->except('update');
+    Route::get('/performance-reports/archive', [PerformanceReportController::class, 'archive'])->name('performance-reports.archive');
     Route::resource('performance-reports', PerformanceReportController::class);
     Route::resource('activities', ActivityController::class);
     Route::delete('additional-reports/{additional_report}', [AdditionalReportController::class, 'destroy'])->name('additional-reports.destroy');

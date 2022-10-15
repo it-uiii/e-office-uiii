@@ -62,6 +62,7 @@ class UserSeeder extends Seeder
         Permission::create(['name' => 'performance-report-create']);
         Permission::create(['name' => 'performance-report-edit']);
         Permission::create(['name' => 'performance-report-delete']);
+        Permission::create(['name' => 'performance-report-archive']);
         Permission::create(['name' => 'activity-list']);
         Permission::create(['name' => 'activity-create']);
         Permission::create(['name' => 'activity-edit']);
@@ -83,6 +84,8 @@ class UserSeeder extends Seeder
         $role2->givePermissionTo('performance-report-list');
         $role2->givePermissionTo('performance-report-edit');
         $role2->givePermissionTo('performance-report-delete');
+        $role2->givePermissionTo('performance-report-archive');
+
         $role2->givePermissionTo('activity-list');
         $role2->givePermissionTo('activity-create');
         $role2->givePermissionTo('activity-edit');
@@ -99,16 +102,8 @@ class UserSeeder extends Seeder
         $role3->givePermissionTo('entry-letter-edit');
         $role3->givePermissionTo('entry-letter-delete');
         $role3->givePermissionTo('performance-report-list');
-        $role3->givePermissionTo('performance-report-edit');
         $role3->givePermissionTo('performance-report-delete');
-        $role3->givePermissionTo('activity-list');
-        $role3->givePermissionTo('activity-create');
-        $role3->givePermissionTo('activity-edit');
-        $role3->givePermissionTo('activity-delete');
-        $role3->givePermissionTo('additional-report-list');
-        $role3->givePermissionTo('additional-report-create');
-        $role3->givePermissionTo('additional-report-edit');
-        $role3->givePermissionTo('additional-report-delete');
+        $role3->givePermissionTo('performance-report-archive');
 
         $role4->givePermissionTo('outgoing-letter-list');
         $role4->givePermissionTo('outgoing-letter-create');
