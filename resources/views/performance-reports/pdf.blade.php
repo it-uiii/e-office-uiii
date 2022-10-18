@@ -87,7 +87,7 @@
 </head>
 <body>
     <header>
-        <img src="{{ asset('img/header.png') }}" alt="Header">
+        <img src="{{ public_path('img/header.png') }}" alt="Header">
     </header>
     <div class="text-center mt-3">
         <h4>LAPORAN KINERJA HARIAN<br>PEGAWAI UNIVERSITAS ISLAM INTERNASIONAL INDONESIA</h4>
@@ -139,12 +139,12 @@
         <table class="w-100">
             <tr>
                 <td class="text-center"><br>Pemimpin Penilai<br>
-                    <img class="w-100" src="{{ asset(Storage::url($data->signature_leader)) }}" alt=""><br>
+                    <img class="w-100" src="{{ public_path(Storage::url($data->signature_leader)) }}" alt=""><br>
                     <u>{{ $data->report_created_by->head->name }}</u><br>
                     {{ $data->report_created_by->head->position->name }}
                 </td>
                 <td class="text-center">Depok, {{ tgl($data->date) }}<br>Pegawai yang dinilai<br>
-                    <img class="w-100" src="{{ asset(Storage::url($data->signature_reporter)) }}" alt=""><br>
+                    <img class="w-100" src="{{ public_path(Storage::url($data->signature_reporter)) }}" alt=""><br>
                     <u>{{ $data->report_created_by->name }}</u><br>
                     {{ $data->report_created_by->position->name }}
                 </td>
@@ -157,7 +157,7 @@
         <h4>LAMPIRAN</h4>
     </div>
     @foreach ($data->additional_reports as $item)
-        <img src="{{ asset(Storage::url($item->file)) }}" alt="{{ $item->file }}" width="100%">
+        <img src="{{ public_path(Storage::url($item->file)) }}" alt="{{ $item->file }}" width="100%">
         <div class="pagenum"></div>
     @endforeach
 </body>
