@@ -59,14 +59,16 @@
                                         data-sender="{{ $item->sender }}"
                                         data-disposition="{{ $item->disposition_names->pluck('name')->join(', ') }}"
                                         data-description="{{ $item->description }}"
-                                        data-status="{{ $item->display_status }}"><i class="fas fa-eye"></i>
+                                        data-status="{{ $item->display_status }}"
+                                        data-revisi="{{ $item->revision_description }}"><i class="fas fa-eye"></i>
                                     </a>
                                     @can('entry-letter-edit')
+
                                         @if (auth()->user()->hasRole('Admin') && auth()->user()->position && auth()->user()->position->name == 'Pelaksana Sekretariat' && $item->status == 0)
                                             <a class="mb-1 btn btn-warning" href="{{ route('entry-letters.edit', $item) }}"><i class="fas fa-pen"></i></a>
                                         @endif
 
-                                        @if(auth()->user()->position && (auth()->user()->position->name == 'KTU Sekretaris' || auth()->user()->position->name == 'Rektor'))
+                                        @if(auth()->user()->position && ((auth()->user()->position->name == 'KTU Sekretaris' && ($item->status == 1 || $item->status == 0)) || auth()->user()->position->name == 'Rektor'))
                                             <a class="mb-1 btn btn-warning" href="{{ route('entry-letters.edit', $item) }}"><i class="fas fa-pen"></i></a>
                                         @endif
                                     @endcan
@@ -145,6 +147,11 @@
                                     <td width="5px">:</td>
                                     <td id="status"></td>
                                 </tr>
+                                <tr id="row-revisi" class="d-none">
+                                    <td width="100px">Revisi</td>
+                                    <td width="5px">:</td>
+                                    <td id="revisi"></td>
+                                </tr>
                             </table>
                         </div>
                     </div>
@@ -169,6 +176,12 @@
                 $(this).find('#disposition').html(button.data('disposition'));
                 $(this).find('#description').html(button.data('description'));
                 $(this).find('#status').html(button.data('status'));
+                $(this).find('#revisi').html(button.data('revisi'));
+                if (button.data('revisi')) {
+                    $(this).find('#row-revisi').removeClass('d-none');
+                } else {
+                    $(this).find('#row-revisi').addClass('d-none');
+                }
             });
         });
     </script>

@@ -54,10 +54,15 @@
                                 <td>
                                     @if (auth()->user()->position && auth()->user()->position->name == 'Rektor')
                                         <!-- Button trigger modal -->
-                                        <button type="button" class="mb-1 btn btn-info" data-toggle="modal" data-target="#pdfModal" data-title="{{ $item->subject }}" data-url="{{ route('outgoing-letters.show', $item) }}">
-                                            <i class="fas fa-eye"></i>
-                                        </button>
+                                        @if ($item->status == 4)
+                                            <button type="button" class="mb-1 btn btn-info" data-toggle="modal" data-target="#pdfModal" data-title="{{ $item->subject }}" data-url="{{ route('outgoing-letters.pdf', $item) }}">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                        @endif
                                     @else
+                                        @if ($item->status == 4)
+                                            <a class="mb-1 btn btn-success" target="_blank" href="{{ route('outgoing-letters.pdf', $item) }}"><i class="fas fa-download"></i></a>
+                                        @endif
                                         <a class="mb-1 btn btn-info" href="{{ route('outgoing-letters.show', $item) }}"><i class="fas fa-eye"></i></a>
                                     @endif
                                     @can('outgoing-letter-edit')

@@ -43,39 +43,47 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label for="number">Nomor Surat</label>
-                        <input @if(auth()->user()->position && auth()->user()->position->name != 'Pelaksana Sekretariat') disabled @endif type="text" class="form-control @error('number') is-invalid @enderror" id="number" name="number" placeholder="Masukkan Nomor Surat" value="{{ old('number', $data->number) }}">
+                        <input @if(auth()->user()->position && auth()->user()->position->name != 'Pelaksana Sekretariat') readonly @endif type="text" class="form-control @error('number') is-invalid @enderror" id="number" name="number" placeholder="Masukkan Nomor Surat" value="{{ old('number', $data->number) }}">
                         @error('number')<div class="invalid-feedback">{{ $message }}</div>@enderror
                     </div>
                     <div class="form-group">
                         <label for="subject">Perihal</label>
-                        <input type="text" class="form-control @error('subject') is-invalid @enderror" id="subject" name="subject" placeholder="Masukkan Perihal" value="{{ old('subject', $data->subject) }}">
+                        <input @if((auth()->user()->position && auth()->user()->position->name != 'Pelaksana Sekretariat') && !auth()->user()->hasRole('Staff')) readonly @endif type="text" class="form-control @error('subject') is-invalid @enderror" id="subject" name="subject" placeholder="Masukkan Perihal" value="{{ old('subject', $data->subject) }}">
                         @error('subject')<div class="invalid-feedback">{{ $message }}</div>@enderror
                     </div>
                     <div class="form-group">
                         <label for="date">Tanggal Surat</label>
-                        <input type="date" class="form-control @error('date') is-invalid @enderror" id="date" name="date" placeholder="" value="{{ old('date', $data->date) }}">
+                        <input @if((auth()->user()->position && auth()->user()->position->name != 'Pelaksana Sekretariat') && !auth()->user()->hasRole('Staff')) readonly @endif type="date" class="form-control @error('date') is-invalid @enderror" id="date" name="date" placeholder="" value="{{ old('date', $data->date) }}">
                         @error('date')<div class="invalid-feedback">{{ $message }}</div>@enderror
                     </div>
                     <div class="form-group">
                         <label for="destination">Tujuan</label>
-                        <input type="text" class="form-control @error('destination') is-invalid @enderror" id="destination" name="destination" placeholder="Masukkan Tujuan" value="{{ old('destination', $data->destination) }}">
+                        <input @if((auth()->user()->position && auth()->user()->position->name != 'Pelaksana Sekretariat') && !auth()->user()->hasRole('Staff')) readonly @endif type="text" class="form-control @error('destination') is-invalid @enderror" id="destination" name="destination" placeholder="Masukkan Tujuan" value="{{ old('destination', $data->destination) }}">
                         @error('destination')<div class="invalid-feedback">{{ $message }}</div>@enderror
                     </div>
-                    <div class="form-group">
-                        <label for="description">Keterangan</label>
-                        <textarea type="text" class="form-control @error('description') is-invalid @enderror" id="description" name="description" placeholder="Masukkan Keterangan">{{ old('description', $data->description) }}</textarea>
-                        @error('description')<div class="invalid-feedback">{{ $message }}</div>@enderror
-                    </div>
-                    <div class="form-group">
-                        <label for="file">File</label>
-                        <div class="input-group">
-                            <div class="custom-file">
-                                <input type="file" multiple class="custom-file-input" id="file" name="file[]" aria-describedby="file" aria-label="Upload">
-                                <label class="custom-file-label" for="file">Masukkan beberapa lampiran ... </label>
-                            </div>
+                    @if((auth()->user()->position && auth()->user()->position->name == 'Pelaksana Sekretariat') || auth()->user()->hasRole('Staff'))
+                        <div class="form-group">
+                            <label for="description">Keterangan</label>
+                            <textarea type="text" class="form-control @error('description') is-invalid @enderror" id="description" name="description" placeholder="Masukkan Keterangan">{{ old('description', $data->description) }}</textarea>
+                            @error('description')<div class="invalid-feedback">{{ $message }}</div>@enderror
                         </div>
-                        @error('file')<div class="invalid-feedback">{{ $message }}</div>@enderror
-                    </div>
+                        <div class="form-group">
+                            <label for="file">File</label>
+                            <div class="input-group">
+                                <div class="custom-file">
+                                    <input type="file" accept="image/*" multiple class="custom-file-input" id="file" name="file[]" aria-describedby="file" aria-label="Upload">
+                                    <label class="custom-file-label" for="file">Masukkan beberapa lampiran ... </label>
+                                </div>
+                            </div>
+                            @error('file')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                        </div>
+                    @else
+                        <div class="form-group">
+                            <label for="description">Keterangan</label>
+                            <div class="border rounded p-2" style="background-color: #e9ecef; color: #495057;" id="description" name="description">{!! old('description', $data->description) !!}</div>
+                            <textarea type="text" class="form-control d-none" id="description" name="description" readonly placeholder="Masukkan Keterangan">{{ old('description', $data->description) }}</textarea>
+                        </div>
+                    @endif
                     @role('Admin|Pimpinan')
                         <div class="form-group">
                             <div class="custom-control custom-radio custom-control-inline">
@@ -125,10 +133,12 @@
                             <a href="{{ asset(Storage::url($item->file)) }}" data-fancybox="lampiran">
                                 <img src="{{ asset(Storage::url($item->file)) }}" class="image border rounded">
                             </a>
-                            <form action="{{ route('additionals.destroy', $item) }}" method="post">
-                                @csrf @method('delete')
-                                <button type="submit" class="btn btn-danger btn-sm btn-block mt-1" onclick="return confirm('Apakah anda yakin?')">Hapus</button>
-                            </form>
+                            @if((auth()->user()->position && auth()->user()->position->name == 'Pelaksana Sekretariat') || auth()->user()->hasRole('Staff'))
+                                <form action="{{ route('additionals.destroy', $item) }}" method="post">
+                                    @csrf @method('delete')
+                                    <button type="submit" class="btn btn-danger btn-sm btn-block mt-1" onclick="return confirm('Apakah anda yakin?')">Hapus</button>
+                                </form>
+                            @endif
                         </div>
                     @endforeach
                 </div>
@@ -167,6 +177,26 @@
 </script>
 @endif
 <script src="{{ asset('plugins/jquery-fancybox/jquery.fancybox.js') }}"></script>
+@if((auth()->user()->position && auth()->user()->position->name == 'Pelaksana Sekretariat') || auth()->user()->hasRole('Staff'))
+    <script>
+        $(document).ready(function() {
+            $("#description").summernote({
+                height: 200,
+                placeholder: 'Masukkan Deskripsi',
+                toolbar: [
+                    ['style', ['style']],
+                    ['font', ['bold', 'underline', 'clear']],
+                    ['fontname', ['fontname']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['table', ['table']],
+                    ['insert', ['link', 'picture', 'video']],
+                    ['view', ['fullscreen', 'codeview', 'help']],
+                ],
+            });
+        });
+    </script>
+@endif
 <script>
     $(document).ready(function() {
         if ($("#revision").val() == "") {
@@ -184,20 +214,6 @@
                 $('.revision').hide();
                 $(".signature").removeClass('d-none');
             }
-        });
-        $("#description").summernote({
-            height: 200,
-            placeholder: 'Masukkan Deskripsi',
-            toolbar: [
-                ['style', ['style']],
-                ['font', ['bold', 'underline', 'clear']],
-                ['fontname', ['fontname']],
-                ['color', ['color']],
-                ['para', ['ul', 'ol', 'paragraph']],
-                ['table', ['table']],
-                ['insert', ['link', 'picture', 'video']],
-                ['view', ['fullscreen', 'codeview', 'help']],
-            ],
         });
     });
 </script>

@@ -37,7 +37,7 @@
                     <div class="form-group">
                         <label for="file">File</label>
                         <div class="input-group">
-                            <input type="file" accept=".docx,.pdf" class="form-control" id="file" name="file" aria-describedby="file" aria-label="Upload">
+                            <input type="file" accept=".pdf" class="form-control" id="file" name="file" aria-describedby="file" aria-label="Upload">
                         </div>
                         @error('file')<div class="invalid-feedback">{{ $message }}</div>@enderror
                     </div>

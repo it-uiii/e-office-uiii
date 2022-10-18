@@ -31,9 +31,9 @@ class OutgoingLetterController extends Controller
         })->when(auth()->user()->hasRole('Admin') && auth()->user()->position->name == 'Pelaksana Sekretariat', function ($query) {
             $query->where('status',0)->orWhere('status',1)->orWhere('status',4);
         })->when(auth()->user()->hasRole('Pimpinan') && auth()->user()->position->name == 'KTU Sekretaris', function ($query) {
-            $query->where('status',1)->orWhere('status',2);
+            $query->where('status',1)->orWhere('status',2)->orWhere('status',4);
         })->when(auth()->user()->hasRole('Admin') && auth()->user()->position->name == 'Sekretaris Universitas', function ($query) {
-            $query->where('status',2)->orWhere('status',3);
+            $query->where('status',2)->orWhere('status',3)->orWhere('status',4);
         })->when(auth()->user()->hasRole('Pimpinan') && auth()->user()->position->name == 'Rektor', function ($query) {
             $query->where('status',3)->orWhere('status',4);
         })->orderBy('created_at','desc')->paginate(10);
@@ -92,12 +92,23 @@ class OutgoingLetterController extends Controller
      */
     public function show(OutgoingLetter $outgoing_letter)
     {
-        if (auth()->user()->position && auth()->user()->position->name == 'Rektor') {
+        return view('outgoing-letters.show', ['title' => 'Surat Keluar', 'subtitle' => 'Detail'], compact('outgoing_letter'));
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\OutgoingLetter  $outgoing_letter
+     * @return \Illuminate\Http\Response
+     */
+    public function pdf(OutgoingLetter $outgoing_letter)
+    {
+        if ($outgoing_letter->status == 4) {
             $pdf = App::make('dompdf.wrapper');
             $pdf->loadView('outgoing-letters.pdf', ['data' => $outgoing_letter])->setPaper(array(0,0,609.449,935.433));
             return $pdf->stream($outgoing_letter->perihal. '.pdf');
         }
-        return view('outgoing-letters.show', ['title' => 'Surat Keluar', 'subtitle' => 'Detail'], compact('outgoing_letter'));
+        return abort(404);
     }
 
     /**
@@ -111,7 +122,8 @@ class OutgoingLetterController extends Controller
         if ((auth()->user()->position->name == 'Rektor' && ($outgoing_letter->status == 3 || $outgoing_letter->status == 4)) ||
         (auth()->user()->position->name == 'Sekretaris Universitas' && ($outgoing_letter->status == 2 || $outgoing_letter->status == 3)) ||
         (auth()->user()->position->name == 'KTU Sekretaris' && ($outgoing_letter->status == 1 || $outgoing_letter->status == 2)) ||
-        (auth()->user()->position->name == 'Pelaksana Sekretariat' && ($outgoing_letter->status == 0 || $outgoing_letter->status == 1))) {
+        (auth()->user()->position->name == 'Pelaksana Sekretariat' && ($outgoing_letter->status == 0 || $outgoing_letter->status == 1)) ||
+        (auth()->user()->hasRole('Staff') && $outgoing_letter->status == 0)) {
             return view('outgoing-letters.edit', ['title' => 'Surat Keluar', 'subtitle' => 'Ubah', 'data' => $outgoing_letter]);
         } else {
             return abort(404);
@@ -190,8 +202,8 @@ class OutgoingLetterController extends Controller
                         $image_type_aux = explode("image/", $image_parts[0]);
                         $image_type = $image_type_aux[1];
                         $image_base64 = base64_decode($image_parts[1]);
-                        Storage::put('public/ttd/' . $outgoing_letter->number . ' - '. $data['subject'] .' - '. $timestamp .'.'. $image_type, $image_base64);
-                        $data['signature'] = 'public/ttd/' . $outgoing_letter->number . ' - '. $data['subject'] .' - '. $timestamp .'.'. $image_type;
+                        Storage::put('public/ttd/'. $data['subject'] .' - '. $timestamp .'.'. $image_type, $image_base64);
+                        $data['signature'] = 'public/ttd/'. $data['subject'] .' - '. $timestamp .'.'. $image_type;
                     }
                 }
             }
