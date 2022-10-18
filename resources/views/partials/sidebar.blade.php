@@ -57,15 +57,6 @@
                             @endcan
                         </ul>
                     </li>
-                    <li class="nav-header">ASSET MANAGEMENT</li>
-                    <li class="nav-item">
-                        <a href="{{ route('assets.index') }}" class="nav-link">
-                            <i class="nav-icon fas fa-archive"></i>
-                            <p>
-                                Data Barang
-                            </p>
-                        </a>
-                    </li>
                     @can('admin-list')
                     <li class="nav-item">
                         <a href="" class="nav-link">

@@ -58,15 +58,15 @@ class PerformanceReportController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'date'              => ['required','date'],
-            'activity.*'        => ['required','string','max:128'],
-            'output.*'          => ['required','string'],
+            'date'              => ['required', 'date'],
+            'activity.*'        => ['required', 'string', 'max:128'],
+            'output.*'          => ['required', 'string'],
             'volume.*'          => ['nullable'],
             'description.*'     => ['nullable'],
-            'file.*'            => ['nullable','image','max:2048'],
-            'signature_reporter'=> ['nullable'],
+            'file.*'            => ['nullable', 'image', 'max:8048'],
+            'signature_reporter' => ['nullable'],
             'signature_leader'  => ['nullable'],
-        ],[],[
+        ], [], [
             'date'          => 'Tanggal',
             'activity.*'    => 'Kegiatan',
             'output.*'      => 'Output',
@@ -85,8 +85,8 @@ class PerformanceReportController extends Controller
                 $image_type_aux = explode("image/", $image_parts[0]);
                 $image_type = $image_type_aux[1];
                 $image_base64 = base64_decode($image_parts[1]);
-                Storage::put('public/ttd/' . auth()->user()->name . ' - laporan kinerja tanggal - '. $data['date'] .' - '. $timestamp .'.'. $image_type, $image_base64);
-                $data['signature_reporter'] = 'public/ttd/' . auth()->user()->name . ' - laporan kinerja tanggal - '. $data['date'] .' - '. $timestamp .'.'. $image_type;
+                Storage::put('public/ttd/' . auth()->user()->name . ' - laporan kinerja tanggal - ' . $data['date'] . ' - ' . $timestamp . '.' . $image_type, $image_base64);
+                $data['signature_reporter'] = 'public/ttd/' . auth()->user()->name . ' - laporan kinerja tanggal - ' . $data['date'] . ' - ' . $timestamp . '.' . $image_type;
             }
 
             $data['created_by'] = auth()->user()->id;
@@ -115,7 +115,7 @@ class PerformanceReportController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => 'Laporan Kinerja berhasil ditambahkan',
-                'redirect'=> route('performance-reports.index')
+                'redirect' => route('performance-reports.index')
             ]);
         } catch (\Throwable $th) {
             DB::rollBack();
@@ -136,8 +136,8 @@ class PerformanceReportController extends Controller
     public function show(PerformanceReport $performance_report)
     {
         $pdf = App::make('dompdf.wrapper');
-        $pdf->loadView('performance-reports.pdf', ['data' => $performance_report])->setPaper(array(0,0,609.449,935.433));
-        return $pdf->stream('Laporan kinerja '. $performance_report->report_created_by->name .' - '. $performance_report->date .'.pdf');
+        $pdf->loadView('performance-reports.pdf', ['data' => $performance_report])->setPaper(array(0, 0, 609.449, 935.433));
+        return $pdf->stream('Laporan kinerja ' . $performance_report->report_created_by->name . ' - ' . $performance_report->date . '.pdf');
     }
 
     public function archive(Request $request)
@@ -146,8 +146,8 @@ class PerformanceReportController extends Controller
 
         if ($performance_report) {
             $pdf = App::make('dompdf.wrapper');
-            $pdf->loadView('performance-reports.archive', ['performance_reports' => $performance_report])->setPaper(array(0,0,609.449,935.433));
-            return $pdf->stream('Laporan kinerja '. $performance_report->first()->report_created_by->name .' - '. $performance_report->first()->date .' - '. $performance_report->last()->date .'.pdf');
+            $pdf->loadView('performance-reports.archive', ['performance_reports' => $performance_report])->setPaper(array(0, 0, 609.449, 935.433));
+            return $pdf->stream('Laporan kinerja ' . $performance_report->first()->report_created_by->name . ' - ' . $performance_report->first()->date . ' - ' . $performance_report->last()->date . '.pdf');
         }
 
         return '<div style="text-align: center;">Data tidak ditemukan<div>';
@@ -174,9 +174,9 @@ class PerformanceReportController extends Controller
     public function update(Request $request, PerformanceReport $performance_report)
     {
         $data = $request->validate([
-            'date'              => ['required','date'],
-            'file.*'            => ['nullable','image','max:2048'],
-        ],[],[
+            'date'              => ['required', 'date'],
+            'file.*'            => ['nullable', 'image', 'max:8048'],
+        ], [], [
             'date'          => 'Tanggal',
             'activity.*'    => 'Kegiatan',
             'output.*'      => 'Output',
@@ -194,8 +194,8 @@ class PerformanceReportController extends Controller
                 $image_type_aux = explode("image/", $image_parts[0]);
                 $image_type = $image_type_aux[1];
                 $image_base64 = base64_decode($image_parts[1]);
-                Storage::put('public/ttd/' . auth()->user()->name . ' - laporan kinerja tanggal - '. $performance_report->date .' - '. $timestamp .'.'. $image_type, $image_base64);
-                $data['signature_reporter'] = 'public/ttd/' . auth()->user()->name . ' - laporan kinerja tanggal - '. $performance_report->date .' - '. $timestamp .'.'. $image_type;
+                Storage::put('public/ttd/' . auth()->user()->name . ' - laporan kinerja tanggal - ' . $performance_report->date . ' - ' . $timestamp . '.' . $image_type, $image_base64);
+                $data['signature_reporter'] = 'public/ttd/' . auth()->user()->name . ' - laporan kinerja tanggal - ' . $performance_report->date . ' - ' . $timestamp . '.' . $image_type;
             }
 
             if (auth()->user()->hasRole('Pimpinan')) {
@@ -213,11 +213,10 @@ class PerformanceReportController extends Controller
                         $image_type_aux = explode("image/", $image_parts[0]);
                         $image_type = $image_type_aux[1];
                         $image_base64 = base64_decode($image_parts[1]);
-                        Storage::put('public/ttd/' . auth()->user()->name . ' - laporan kinerja tanggal - '. $performance_report->date .' - '. $timestamp .'.'. $image_type, $image_base64);
-                        $data['signature_leader'] = 'public/ttd/' . auth()->user()->name . ' - laporan kinerja tanggal - '. $performance_report->date .' - '. $timestamp .'.'. $image_type;
+                        Storage::put('public/ttd/' . auth()->user()->name . ' - laporan kinerja tanggal - ' . $performance_report->date . ' - ' . $timestamp . '.' . $image_type, $image_base64);
+                        $data['signature_leader'] = 'public/ttd/' . auth()->user()->name . ' - laporan kinerja tanggal - ' . $performance_report->date . ' - ' . $timestamp . '.' . $image_type;
                     }
                 }
-
             }
 
             $data['updated_by'] = auth()->user()->id;
