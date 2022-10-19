@@ -68,7 +68,7 @@
 </head>
 <body>
     <header>
-        <img src="{{ asset('img/header.png') }}" alt="Header">
+        <img src="{{ public_path('img/header.png') }}" alt="Header">
     </header>
     <div class="text-right mt-3">
         {{ tgl($data->date) }}
@@ -103,7 +103,7 @@
         {{ auth()->user()->position ? auth()->user()->position->name : ''}}
         @if ($data->signature)
             <br>
-            <img src="{{ asset(Storage::url($data->signature)) }}" alt="Signature" style="width: 100px;">
+            <img src="{{ public_path(Storage::url($data->signature)) }}" alt="Signature" style="width: 100px;">
             <br>
         @else
             <br>
@@ -119,7 +119,7 @@
         <h4>LAMPIRAN</h4>
     </div>
     @foreach ($data->additionals as $item)
-        <img src="{{ asset(Storage::url($item->file)) }}" alt="{{ $item->file }}" width="100%">
+        <img src="{{ public_path(Storage::url($item->file)) }}" alt="{{ $item->file }}" width="100%">
         <div class="pagenum"></div>
     @endforeach
 </body>
