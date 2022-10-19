@@ -19,10 +19,7 @@ Laravel is accessible, powerful, and provides tools required for large, robust a
 
 -   Copy .env.example to .env
 -   Run "php artisan key:generate" in your terminal
--   Create new database
--   Run "php artisan migrate" in your terminal
--   Run "php artisan db:seed --class=PermissionTableSeeder" in your terminal
--   Run "php artisan db:seed --class=CreateAdminUserSeeder" in your terminal
+-   Run "php artisan migrate --seed" in your terminal
 -   Done!!!
 
 ## Demo User

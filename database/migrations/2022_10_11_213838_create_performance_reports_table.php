@@ -17,7 +17,7 @@ class CreatePerformanceReportsTable extends Migration
             $table->id();
             $table->date('date');
             $table->tinyInteger('status')->default(0)->comment('0: Draft, 1: Acc KTU (Pimpinan)');
-            $table->string('signature_reporter');
+            $table->string('signature_reporter')->nullable();
             $table->string('signature_leader')->nullable();
             $table->boolean('revision')->nullable();
             $table->text('revision_description')->nullable();
