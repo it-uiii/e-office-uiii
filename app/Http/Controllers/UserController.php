@@ -148,7 +148,7 @@ class UserController extends Controller
         $user = User::find($id);
         $user->update($data);
         if ($user->getRoleNames()->first() != $request->roles) {
-            $user->removeRole($user->role);
+            $user->removeRole($user->getRoleNames()->first());
             $user->assignRole($request->roles);
         }
 
