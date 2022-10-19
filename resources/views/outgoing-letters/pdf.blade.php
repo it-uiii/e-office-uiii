@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://use.typekit.net/cds8gsv.css">
     <title>{{ $data->subject }}</title>
     <style>
         .page-break {
@@ -11,10 +12,9 @@
         }
 
         html {
-            font-family: sans-serif;
-            line-height: 1.5;
-            -webkit-text-size-adjust: 100%;
-            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+            font-family: halyard-text, sans-serif;
+            font-weight: 400;
+            font-style: normal;
         }
 
         body {
