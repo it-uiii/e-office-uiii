@@ -144,7 +144,7 @@ class PerformanceReportController extends Controller
     {
         $performance_report = PerformanceReport::where('created_by', $request->created_by)->whereBetween('date', [$request->date_start, $request->date_end])->get();
 
-        if ($performance_report) {
+        if (count($performance_report) > 0) {
             $pdf = App::make('dompdf.wrapper');
             $pdf->loadView('performance-reports.archive', ['performance_reports' => $performance_report])->setPaper(array(0,0,609.449,935.433));
             return $pdf->stream('Laporan kinerja '. $performance_report->first()->report_created_by->name .' - '. $performance_report->first()->date .' - '. $performance_report->last()->date .'.pdf');

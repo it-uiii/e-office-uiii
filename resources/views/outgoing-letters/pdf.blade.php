@@ -100,7 +100,7 @@
     <div class="mt-5" style="width: 30%; margin-left: 70%;">
         Hormat Saya,
         <br>
-        {{ auth()->user()->position ? auth()->user()->position->name : ''}}
+        {{ $rektor->position->name }}
         @if ($data->signature)
             <br>
             <img src="{{ public_path(Storage::url($data->signature)) }}" alt="Signature" style="width: 100px;">
@@ -111,7 +111,7 @@
             <br>
             <br>
         @endif
-        <strong>{{ auth()->user()->name }}</strong>
+        <strong>{{ $rektor->name }}</strong>
     </div>
     {{-- Page Break --}}
     <div class="page-break"></div>

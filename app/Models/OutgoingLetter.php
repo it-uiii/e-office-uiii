@@ -18,7 +18,7 @@ class OutgoingLetter extends Model
         'revision_description',
         'signature',
         'created_by',
-        'update_by'
+        'updated_by'
     ];
 
     public function outgoing_created_by()
