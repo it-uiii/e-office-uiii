@@ -150,7 +150,7 @@ class PerformanceReportController extends Controller
             return $pdf->stream('Laporan kinerja ' . $performance_report->first()->report_created_by->name . ' - ' . $performance_report->first()->date . ' - ' . $performance_report->last()->date . '.pdf');
         }
 
-        return '<div style="text-align: center;">Data tidak ditemukan<div>';
+        return abort(404);
     }
 
     /**
