@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Additional;
 use App\Models\OutgoingLetter;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\File;
@@ -104,8 +105,11 @@ class OutgoingLetterController extends Controller
     public function pdf(OutgoingLetter $outgoing_letter)
     {
         if ($outgoing_letter->status == 4) {
+            $rektor = User::whereHas('position', function ($query) {
+                $query->where('name', 'Rektor');
+            })->first();
             $pdf = App::make('dompdf.wrapper');
-            $pdf->loadView('outgoing-letters.pdf', ['data' => $outgoing_letter])->setPaper(array(0,0,609.449,935.433));
+            $pdf->loadView('outgoing-letters.pdf', ['data' => $outgoing_letter, 'rektor' => $rektor])->setPaper(array(0,0,609.449,935.433));
             return $pdf->stream($outgoing_letter->perihal. '.pdf');
         }
         return abort(404);
