@@ -45,7 +45,7 @@
                 <div class="form-group">
                     <label>Atasan</label>
                     <select class="form-control" name="head_id">
-                        <option>Pilih Jabatan</option>
+                        <option>Pilih Atasan</option>
                         @foreach ($heads as $item)
                             <option value="{{ $item->id }}" {{ old('head_id') == $item->id ? 'selected' : '' }}>{{ $item->name }}</option>
                         @endforeach
