@@ -71,6 +71,10 @@ class UserSeeder extends Seeder
         Permission::create(['name' => 'additional-report-create']);
         Permission::create(['name' => 'additional-report-edit']);
         Permission::create(['name' => 'additional-report-delete']);
+        Permission::create(['name' => 'asset-list']);
+        Permission::create(['name' => 'asset-create']);
+        Permission::create(['name' => 'asset-edit']);
+        Permission::create(['name' => 'asset-delete']);
 
         $permissions = Permission::pluck('id', 'id')->all();
 

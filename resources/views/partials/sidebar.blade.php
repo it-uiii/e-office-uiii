@@ -19,12 +19,15 @@
                             </a>
                         </li>
                     @endcan
-                    <li class="nav-item">
-                        <a href="{{ route('entry-letters.index') }}" class="nav-link">
-                            <i class="fas fa-notes-medical nav-icon"></i>
-                            <p>Surat Masuk</p>
-                        </a>
-                    </li>
+                    @can('entry-letter-list')
+                        <li class="nav-item">
+                            <a href="{{ route('entry-letters.index') }}" class="nav-link">
+                                <i class="fas fa-notes-medical nav-icon"></i>
+                                <p>Surat Masuk</p>
+                            </a>
+                        </li>
+                    @endcan
+                    @can('performance-report-list')
                     <li class="nav-item">
                         <a class="nav-link">
                             <i class="nav-icon fas fa-file-alt"></i>
@@ -57,6 +60,7 @@
                             @endcan
                         </ul>
                     </li>
+                    @endcan
                     @can('admin-list')
                     <li class="nav-item">
                         <a href="" class="nav-link">
@@ -127,7 +131,8 @@
                     </ul>
                 </li>
             @endforeach --}}
-           <li class="nav-item">
+            @can('asset-list')
+                <li class="nav-item">
                 <a href="" class="nav-link">
                     <i class="nav-icon fas fa-cubes"></i>
                     <p>
@@ -144,8 +149,7 @@
                         </li>
                 </ul>
             </li>
-
-
+            @endcan
             @can('admin-list')
                 <li class="nav-item">
                     <a href="" class="nav-link">
