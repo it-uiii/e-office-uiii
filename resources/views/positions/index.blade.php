@@ -9,13 +9,21 @@
                     </a>
                 @endcan
             </div>
-            @can('position-import')
-                <div class="float-right">
-                    <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#modal-import">
+            <div class="float-right">
+                @can('position-import')
+                    <button type="button" class="btn btn-outline-success" title="Import" data-toggle="modal" data-target="#modal-import">
                         <i class="far fa-file-excel"></i>
                     </button>
-                </div>
-            @endcan
+                @endcan
+                @can('position-export')
+                    <form action="{{ route('positions.export') }}" class="d-inline" method="POST">
+                        @csrf
+                        <button type="submit" class="btn btn-outline-info" title="Export">
+                            <i class="fas fa-file-export"></i>
+                        </button>
+                    </form>
+                @endcan
+            </div>
         </div>
         <div class="card-body">
             <div class="table-responsive">

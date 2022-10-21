@@ -42,12 +42,16 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::get('/profile/{id}/settings', [ProfileController::class, 'setting']);
     Route::put('/profile/{id}/settings', [ProfileController::class, 'change']);
 
-    Route::resource('roles', RoleController::class);
+    Route::post('/users/import', [UserController::class, 'import'])->name('users.import');
+    Route::post('/users/export', [UserController::class, 'export'])->name('users.export');
     Route::resource('users', UserController::class);
+
+    Route::resource('roles', RoleController::class);
     Route::resource('permissions', PermissionController::class);
 
     Route::resource('reports', LaporanKinerjaController::class);
     Route::post('/positions/import', [PositionController::class, 'import'])->name('positions.import');
+    Route::post('/positions/export', [PositionController::class, 'export'])->name('positions.export');
     Route::resource('positions', PositionController::class);
     Route::get('outgoing-letters/{outgoing_letter}/pdf', [OutgoingLetterController::class, 'pdf'])->name('outgoing-letters.pdf');
     Route::resource('outgoing-letters', OutgoingLetterController::class);

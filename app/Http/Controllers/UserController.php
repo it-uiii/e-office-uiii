@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\UserExport;
+use App\Imports\UserImport;
 use App\Models\Jabatan;
 use App\Models\Position;
 use App\Models\User;
@@ -10,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
+use Maatwebsite\Excel\Facades\Excel;
 
 class UserController extends Controller
 {
@@ -153,6 +156,23 @@ class UserController extends Controller
 
         return redirect()->route('users.index')
             ->with('warning', 'User berhasil diperbarui');
+    }
+
+    public function import(Request $request)
+    {
+        $request->validate([
+            'file' => ['required', 'file', 'max:2048']
+        ], [
+            'file.required' => 'File wajib diisi'
+        ]);
+
+        Excel::import(new UserImport, $request->file('file'));
+        return back();
+    }
+
+    public function export()
+    {
+        return Excel::download(new UserExport, 'User.xlsx');
     }
 
     /**
