@@ -25,7 +25,8 @@ class CreateItemsTable extends Migration
             $table->foreignId('sumber_perolehan_id'); //sumber perolehan model
             $table->foreignId('golongan_item_id'); //golongan item model
             $table->foreignId('jenis_item_id'); //kategori (jenis item) model
-            $table->foreignId('kelompok_item_id'); //supplier
+            $table->foreignId('kelompok_item_id'); //supplier model
+            $table->foreignId('detailbarang_id'); //detail barang model
             $table->date('tahun')->nullable(); //tahun model
             $table->foreignId('supplier_id')->nullable(); //supplier model
             $table->foreignId('brand_id')->nullable(); //brand model

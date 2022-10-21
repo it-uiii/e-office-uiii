@@ -46,6 +46,11 @@ class items extends Model
         return $this->belongsTo(brandItem::class, 'brand_id');
     }
 
+    public function detail()
+    {
+        return $this->belongsTo(detailbarang::class, 'detailbarang_id');
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');

@@ -45,27 +45,19 @@
 
             <p>
               {{ auth()->user()->name }}
+              <br>
+              <small>{{ auth()->user()->nrp }} - 
+              @if (empty(auth()->user()->position->name))
+                  No Jabatan
+              @else
+                  {{ auth()->user()->position->name }}
+              @endif</small>
               <small>Entry since {{ \Carbon\Carbon::parse(auth()->user()->tgl_masuk)->format('M Y') }}</small>
             </p>
           </li>
-          <!-- Menu Body -->
-          <li class="user-body">
-            <div class="row">
-              <div class="col-4 text-center">
-                <a href="#">Followers</a>
-              </div>
-              <div class="col-4 text-center">
-                <a href="#">Sales</a>
-              </div>
-              <div class="col-4 text-center">
-                <a href="#">Friends</a>
-              </div>
-            </div>
-            <!-- /.row -->
-          </li>
           <!-- Menu Footer-->
           <li class="user-footer">
-            <a href="#" class="btn btn-default btn-flat">Profile</a>
+            <a href="/profile/{{ auth()->user()->id }}/index" class="btn btn-default btn-flat">Profile</a>
             <a class="d-inline float-right">
               <form action="/logout" method="post">
                 @csrf

@@ -22,6 +22,7 @@
             </div>
         </div>
         <div class="card-footer">
+            <a class="btn btn-warning" href="/profile/{{ auth()->user()->id }}/settings">Change Password</a>
             <a class="btn btn-danger" href="/">Back</a>
         </div>
         </form>

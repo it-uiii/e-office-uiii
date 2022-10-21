@@ -51,7 +51,7 @@
                                         @method('delete')
                                         @csrf
                                         <button class="btn btn-danger"
-                                            onclick="return confirm('Are you sure want delete this asset?')">
+                                            onclick="return confirm('Are you sure want delete this user?')">
                                             <i class="fas fa-trash"></i>
                                         </button>
                                     </form>

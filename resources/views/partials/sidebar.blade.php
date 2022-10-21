@@ -59,6 +59,76 @@
                         </ul>
                     </li>
                     @endcan
+                    @can('asset-list')
+                    <li class="nav-item">
+                        <a href="" class="nav-link">
+                            <i class="nav-icon fas fa-cubes"></i>
+                            <p>
+                                Asset Management
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{ route('assets.index') }}" class="nav-link">
+                                    <i class="fas fa-archive nav-icon"></i>
+                                    <p>Data Items</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('assets.index') }}" class="nav-link">
+                                    <i class="fas fa-archive nav-icon"></i>
+                                    <p>Data Suppliers</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    @endcan
+                    @can('admin-list')
+                    <li class="nav-item">
+                        <a href="" class="nav-link">
+                            <i class="nav-icon fas fa-wrench"></i>
+                            <p>
+                                Settings
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            @can('user-list')
+                                <li class="nav-item">
+                                    <a href="{{ route('users.index') }}" class="nav-link">
+                                        <i class="fas fa-users nav-icon"></i>
+                                        <p>Users</p>
+                                    </a>
+                                </li>
+                            @endcan
+                            @can('position-list')
+                                <li class="nav-item">
+                                    <a href="{{ route('positions.index') }}" class="nav-link">
+                                        <i class="fas fa-user-tie nav-icon"></i>
+                                        <p>Jabatan</p>
+                                    </a>
+                                </li>
+                            @endcan
+                            @can('role-list')
+                                <li class="nav-item">
+                                    <a href="{{ route('roles.index') }}" class="nav-link">
+                                        <i class="fas fa-user-tag nav-icon"></i>
+                                        <p>Roles</p>
+                                    </a>
+                                </li>
+                            @endcan
+                            @can('permission-list')
+                                <li class="nav-item">
+                                    <a href="{{ route('permissions.index') }}" class="nav-link">
+                                        <i class="fas fa-user-lock nav-icon"></i>
+                                        <p>Permissions</p>
+                                    </a>
+                                </li>
+                            @endcan
+                        </ul>
+                    </li>
+                    @endcan
                 </ul>
             </li>
             {{-- @foreach ($menu as $item => $value)
@@ -84,70 +154,6 @@
                     </ul>
                 </li>
             @endforeach --}}
-            @can('asset-list')
-                <li class="nav-item">
-                <a href="" class="nav-link">
-                    <i class="nav-icon fas fa-cubes"></i>
-                    <p>
-                        Asset Management
-                        <i class="right fas fa-angle-left"></i>
-                    </p>
-                </a>
-                <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ route('assets.index') }}" class="nav-link">
-                                <i class="fas fa-archive nav-icon"></i>
-                                <p>Data Items</p>
-                            </a>
-                        </li>
-                </ul>
-            </li>
-            @endcan
-            @can('admin-list')
-                <li class="nav-item">
-                    <a href="" class="nav-link">
-                        <i class="nav-icon fas fa-wrench"></i>
-                        <p>
-                            Settings
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        @can('user-list')
-                            <li class="nav-item">
-                                <a href="{{ route('users.index') }}" class="nav-link">
-                                    <i class="fas fa-users nav-icon"></i>
-                                    <p>Users</p>
-                                </a>
-                            </li>
-                        @endcan
-                        @can('position-list')
-                            <li class="nav-item">
-                                <a href="{{ route('positions.index') }}" class="nav-link">
-                                    <i class="fas fa-user-tie nav-icon"></i>
-                                    <p>Jabatan</p>
-                                </a>
-                            </li>
-                        @endcan
-                        @can('role-list')
-                            <li class="nav-item">
-                                <a href="{{ route('roles.index') }}" class="nav-link">
-                                    <i class="fas fa-user-tag nav-icon"></i>
-                                    <p>Roles</p>
-                                </a>
-                            </li>
-                        @endcan
-                        @can('permission-list')
-                            <li class="nav-item">
-                                <a href="{{ route('permissions.index') }}" class="nav-link">
-                                    <i class="fas fa-user-lock nav-icon"></i>
-                                    <p>Permissions</p>
-                                </a>
-                            </li>
-                        @endcan
-                    </ul>
-                </li>
-            @endcan
         </ul>
     </nav>
     <!-- /.sidebar-menu -->
