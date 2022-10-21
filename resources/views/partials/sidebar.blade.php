@@ -11,21 +11,34 @@
                     </p>
                 </a>
                 <ul class="nav nav-treeview">
-                    @can('outgoing-letter-list')
-                        <li class="nav-item">
-                            <a href="{{ route('outgoing-letters.index') }}" class="nav-link">
-                                <i class="fas fa-mail-bulk nav-icon"></i>
-                                <p>Surat Keluar</p>
-                            </a>
-                        </li>
-                    @endcan
-                    @can('entry-letter-list')
-                        <li class="nav-item">
-                            <a href="{{ route('entry-letters.index') }}" class="nav-link">
-                                <i class="fas fa-notes-medical nav-icon"></i>
-                                <p>Surat Masuk</p>
-                            </a>
-                        </li>
+                    @can('letter-list')
+                    <li class="nav-item">
+                        <a class="nav-link">
+                            <i class="fas fa-envelope nav-icon"></i>
+                            <p>
+                                Surat
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            @can('outgoing-letter-list')
+                            <li class="nav-item">
+                                <a href="{{ route('outgoing-letters.index') }}" class="nav-link">
+                                    <i class="fa-sharp fa-solid fa-arrow-up nav-icon"></i>
+                                    <p>Surat Keluar</p>
+                                </a>
+                            </li>
+                            @endcan
+                            @can('entry-letter-list')
+                            <li class="nav-item">
+                                <a href="{{ route('entry-letters.index') }}" class="nav-link">
+                                    <i class="fa-sharp fa-solid fa-arrow-down nav-icon"></i>
+                                    <p>Surat Masuk</p>
+                                </a>
+                            </li>
+                            @endcan
+                        </ul>
+                    </li>
                     @endcan
                     @can('performance-report-list')
                     <li class="nav-item">
@@ -43,21 +56,6 @@
                                     <p>Management Laporan</p>
                                 </a>
                             </li>
-                            @can('summary')
-                                <li class="nav-item">
-                                    <a href="/summary" class="nav-link">
-                                        <i class="fas fa-file-excel nav-icon"></i>
-                                        <p>Summary</p>
-                                    </a>
-                                </li>
-                            @elsecan('report')
-                                <li class="nav-item">
-                                    <a href="/report" class="nav-link">
-                                        <i class="fas fa-file-excel nav-icon"></i>
-                                        <p>Reports</p>
-                                    </a>
-                                </li>
-                            @endcan
                         </ul>
                     </li>
                     @endcan
