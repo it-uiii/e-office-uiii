@@ -44,6 +44,12 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
+    @if (session()->has('change'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ session('change') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
 <!-- /.login-logo -->
 <div class="card card-outline card-primary">
     <div class="card-header text-center">

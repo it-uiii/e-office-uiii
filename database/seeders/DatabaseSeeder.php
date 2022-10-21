@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\brandItem;
+use App\Models\detailbarang;
 use App\Models\golongan;
 use App\Models\kelompokBarang;
 use App\Models\lokasi;
@@ -76,6 +77,21 @@ class DatabaseSeeder extends Seeder
         brandItem::create([
             'nama_brand' => 'Yamaha',
             'kode_brand' => '0015'
+        ]);
+
+        detailbarang::create([
+            'detail_barang' => 'Sofa 3 Seater Plato 3 Seat',
+            'seq_number' => '0007'
+        ]);
+
+        detailbarang::create([
+            'detail_barang' => 'Sofa 3 Seater Alexsandra 3',
+            'seq_number' => '0008'
+        ]);
+
+        detailbarang::create([
+            'detail_barang' => 'Sofa 2 Seater Plato 2 Seat',
+            'seq_number' => '0009'
         ]);
     }
 }

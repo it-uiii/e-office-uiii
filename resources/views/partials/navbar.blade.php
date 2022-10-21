@@ -12,7 +12,7 @@
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
       <!-- Notifications Dropdown Menu -->
-      <li class="nav-item dropdown">
+      {{-- <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
           <i class="far fa-bell"></i>
           <span class="badge badge-warning navbar-badge">15</span>
@@ -32,7 +32,7 @@
           <div class="dropdown-divider"></div>
           <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
         </div>
-      </li>
+      </li> --}}
       <li class="nav-item dropdown user-menu">
         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
           <img src="{{ asset('dist/img/user.png') }}" class="user-image img-circle elevation-2" alt="User Image">
@@ -45,27 +45,19 @@
 
             <p>
               {{ auth()->user()->name }}
+              <br>
+              <small>{{ auth()->user()->nrp }} - 
+              @if (empty(auth()->user()->position->name))
+                  No Jabatan
+              @else
+                  {{ auth()->user()->position->name }}
+              @endif</small>
               <small>Entry since {{ \Carbon\Carbon::parse(auth()->user()->tgl_masuk)->format('M Y') }}</small>
             </p>
           </li>
-          <!-- Menu Body -->
-          <li class="user-body">
-            <div class="row">
-              <div class="col-4 text-center">
-                <a href="#">Followers</a>
-              </div>
-              <div class="col-4 text-center">
-                <a href="#">Sales</a>
-              </div>
-              <div class="col-4 text-center">
-                <a href="#">Friends</a>
-              </div>
-            </div>
-            <!-- /.row -->
-          </li>
           <!-- Menu Footer-->
           <li class="user-footer">
-            <a href="#" class="btn btn-default btn-flat">Profile</a>
+            <a href="/profile/{{ auth()->user()->id }}/index" class="btn btn-default btn-flat">Profile</a>
             <a class="d-inline float-right">
               <form action="/logout" method="post">
                 @csrf

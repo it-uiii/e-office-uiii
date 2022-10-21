@@ -53,6 +53,7 @@ class UserSeeder extends Seeder
         Permission::create(['name' => 'position-import']);
         Permission::create(['name' => 'position-edit']);
         Permission::create(['name' => 'position-delete']);
+        Permission::create(['name' => 'letter-list']);
         Permission::create(['name' => 'outgoing-letter-list']);
         Permission::create(['name' => 'outgoing-letter-create']);
         Permission::create(['name' => 'outgoing-letter-edit']);
@@ -74,6 +75,10 @@ class UserSeeder extends Seeder
         Permission::create(['name' => 'additional-report-create']);
         Permission::create(['name' => 'additional-report-edit']);
         Permission::create(['name' => 'additional-report-delete']);
+        Permission::create(['name' => 'asset-list']);
+        Permission::create(['name' => 'asset-create']);
+        Permission::create(['name' => 'asset-edit']);
+        Permission::create(['name' => 'asset-delete']);
 
         $permissions = Permission::pluck('id', 'id')->all();
 
@@ -144,46 +149,46 @@ class UserSeeder extends Seeder
             'password'      => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
         ])->assignRole('Pimpinan');
 
-        User::create([
-            'position_id'   => 2,
-            'name'          => 'Sekretaris Universitas',
-            'nrp'           => '33333333333333',
-            'username'      => 'sekretaris universitas',
-            'email'         => 'sekretarisuniversitas@uiii.ac.id',
-            'status'        => true,
-            'password'      => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-        ])->assignRole('Admin');
+        // User::create([
+        //     'position_id'   => 2,
+        //     'name'          => 'Sekretaris Universitas',
+        //     'nrp'           => '33333333333333',
+        //     'username'      => 'sekretaris universitas',
+        //     'email'         => 'sekretarisuniversitas@uiii.ac.id',
+        //     'status'        => true,
+        //     'password'      => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+        // ])->assignRole('Admin');
 
-        User::create([
-            'position_id'   => 3,
-            'name'          => 'KTU Sekretaris',
-            'nrp'           => '44444444444444',
-            'username'      => 'ktusekretaris',
-            'email'         => 'ktusekretaris@uiii.ac.id',
-            'status'        => true,
-            'password'      => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-        ])->assignRole('Pimpinan');
+        // User::create([
+        //     'position_id'   => 3,
+        //     'name'          => 'KTU Sekretaris',
+        //     'nrp'           => '44444444444444',
+        //     'username'      => 'ktusekretaris',
+        //     'email'         => 'ktusekretaris@uiii.ac.id',
+        //     'status'        => true,
+        //     'password'      => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+        // ])->assignRole('Pimpinan');
 
-        User::create([
-            'position_id'   => 4,
-            'name'          => 'Pelaksana Sekretariat',
-            'nrp'           => '55555555555555',
-            'username'      => 'pelaksanasekretaris',
-            'email'         => 'pelaksanasekretaris@uiii.ac.id',
-            'status'        => true,
-            'password'      => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-        ])->assignRole('Admin');
+        // User::create([
+        //     'position_id'   => 4,
+        //     'name'          => 'Pelaksana Sekretariat',
+        //     'nrp'           => '55555555555555',
+        //     'username'      => 'pelaksanasekretaris',
+        //     'email'         => 'pelaksanasekretaris@uiii.ac.id',
+        //     'status'        => true,
+        //     'password'      => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+        // ])->assignRole('Admin');
 
-        User::create([
-            'position_id'   => 5,
-            'head_id'       => 4,
-            'name'          => 'Staff',
-            'nrp'           => '66666666666666',
-            'username'      => 'staff',
-            'email'         => 'staff@uiii.ac.id',
-            'status'        => true,
-            'password'      => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-        ])->assignRole('Staff');
+        // User::create([
+        //     'position_id'   => 5,
+        //     'head_id'       => 4,
+        //     'name'          => 'Staff',
+        //     'nrp'           => '66666666666666',
+        //     'username'      => 'staff',
+        //     'email'         => 'staff@uiii.ac.id',
+        //     'status'        => true,
+        //     'password'      => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+        // ])->assignRole('Staff');
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }

@@ -18,10 +18,12 @@ class PositionSeeder extends Seeder
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         Position::truncate();
         Position::create(['name' => 'Rektor']);
-        Position::create(['name' => 'Sekretaris Universitas']);
-        Position::create(['name' => 'KTU Sekretaris']);
-        Position::create(['name' => 'Pelaksana Sekretariat']);
-        Position::create(['name' => 'Unit Pengusul']);
+        // Position::create(['name' => 'Sekretaris Universitas']);
+        // Position::create(['name' => 'KTU Sekretaris']);
+        // Position::create(['name' => 'KTU Pengadaan Umum']);
+        // Position::create(['name' => 'Pelaksana Sekretariat']);
+        // Position::create(['name' => 'Unit Pengusul']);
+        // Position::create(['name' => 'Staff']);
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }

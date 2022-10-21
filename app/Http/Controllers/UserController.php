@@ -54,7 +54,7 @@ class UserController extends Controller
         $positions = Position::all();
         $heads = User::all();
         $roles = Role::pluck('name', 'name')->all();
-        return view('users.create', ['title' => 'Users', 'subtitle' => 'Create'], compact('roles', 'positions','heads'));
+        return view('users.create', ['title' => 'Users', 'subtitle' => 'Create'], compact('roles', 'positions', 'heads'));
     }
 
     /**
@@ -67,20 +67,21 @@ class UserController extends Controller
     {
         $data = $request->validate([
             'name'          => ['required', 'max:128', 'min:5'],
-            'nrp'           => ['required','min:10','max:14','unique:users'],
-            'email'         => ['required','email','unique:users,email','regex:/^[A-Za-z0-9\.]*@(uiii)[.](ac)[.](id)$/'],
+            'nrp'           => ['required', 'min:10', 'max:14', 'unique:users'],
+            'email'         => ['required', 'email', 'unique:users,email', 'regex:/^[A-Za-z0-9\.]*@(uiii)[.](ac)[.](id)$/'],
             'roles'         => ['required'],
             'position_id'   => ['nullable', 'exists:positions,id'],
             'head_id'   => ['nullable', 'exists:users,id'],
         ]);
 
         $data['status'] = true;
-        $data['password'] = Hash::make(123456789);
+        $password = '123456789';
+        $data['password'] = Hash::make($password);
 
         $user = User::create($data);
         $user->assignRole($request->input('roles'));
 
-        return redirect()->route('users.index')->with('success', 'User berhasil ditambahkan');
+        return redirect()->route('users.index')->with('success', 'User ' . $request->name . ' Berhasil ditambahkan, password = ' . $password);
     }
 
     /**
@@ -132,8 +133,8 @@ class UserController extends Controller
     {
         $data = $request->validate([
             'name'          => ['required'],
-            'nrp'           => ['required','min:10','max:14','unique:users,nrp,'.$id],
-            'email'         => ['required','email','unique:users,email,'.$id,'regex:/^[A-Za-z0-9\.]*@(uiii)[.](ac)[.](id)$/'],
+            'nrp'           => ['required', 'min:10', 'max:14', 'unique:users,nrp,' . $id],
+            'email'         => ['required', 'email', 'unique:users,email,' . $id, 'regex:/^[A-Za-z0-9\.]*@(uiii)[.](ac)[.](id)$/'],
             'password'      => ['confirmed'],
             'roles'         => ['required'],
             'position_id'   => ['nullable', 'exists:positions,id'],
@@ -152,7 +153,7 @@ class UserController extends Controller
         if ($user->getRoleNames()->first() != $request->roles) {
             $user->removeRole($user->getRoleNames()->first());
             $user->assignRole($request->roles);
-          }
+        }
 
         return redirect()->route('users.index')
             ->with('warning', 'User berhasil diperbarui');

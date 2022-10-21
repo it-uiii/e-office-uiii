@@ -57,7 +57,7 @@
         <div class="form-group row">
             <label for="" class="col-sm-2 col-form-label">Tanggal Invoice</label>
             <div class="col-sm-10">
-                <input type="date" class="form-control @error('tanggal_invoice') is-invalid @enderror" name="tanggal_invoice">
+                <input type="date" class="form-control @error('tanggal_invoice') is-invalid @enderror" name="tanggal_invoice" value="{{ old('tanggal_invoice') }}">
                 @error('tanggal_invoice')
                     <div class="invalid-feedback">
                         {{ $message }}
@@ -139,6 +139,22 @@
                     @endforeach
                 </select>
                 @error('kelompok_item_id')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="" class="col-sm-2 col-form-label">Detail Barang</label>
+            <div class="col-sm-10">
+                <select class="form-control @error('detailbarang_id') is-invalid @enderror" name="detailbarang_id">
+                    <option value="">Pilih barang</option>
+                    @foreach ($details as $detail)
+                        <option value="{{ $detail->id }}.{{ $detail->seq_number }}">{{ $detail->detail_barang }}</option>
+                    @endforeach
+                </select>
+                @error('detailbarang_id')
                     <div class="invalid-feedback">
                         {{ $message }}
                     </div>

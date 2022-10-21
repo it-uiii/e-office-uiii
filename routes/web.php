@@ -8,13 +8,11 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\SummaryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ItemsManagementController;
 use App\Http\Controllers\EntryLetterController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\LaporanKinerjaController;
-use App\Http\Controllers\MailingController;
 use App\Http\Controllers\OutgoingLetterController;
 use App\Http\Controllers\PerformanceReportController;
 use App\Http\Controllers\PositionController;
@@ -61,15 +59,6 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::resource('activities', ActivityController::class);
     Route::delete('additional-reports/{additional_report}', [AdditionalReportController::class, 'destroy'])->name('additional-reports.destroy');
     Route::delete('additionals/{additional}', [AdditionalController::class, 'destroy'])->name('additionals.destroy');
-
-    Route::get('/surat-keluar', [MailingController::class, 'index']);
-    Route::get('/compose', [MailingController::class, 'compose']);
-    Route::get('/disposisi', [MailingController::class, 'inbox']);
-    Route::get('/read-mail', [MailingController::class, 'detail']);
-
-    Route::get('/summary', [SummaryController::class, 'summary']);
-    Route::get('/report', [SummaryController::class, 'report']);
-    Route::get('/review', [SummaryController::class, 'review']);
 
     Route::resource('assets', ItemsManagementController::class);
 });
