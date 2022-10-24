@@ -1,7 +1,7 @@
 @extends('layout.main')
 @section('container')
 <div class="card card-info">
-    <form class="form-horizontal" action="/assets/{{ $data->id }}" method="POST" enctype="multipart/form-data">
+    <form class="form-horizontal" action="{{ route('assets.update', $data) }}" method="POST" enctype="multipart/form-data">
     @csrf
     @method('put')
     <div class="card-body">
@@ -100,7 +100,7 @@
                     <option value="">Pilih Sumber Perolehan</option>
                     @foreach ($sumbers as $sumber)
                         @if ($data->sumber_perolehan_id)
-                            <option value="{{ $sumber->id }}.{{ $sumber->kode_sumber }}" selected>{{ $sumber->sumber }}</option>    
+                            <option value="{{ $sumber->id }}.{{ $sumber->kode_sumber }}" selected>{{ $sumber->sumber }}</option>
                         @else
                             <option value="{{ $sumber->id }}.{{ $sumber->kode_sumber }}">{{ $sumber->sumber }}</option>
                         @endif
@@ -289,9 +289,9 @@
                 <select class="form-control @error('stock') is-invalid @enderror" name="stock">
                     <option value="">Pilih Status</option>
                     @if ($data->stock)
-                        <option value="1" selected>Stock</option>    
+                        <option value="1" selected>Stock</option>
                     @else
-                        <option value="0" selected>Off Stock</option>    
+                        <option value="0" selected>Off Stock</option>
                     @endif
                     <option value="1">Stock</option>
                     <option value="0">Off Stock</option>

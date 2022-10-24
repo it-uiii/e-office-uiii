@@ -193,7 +193,7 @@ class ItemsManagementController extends Controller
      * @param  \App\Models\items  $items
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, items $items)
+    public function update(Request $request, items $asset)
     {
         $data = $request->validate([
             'nama_barang' => ['required', 'string', 'max:255'],
@@ -269,8 +269,7 @@ class ItemsManagementController extends Controller
         $data['user_id'] = auth()->user()->id;
         $data['no_inventory'] = 'UIII' . $kode_lokasi . $kode_sumber . $kode_golongan . $kode_jenis . $kode_kelompok . $year . $seq_number;
 
-        // dd($data);
-        items::where('id', $items->id)->update($data);
+        $asset->update($data);
         return redirect()->route('assets.index')
             ->with('warning', 'asset berhasil diperbarui');
     }
