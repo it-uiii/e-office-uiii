@@ -194,7 +194,7 @@ class ItemsManagementController extends Controller
      * @param  \App\Models\items  $items
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, items $items)
+    public function update(Request $request, items $asset)
     {
         $rules = [
             'nama_barang' => 'required|string|max:255',
@@ -224,8 +224,56 @@ class ItemsManagementController extends Controller
             $validate['image'] = $image->storeAs('public/asset-img', $image->getClientOriginalName());
         }
 
-        items::where('id', $items->id)->update($validate);
-        return redirect('/assets')->with('success', 'Service has been updated!!');
+        $lokasi = explode(".", $request->lokasi_id);
+        $id_lokasi = $lokasi[0];
+        $kode_lokasi = $lokasi[1];
+        $data['lokasi_id'] = $id_lokasi;
+
+
+        $sumber_perolehan = explode(".", $request->sumber_perolehan_id);
+        $id_sumber = $sumber_perolehan[0];
+        $kode_sumber = $sumber_perolehan[1];
+        $data['sumber_perolehan_id'] = $id_sumber;
+
+        $golongan = explode(".", $request->golongan_item_id);
+        $id_golongan = $golongan[0];
+        $kode_golongan = $golongan[1];
+        $data['golongan_item_id'] = $id_golongan;
+
+        $jenis = explode(".", $request->jenis_item_id);
+        $id_jenis = $jenis[0];
+        $kode_jenis = $jenis[1];
+        $data['jenis_item_id'] = $id_jenis;
+
+        $kelompok = explode(".", $request->kelompok_item_id);
+        $id_kelompok = $kelompok[0];
+        $kode_kelompok = $kelompok[1];
+        $data['kelompok_item_id'] = $id_kelompok;
+
+        $detail = explode(".", $request->detailbarang_id);
+        $id_detail = $detail[0];
+        $seq_number = $detail[1];
+        $data['detailbarang_id'] = $id_detail;
+
+        $myDate = date('Y');
+        $year = substr($myDate, 2);
+
+        $data['nama_barang'] = $request->nama_barang;
+        $data['nilai_perolehan'] = $request->nilai_perolehan;
+        $data['ukuran_item'] = $request->ukuran_item;
+        $data['supplier_id'] = $request->supplier_id;
+        $data['brand_id'] = $request->brand_id;
+        $data['keterangan'] = $request->keterangan;
+        $data['umur_penyusutan'] = $request->umur_penyusutan;
+        $data['stock'] = $request->stock;
+        $data['tanggal_invoice'] = $request->tanggal_invoice;
+        $data['user_id'] = auth()->user()->id;
+        $data['no_inventory'] = 'UIII' . $kode_lokasi . $kode_sumber . $kode_golongan . $kode_jenis . $kode_kelompok . $year . $seq_number;
+
+        $asset->update($data);
+        return redirect()->route('assets.index')
+            ->with('warning', 'asset berhasil diperbarui');
+
     }
 
     /**
