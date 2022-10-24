@@ -2,6 +2,7 @@
 
 namespace App\Imports;
 
+use App\Models\Position;
 use App\Models\User;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Validator;
@@ -25,39 +26,38 @@ class UserImport implements ToCollection
         $message = [];
         foreach ($collection as $key => $row) {
             $baris = ((int) $key) + 1;
-            try {
-                $data               = [];
-                $data['name']       = $row[0];
-                $data['username']   = $row[1];
-                $data['email']      = $row[2];
-                $data['nrp']        = $row[3];
-                $data['position']   = $row[4];
-                $data['role']       = $row[5];
-                $user               = User::where('email', $data['email'])->first();
+            $data               = [];
+            $data['name']       = $row[0];
+            $data['username']   = $row[1];
+            $data['email']      = $row[2];
+            $data['nrp']        = $row[3];
+            $data['position']   = $row[4];
+            $data['role']       = $row[5];
+            $user               = User::where('email', $data['email'])->first();
 
-                Validator::make($data, [
-                    'name'      => ['required', 'string', 'max:128'],
-                    'username'  => ['required', 'string', 'max:128'],
-                    'email'     => ['required', 'string', 'email', 'max:128'],
-                    'nrp'       => ['required', 'string', 'max:128'],
-                    'position'  => ['required', 'string', 'max:128', 'exists:positions,name'],
-                    'role'      => ['required', 'string', 'max:128', 'exists:roles,name'],
-                ], [], [
-                    'name'      => 'Nama baris ke ' . $baris,
-                    'username'  => 'Username baris ke ' . $baris,
-                    'email'     => 'Email baris ke ' . $baris,
-                    'nrp'       => 'NRP baris ke ' . $baris,
-                    'position'  => 'Jabatan baris ke ' . $baris,
-                    'role'      => 'Roles baris ke ' . $baris,
-                ])->validate();
+            Validator::make($data, [
+                'name'      => ['required', 'string', 'max:128'],
+                'username'  => ['required', 'string', 'max:128'],
+                'email'     => ['required', 'string', 'email', 'max:128'],
+                'nrp'       => ['required', 'digits:14'],
+                'position'  => ['required', 'string', 'max:128', 'exists:positions,name'],
+                'role'      => ['required', 'string', 'max:128', 'exists:roles,name'],
+            ], [], [
+                'name'      => 'Nama baris ke ' . $baris,
+                'username'  => 'Username baris ke ' . $baris,
+                'email'     => 'Email baris ke ' . $baris,
+                'nrp'       => 'NRP baris ke ' . $baris,
+                'position'  => 'Jabatan baris ke ' . $baris,
+                'role'      => 'Roles baris ke ' . $baris,
+            ])->validate();
 
-                if ($user) {
-                    $user->update($data);
-                } else {
-                    $user = User::create($data);
-                }
-            } catch (\Throwable $th) {
-                $message[] = $baris;
+            if ($user) {
+                $user->update($data);
+            } else {
+                $data['position_id'] = Position::where('name', $data['position'])->first()->id;
+                $data['password'] = '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi';
+                $data['status'] = true;
+                $user = User::create($data)->assignRole($data['role']);
             }
         }
 
