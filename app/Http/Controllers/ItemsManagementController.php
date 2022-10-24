@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\brandItem;
-use App\Models\detailbarang;
-use App\Models\golongan;
+use App\Models\tipe;
 use App\Models\items;
-use App\Models\kelompokBarang;
 use App\Models\lokasi;
 use App\Models\sumber;
+use App\Models\golongan;
 use App\Models\supplier;
-use App\Models\tipe;
+use App\Models\brandItem;
+use App\Models\detailbarang;
 use Illuminate\Http\Request;
+use App\Models\kelompokBarang;
+use Illuminate\Support\Facades\Storage;
 
 class ItemsManagementController extends Controller
 {
@@ -195,86 +196,37 @@ class ItemsManagementController extends Controller
      */
     public function update(Request $request, items $items)
     {
-        $data = $request->validate([
-            'nama_barang' => ['required', 'string', 'max:255'],
-            'nilai_perolehan' => ['required', 'max:255'],
-            'jumlah_item' => ['required'],
-            'ukuran_item' => ['required'],
-            'tanggal_invoice' => ['required', 'date'],
-            'lokasi_id' => ['required'],
-            'sumber_perolehan_id' => ['required'],
-            'golongan_item_id' => ['required'],
-            'jenis_item_id' => ['required'],
-            'kelompok_item_id' => ['required'],
-            'detailbarang_id' => ['required'],
-            'supplier_id' => ['required'],
-            'brand_id' => ['required'],
-            'stock' => ['required', 'boolean'],
-            'image.*' => ['image', 'mimes:png,jpg,jpeg,JPG,JPEG']
-        ]);
+        $rules = [
+            'nama_barang' => 'required|string|max:255',
+            'nilai_perolehan' => 'required|max:255',
+            'jumlah_item' => 'required',
+            'ukuran_item' => 'required',
+            'tanggal_invoice' => 'required|date',
+            'lokasi_id' => 'required',
+            'sumber_perolehan_id' => 'required',
+            'golongan_item_id' => 'required',
+            'jenis_item_id' => 'required',
+            'kelompok_item_id' => 'required',
+            'detailbarang_id' => 'required',
+            'supplier_id' => 'required',
+            'brand_id' => 'required',
+            'stock' => 'required', 'boolean',
+            'image.*' => 'image|mimes:png,jpg,jpeg,JPG,JPEG'
+        ];
 
-        // if ($request->file('image')) {
-        //     $data['image'] = $request->file('image')->store('assets-img');
-        // }
+        $validate = $request->validate($rules);
 
-        if ($request->image) {
-            foreach ($request->image as $image) {
-                $data['image']   = $image->storeAs('public/asset-img', $image->getClientOriginalName());
+        if ($request->file('image')) {
+            if ($request->oldCover) {
+                Storage::delete($request->oldCover);
             }
+            $image = $request->image;
+            $validate['image'] = $image->storeAs('public/asset-img', $image->getClientOriginalName());
         }
 
-        $lokasi = explode(".", $request->lokasi_id);
-        $id_lokasi = $lokasi[0];
-        $kode_lokasi = $lokasi[1];
-        $data['lokasi_id'] = $id_lokasi;
-
-
-        $sumber_perolehan = explode(".", $request->sumber_perolehan_id);
-        $id_sumber = $sumber_perolehan[0];
-        $kode_sumber = $sumber_perolehan[1];
-        $data['sumber_perolehan_id'] = $id_sumber;
-
-        $golongan = explode(".", $request->golongan_item_id);
-        $id_golongan = $golongan[0];
-        $kode_golongan = $golongan[1];
-        $data['golongan_item_id'] = $id_golongan;
-
-        $jenis = explode(".", $request->jenis_item_id);
-        $id_jenis = $jenis[0];
-        $kode_jenis = $jenis[1];
-        $data['jenis_item_id'] = $id_jenis;
-
-        $kelompok = explode(".", $request->kelompok_item_id);
-        $id_kelompok = $kelompok[0];
-        $kode_kelompok = $kelompok[1];
-        $data['kelompok_item_id'] = $id_kelompok;
-
-        $detail = explode(".", $request->detailbarang_id);
-        $id_detail = $detail[0];
-        $seq_number = $detail[1];
-        $data['detailbarang_id'] = $id_detail;
-
-        $myDate = date('Y');
-        $year = substr($myDate, 2);
-
-        $data['nama_barang'] = $request->nama_barang;
-        $data['nilai_perolehan'] = $request->nilai_perolehan;
-        $data['ukuran_item'] = $request->ukuran_item;
-        $data['supplier_id'] = $request->supplier_id;
-        $data['brand_id'] = $request->brand_id;
-        $data['keterangan'] = $request->keterangan;
-        $data['umur_penyusutan'] = $request->umur_penyusutan;
-        $data['stock'] = $request->stock;
-        $data['tanggal_invoice'] = $request->tanggal_invoice;
-        $data['user_id'] = auth()->user()->id;
-        $data['no_inventory'] = 'UIII' . $kode_lokasi . $kode_sumber . $kode_golongan . $kode_jenis . $kode_kelompok . $year . $seq_number;
-
-        // dd($data);
-        items::where('id', $items->id)->update($data);
-        return redirect()->route('assets.index')
-            ->with('warning', 'asset berhasil diperbarui');
+        items::where('id', $items->id)->update($validate);
+        return redirect('/assets')->with('success', 'Service has been updated!!');
     }
-
 
     /**
      * Remove the specified resource from storage.
@@ -284,7 +236,5 @@ class ItemsManagementController extends Controller
      */
     public function destroy(items $items)
     {
-        items::destroy($items->id);
-        return redirect('/assets')->with('danger', 'Asset has been deleted!');
     }
 }
