@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\PositionExport;
 use App\Imports\PositionImport;
 use App\Models\Position;
 use Illuminate\Http\Request;
@@ -55,6 +56,23 @@ class PositionController extends Controller
 
         Position::updateOrCreate(['id' => $request->id], $data);
         return redirect()->route('positions.index')->with('success', 'Jabatan berhasil disimpan');
+    }
+
+    public function import(Request $request)
+    {
+        $request->validate([
+            'file' => ['required', 'file', 'max:2048']
+        ], [
+            'file.required' => 'File wajib diisi'
+        ]);
+
+        Excel::import(new PositionImport, $request->file('file'));
+        return back();
+    }
+
+    public function export()
+    {
+        return Excel::download(new PositionExport, 'Jabatan.xlsx');
     }
 
     /**

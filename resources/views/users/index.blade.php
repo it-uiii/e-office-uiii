@@ -4,7 +4,24 @@
         <div class="card-header">
             <div class="card-title">
                 @can('user-create')
-                    <a class="btn btn-primary" href="/users/create">Create New</a>
+                    <a class="btn btn-primary" href="/users/create">
+                        <i class="fas fa-plus"></i>
+                    </a>
+                @endcan
+            </div>
+            <div class="float-right">
+                @can('user-import')
+                    <button type="button" class="btn btn-outline-success" title="Import" data-toggle="modal" data-target="#modal-import">
+                        <i class="far fa-file-excel"></i>
+                    </button>
+                @endcan
+                @can('user-export')
+                    <form action="{{ route('users.export') }}" class="d-inline" method="POST">
+                        @csrf
+                        <button type="submit" class="btn btn-outline-info" title="Export">
+                            <i class="fas fa-file-export"></i>
+                        </button>
+                    </form>
                 @endcan
             </div>
         </div>
@@ -73,4 +90,43 @@
             {{ $data->links('partials.pagination') }}
         </div>
     </div>
+
+    {{-- import xlsx --}}
+    <div class="modal fade" id="modal-import">
+        <div class="modal-dialog">
+            <form action="{{ route('users.import') }}" method="post" enctype="multipart/form-data">
+                @csrf
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Import user</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="file">File input</label>
+                            <div class="input-group">
+                                <div class="custom-file">
+                                    <input accept=".xlsx" type="file" class="custom-file-input" id="file"
+                                        name="file">
+                                    <label class="custom-file-label" for="file">Choose file</label>
+                                </div>
+                                @error('file')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <button type="reset" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Import</button>
+                    </div>
+                </div>
+            </form>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
 @endsection

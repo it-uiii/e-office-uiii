@@ -36,6 +36,8 @@ class UserSeeder extends Seeder
         Permission::create(['name' => 'user-create']);
         Permission::create(['name' => 'user-edit']);
         Permission::create(['name' => 'user-delete']);
+        Permission::create(['name' => 'user-export']);
+        Permission::create(['name' => 'user-import']);
         Permission::create(['name' => 'role-list']);
         Permission::create(['name' => 'role-create']);
         Permission::create(['name' => 'role-edit']);
@@ -47,6 +49,7 @@ class UserSeeder extends Seeder
         Permission::create(['name' => 'admin-list']);
         Permission::create(['name' => 'position-list']);
         Permission::create(['name' => 'position-create']);
+        Permission::create(['name' => 'position-export']);
         Permission::create(['name' => 'position-import']);
         Permission::create(['name' => 'position-edit']);
         Permission::create(['name' => 'position-delete']);
