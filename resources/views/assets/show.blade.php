@@ -94,7 +94,7 @@
                 @if (empty($item->image))
                     No Image
                 @else
-                    <img style="max-width: 200px" class="img-fluid" src="{{ asset('storage/'. $item->image) }}" alt="{{ $item->image }}">
+                    <img style="max-width: 200px" class="img-fluid" src="{{ asset(Storage::url($item->image)) }}" alt="{{ $item->image }}">
                 @endif
             </div>
         </div>
