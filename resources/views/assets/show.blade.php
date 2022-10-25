@@ -62,12 +62,12 @@
                 <input type="text" class="form-control" value="{{ $item->kelompokItem->nama_kelompok }}" readonly>
             </div>
         </div>
-        <div class="form-group row">
+        {{-- <div class="form-group row">
             <label for="" class="col-sm-2 col-form-label">Pemasok</label>
             <div class="col-sm-10">
                 <input type="text" class="form-control" value="{{ $item->supplier->nama_pemasok }}" readonly>
             </div>
-        </div>
+        </div> --}}
         <div class="form-group row">
             <label for="" class="col-sm-2 col-form-label">Brand</label>
             <div class="col-sm-10">
@@ -85,9 +85,7 @@
         <div class="form-group row">
             <label for="" class="col-sm-2 col-form-label">Umur Penyusutan Barang</label>
             <div class="col-sm-10">
-                <textarea class="form-control" rows="3" disabled>
-                    {!! $item->umur_penyusutan !!}
-                </textarea>
+                <input class="form-control" type="text" value="{{ $item->keterangan }}" readonly>
             </div>
         </div>
         <div class="form-group row">

@@ -193,7 +193,7 @@
                 @enderror
             </div>
         </div>
-        <div class="form-group row">
+        {{-- <div class="form-group row">
             <label for="" class="col-sm-2 col-form-label">Pemasok</label>
             <div class="col-sm-10">
                 <select class="form-control @error('supplier_id') is-invalid @enderror" name="supplier_id">
@@ -212,7 +212,7 @@
                     </div>
                 @enderror
             </div>
-        </div>
+        </div> --}}
         <div class="form-group row">
             <label for="" class="col-sm-2 col-form-label">Brand</label>
             <div class="col-sm-10">
@@ -236,25 +236,15 @@
         <div class="form-group row">
             <label for="" class="col-sm-2 col-form-label">Keterangan</label>
             <div class="col-sm-10">
-                <textarea class="form-control" rows="3" placeholder="Kursi rektoran..." name="keterangan">
-                    @if ($data->keterangan)
-                        {!! old('keterangan', $data->keterangan) !!}
-                    @else
-                        tidak ada keterangan
-                    @endif
+                <textarea class="form-control" id="keterangan" name="keterangan">
+                    {!! old('keterangan', $data->keterangan) !!}
                 </textarea>
             </div>
         </div>
         <div class="form-group row">
             <label for="" class="col-sm-2 col-form-label">Umur Penyusutan Barang</label>
             <div class="col-sm-10">
-                <textarea class="form-control" rows="3" placeholder="Example: 2 Tahun" name="umur_penyusutan">
-                    @if ($data->umur_penyusutan)
-                        {!! old('keterangan', $data->umur_penyusutan) !!}
-                    @else
-                        tidak ada umur penyusutan
-                    @endif
-                </textarea>
+                <input class="form-control" type="text" value="{{ old('umur_penyusutan', $data->umur_penyusutan) }}">
             </div>
         </div>
         <div class="form-group row">
@@ -311,11 +301,27 @@
     </form>
 </div>
 <script>
+    // summernote keterangan
+    $(document).ready(function() {
+        $("#keterangan").summernote({
+            height: 200,
+            placeholder: 'Masukkan Deskripsi',
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'underline', 'clear']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture', 'video']],
+                ['view', ['fullscreen', 'codeview', 'help']],
+            ],
+        });
+    });
+
     // script preview image
     function previewImage(){
         const image = document.querySelector('#image');
         const imgPreview = document.querySelector('.img-preview');
-
 
         imgPreview.style.display = 'block';
 

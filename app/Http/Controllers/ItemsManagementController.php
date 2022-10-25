@@ -7,7 +7,6 @@ use App\Models\items;
 use App\Models\lokasi;
 use App\Models\sumber;
 use App\Models\golongan;
-use App\Models\supplier;
 use App\Models\brandItem;
 use App\Models\detailbarang;
 use Illuminate\Http\Request;
@@ -39,7 +38,6 @@ class ItemsManagementController extends Controller
         $golongans = golongan::all();
         $tipes = tipe::all();
         $kelompoks = kelompokBarang::all();
-        $suppliers = supplier::all();
         $brands = brandItem::all();
         $details = detailbarang::all();
         return view(
@@ -51,7 +49,6 @@ class ItemsManagementController extends Controller
                 'golongans',
                 'tipes',
                 'kelompoks',
-                'suppliers',
                 'brands',
                 'details'
             )
@@ -78,7 +75,6 @@ class ItemsManagementController extends Controller
             'jenis_item_id' => ['required'],
             'kelompok_item_id' => ['required'],
             'detailbarang_id' => ['required'],
-            'supplier_id' => ['required'],
             'brand_id' => ['required'],
             'stock' => ['required', 'boolean'],
             'image.*' => ['image', 'mimes:png,jpg,jpeg,JPG,JPEG']
@@ -131,7 +127,6 @@ class ItemsManagementController extends Controller
         $data['nama_barang'] = $request->nama_barang;
         $data['nilai_perolehan'] = $request->nilai_perolehan;
         $data['ukuran_item'] = $request->ukuran_item;
-        $data['supplier_id'] = $request->supplier_id;
         $data['brand_id'] = $request->brand_id;
         $data['keterangan'] = $request->keterangan;
         $data['umur_penyusutan'] = $request->umur_penyusutan;
@@ -170,7 +165,6 @@ class ItemsManagementController extends Controller
         $golongans = golongan::all();
         $tipes = tipe::all();
         $kelompoks = kelompokBarang::all();
-        $suppliers = supplier::all();
         $brands = brandItem::all();
         $details = detailbarang::all();
         $data = items::find($id);
@@ -180,7 +174,6 @@ class ItemsManagementController extends Controller
             'golongans',
             'tipes',
             'kelompoks',
-            'suppliers',
             'brands',
             'details',
             'data'
@@ -208,7 +201,6 @@ class ItemsManagementController extends Controller
             'jenis_item_id' => 'required',
             'kelompok_item_id' => 'required',
             'detailbarang_id' => 'required',
-            'supplier_id' => 'required',
             'brand_id' => 'required',
             'stock' => 'required', 'boolean',
             'image.*' => 'image|mimes:png,jpg,jpeg,JPG,JPEG'
@@ -262,7 +254,6 @@ class ItemsManagementController extends Controller
         $data['nama_barang'] = $request->nama_barang;
         $data['nilai_perolehan'] = $request->nilai_perolehan;
         $data['ukuran_item'] = $request->ukuran_item;
-        $data['supplier_id'] = $request->supplier_id;
         $data['brand_id'] = $request->brand_id;
         $data['keterangan'] = $request->keterangan;
         $data['umur_penyusutan'] = $request->umur_penyusutan;

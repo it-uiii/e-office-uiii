@@ -161,7 +161,7 @@
                 @enderror
             </div>
         </div>
-        <div class="form-group row">
+        {{-- <div class="form-group row">
             <label for="" class="col-sm-2 col-form-label">Pemasok</label>
             <div class="col-sm-10">
                 <select class="form-control @error('supplier_id') is-invalid @enderror" name="supplier_id">
@@ -176,7 +176,7 @@
                     </div>
                 @enderror
             </div>
-        </div>
+        </div> --}}
         <div class="form-group row">
             <label for="" class="col-sm-2 col-form-label">Brand</label>
             <div class="col-sm-10">
@@ -196,8 +196,8 @@
         <div class="form-group row">
             <label for="" class="col-sm-2 col-form-label">Keterangan</label>
             <div class="col-sm-10">
-                <textarea class="form-control" rows="3" placeholder="Kursi rektoran..." name="keterangan">
-                    
+                <textarea class="form-control" id="keterangan" name="keterangan">
+                    {!! old('keterangan') !!}
                 </textarea>
             </div>
         </div>
@@ -266,5 +266,21 @@
             imgPreview.src = oFREvent.target.result;
         }
     }
+
+    $(document).ready(function() {
+        $("#keterangan").summernote({
+            height: 200,
+            placeholder: 'Masukkan Deskripsi',
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'underline', 'clear']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture', 'video']],
+                ['view', ['fullscreen', 'codeview', 'help']],
+            ],
+        });
+    });
 </script>
 @endsection
