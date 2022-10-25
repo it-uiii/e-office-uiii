@@ -7,6 +7,19 @@
                     <i class="fas fa-plus"></i>
                 </a>
             </div>
+            <div class="float-right d-inline">
+                <div class="input-group">
+                    <form action="/assets" method="get">
+                        <input type="text" class="form-control" placeholder="Search no. inventory/name item" name="search" autocomplete="off">
+                    </form>
+                    <div class="input-group-append">
+                        <a class="btn btn-outline-secondary" href="/assets">
+                            <i class="fa-solid fa-arrows-rotate"></i>
+                            Reset
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -70,30 +83,30 @@
     <script>
         $(document).on('click', '.delete', function(e){
             e.preventDefault();
-            var form =  $(this).closest("form");
-            var assetid = $(this).attr('data-id');
-            var assetname = $(this).attr('data-nama');
+                var form =  $(this).closest("form");
+                var assetid = $(this).attr('data-id');
+                var assetname = $(this).attr('data-nama');
 
-            $('.delete').click(function(){
-            Swal.fire({
-            title: 'Apakah anda yakin?',
-            text: "Anda tidak dapat mengembalikan ini asset "+assetname+"",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-            }).then((result) => {
-            if (result.isConfirmed) {
-                form.submit();
-                Swal.fire(
-                'Deleted!',
-                'Your file has been deleted.',
-                'success'
-                )
-            }
+                $('.delete').click(function(){
+                Swal.fire({
+                title: 'Apakah anda yakin?',
+                text: "Anda tidak dapat mengembalikan ini asset "+assetname+"",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                    Swal.fire(
+                    'Deleted!',
+                    'Your file has been deleted.',
+                    'success'
+                    )
+                }
+                });
             });
-        });
         });
     </script>
 @endsection

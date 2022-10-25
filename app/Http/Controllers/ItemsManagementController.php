@@ -11,6 +11,7 @@ use App\Models\brandItem;
 use App\Models\detailbarang;
 use Illuminate\Http\Request;
 use App\Models\kelompokBarang;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class ItemsManagementController extends Controller
@@ -20,9 +21,16 @@ class ItemsManagementController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $items = items::paginate(20);
+        if ($request->has('search')) {
+            $items = items::where('no_inventory', 'LIKE', '%' . $request->search . '%')
+                ->orWhere('nama_barang', 'LIKE', '%' . $request->search . '%')
+                ->paginate(20);
+        } else {
+            $items = items::paginate(20);
+        }
+
         return view('assets.index', ['title' => 'Assets', 'subtitle' => 'List'], compact('items'));
     }
 
