@@ -300,8 +300,10 @@
     </div>
     </form>
 </div>
+@endsection
+
+@section('scripts')
 <script>
-    // summernote keterangan
     $(document).ready(function() {
         $("#keterangan").summernote({
             height: 200,
