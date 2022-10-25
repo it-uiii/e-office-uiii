@@ -204,7 +204,7 @@
         <div class="form-group row">
             <label for="" class="col-sm-2 col-form-label">Umur Penyusutan Barang</label>
             <div class="col-sm-10">
-                <input type="text" name="umur_penyusutan">
+                <input class="form-control" type="text" name="umur_penyusutan">
             </div>
         </div>
         <div class="form-group row">
@@ -267,6 +267,9 @@
         }
     }
 
+</script>
+@section('scripts')
+<script>
     $(document).ready(function() {
         $("#keterangan").summernote({
             height: 200,
@@ -283,4 +286,5 @@
         });
     });
 </script>
+@endsection
 @endsection

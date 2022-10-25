@@ -63,7 +63,7 @@
                                 <form action="/assets/{{ $item->id }}" method="post" class="d-inline">
                                     @method('delete')
                                     @csrf
-                                    <button type="submit" class="btn btn-danger delete" data-id="{{ $item->id }}" data-nama="{{ $item->nama_barang }}">
+                                    <button type="" class="btn btn-danger delete" onclick="return confirm('Are you sure want delete this asset?')">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </form>
@@ -79,34 +79,4 @@
             {{ $items->links('partials.pagination') }}
         </div>
     </div>
-
-    <script>
-        $(document).on('click', '.delete', function(e){
-            e.preventDefault();
-                var form =  $(this).closest("form");
-                var assetid = $(this).attr('data-id');
-                var assetname = $(this).attr('data-nama');
-
-                $('.delete').click(function(){
-                Swal.fire({
-                title: 'Apakah anda yakin?',
-                text: "Anda tidak dapat mengembalikan ini asset "+assetname+"",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-                }).then((result) => {
-                if (result.isConfirmed) {
-                    form.submit();
-                    Swal.fire(
-                    'Deleted!',
-                    'Your file has been deleted.',
-                    'success'
-                    )
-                }
-                });
-            });
-        });
-    </script>
 @endsection

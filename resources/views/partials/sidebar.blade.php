@@ -76,7 +76,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('assets.index') }}" class="nav-link">
+                                <a href="{{ route('supplier.index') }}" class="nav-link">
                                     <i class="fas fa-archive nav-icon"></i>
                                     <p>Data Suppliers</p>
                                 </a>
