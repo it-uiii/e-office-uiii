@@ -204,7 +204,7 @@
         <div class="form-group row">
             <label for="" class="col-sm-2 col-form-label">Umur Penyusutan Barang</label>
             <div class="col-sm-10">
-                <textarea class="form-control" rows="3" placeholder="Example: 2 Tahun" name="umur_penyusutan"></textarea>
+                <input type="text" name="umur_penyusutan">
             </div>
         </div>
         <div class="form-group row">

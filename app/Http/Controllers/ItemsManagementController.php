@@ -214,14 +214,15 @@ class ItemsManagementController extends Controller
             'image.*' => 'image|mimes:png,jpg,jpeg,JPG,JPEG'
         ];
 
-        $validate = $request->validate($rules);
+        $data = $request->validate($rules);
 
-        if ($request->file('image')) {
+        if ($request->image) {
             if ($request->oldCover) {
                 Storage::delete($request->oldCover);
             }
-            $image = $request->image;
-            $validate['image'] = $image->storeAs('public/asset-img', $image->getClientOriginalName());
+            foreach ($request->image as $image) {
+                $data['image']   = $image->storeAs('public/asset-img', $image->getClientOriginalName());
+            }
         }
 
         $lokasi = explode(".", $request->lokasi_id);
@@ -273,7 +274,6 @@ class ItemsManagementController extends Controller
         $asset->update($data);
         return redirect()->route('assets.index')
             ->with('warning', 'asset berhasil diperbarui');
-
     }
 
     /**
@@ -282,7 +282,9 @@ class ItemsManagementController extends Controller
      * @param  \App\Models\items  $items
      * @return \Illuminate\Http\Response
      */
-    public function destroy(items $items)
+    public function destroy(items $asset)
     {
+        $asset->delete();
+        return redirect()->route('assets.index');
     }
 }

@@ -44,9 +44,14 @@
     <link rel="stylesheet" href="{{ asset('plugins/daterangepicker/daterangepicker.css') }}">
     <!-- summernote -->
     <link rel="stylesheet" href="{{ asset('plugins/summernote/summernote-bs4.min.css') }}">
+    <!-- sweetalert2 -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- jQuery -->
+    <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
+    <!-- jQuery UI 1.11.4 -->
+    <script src="{{ asset('plugins/jquery-ui/jquery-ui.min.js') }}"></script>
     <!-- livewire-->
     @livewireStyles
-
     @yield('styles')
 </head>
 
@@ -110,10 +115,6 @@
 
     <script src="dist/js/adminlte.min.js"></script>
 
-    <!-- jQuery -->
-    <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
-    <!-- jQuery UI 1.11.4 -->
-    <script src="{{ asset('plugins/jquery-ui/jquery-ui.min.js') }}"></script>
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
     <script>
         $.widget.bridge('uibutton', $.ui.button)
