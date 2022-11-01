@@ -31,8 +31,8 @@
             @csrf
             <div class="form-group first">
             <label for="username">Username</label>
-            <input type="text" class="form-control @error('email') is-invalid @enderror" id="email" name="email" autocomplete="off" autofocus>
-            @error('email')
+            <input type="text" class="form-control @error('username') is-invalid @enderror" id="username" name="username" autocomplete="off" autofocus>
+            @error('username')
                 <div class="invalid-feedback">
                     {{ $message }}
                 </div>
