@@ -25,7 +25,7 @@ class SupplierController extends Controller
      */
     public function create()
     {
-        //
+        return view('suppliers.create', ['title' => 'Suppliers', 'subtitle' => 'Create']);
     }
 
     /**

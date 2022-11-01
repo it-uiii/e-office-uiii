@@ -9,14 +9,16 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\EmployeesController;
 use App\Http\Controllers\ItemsManagementController;
 use App\Http\Controllers\EntryLetterController;
+use App\Http\Controllers\HumanManagement;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\LaporanKinerjaController;
 use App\Http\Controllers\OutgoingLetterController;
 use App\Http\Controllers\PerformanceReportController;
 use App\Http\Controllers\PositionController;
-use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\SuppliersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -62,5 +64,7 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::delete('additionals/{additional}', [AdditionalController::class, 'destroy'])->name('additionals.destroy');
 
     Route::resource('assets', ItemsManagementController::class);
-    Route::resource('supplier', SupplierController::class);
+    Route::resource('suppliers', SuppliersController::class);
+
+    Route::resource('employees', EmployeesController::class);
 });

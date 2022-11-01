@@ -15,4 +15,9 @@ class supplier extends Model
     // {
     //     return $this->hasMany(items::class);
     // }
+
+    public function user()
+    {
+        return $this->belongsTo(users::class, 'user_id');
+    }
 }

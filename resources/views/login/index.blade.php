@@ -1,114 +1,86 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Admin Portal | {{ $title }}</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
 
-{{-- icon --}}
-<link rel="apple-touch-icon" sizes="57x57" href="{{ asset('logo/logo_bulet.png') }}">
-<link rel="apple-touch-icon" sizes="60x60" href="{{ asset('logo/logo_bulet.png') }}">
-<link rel="apple-touch-icon" sizes="72x72" href="{{ asset('logo/logo_bulet.png') }}">
-<link rel="apple-touch-icon" sizes="76x76" href="{{ asset('logo/logo_bulet.png') }}">
-<link rel="apple-touch-icon" sizes="114x114" href="{{ asset('logo/logo_bulet.png') }}">
-<link rel="apple-touch-icon" sizes="120x120" href="{{ asset('logo/logo_bulet.png') }}">
-<link rel="apple-touch-icon" sizes="144x144" href="{{ asset('logo/logo_bulet.png') }}">
-<link rel="apple-touch-icon" sizes="152x152" href="{{ asset('logo/logo_bulet.png') }}">
-<link rel="apple-touch-icon" sizes="180x180" href="{{ asset('logo/logo_bulet.png') }}">
-<link rel="icon" type="image/png" sizes="192x192"  href="{{ asset('logo/logo_bulet.png') }}">
-<link rel="icon" type="image/png" sizes="32x32" href="{{ asset('logo/logo_bulet.png') }}">
-<link rel="icon" type="image/png" sizes="96x96" href="{{ asset('logo/logo_bulet.png') }}">
-<link rel="icon" type="image/png" sizes="16x16" href="{{ asset('logo/logo_bulet.png') }}">
+    <link rel="stylesheet" href="{{ asset('fonts/icomoon/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/owl.carousel.min.css') }}">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+    <!-- Style -->
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 
-<link rel="icon" href="">
-<!-- Google Font: Source Sans Pro -->
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-<!-- Font Awesome -->
-<link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
-<!-- icheck bootstrap -->
-<link rel="stylesheet" href="{{ asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
-<!-- Theme style -->
-<link rel="stylesheet" href="{{ asset('dist/css/adminlte.css') }}">
+    <title>SSO UIII</title>
 </head>
-<body class="hold-transition login-page">
-<div class="login-box">
-    @if (session()->has('success'))
-        <div class="alert alert-success text-center alert-dismissible fade show" role="alert">
-            {{ session('success') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+<body>
+<div class="d-lg-flex half">
+<div class="bg order-1 order-md-2" style="background-image: url('images/bg_2.jpeg');"></div>
+<div class="contents order-2 order-md-1">
+
+    <div class="container">
+    <div class="row align-items-center justify-content-center">
+        <div class="col-md-7">
+        <div class="mb-4 text-center">
+            <img class="img-fluid" style="max-width:330px" src="{{ asset('images/gold_uiii.png') }}" alt="">
+            <p class="mb-4 mt-4">Welcome to single sign on (SSO) uiii <br> Enter your username and password</p>
         </div>
-    @endif
-    @if (session()->has('loginError'))
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            {{ session('loginError') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        <form action="{{ route('login') }}" method="post">
+            @csrf
+            <div class="form-group first">
+            <label for="username">Username</label>
+            <input type="text" class="form-control @error('email') is-invalid @enderror" id="email" name="email" autocomplete="off" autofocus>
+            @error('email')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
+
+            </div>
+            <div class="form-group last mb-3">
+            <label for="password">Password</label>
+            <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password">
+            @error('password')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
+            
+            </div>
+            
+            <div class="d-flex mb-5 align-items-center">
+            <a class="forgot-pass" href="">Guest Account</a>
+            <span class="ml-auto"><a href="#" class="forgot-pass">Help</a></span> 
+            </div>
+
+            <input type="submit" value="Log In" class="btn btn-block btn-primary">
+
+            <span class="d-block text-center my-4 text-muted">&mdash; or &mdash;</span>
+            
+            <div class="social-login">
+            <a href="#" class="facebook btn d-flex justify-content-center align-items-center">
+                New SSO Account
+            </a>
+            <a href="#" class="google btn d-flex justify-content-center align-items-center">
+                <span class="icon-google mr-3"></span> Login with  Google
+            </a>
+            </div>
+        </form>
         </div>
-    @endif
-    @if (session()->has('change'))
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            {{ session('change') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    @endif
-<!-- /.login-logo -->
-<div class="card card-outline card-primary">
-    <div class="card-header text-center">
-        <a href="/login" class="h1">
-            <img class="img-fluid" src="{{ asset('logo/gold_uiii.png') }}" alt="">
-        </a>
     </div>
-    <div class="card-body">
-        <p class="login-box-msg">Sign in to start your session</p>
-
-    <form action="{{ route('login.auth') }}" method="post">
-        @csrf
-        <div class="input-group mb-3">
-            <input type="email" name="email" class="form-control" placeholder="Email" autocomplete="off">
-            <div class="input-group-append">
-                <div class="input-group-text">
-                <span class="fas fa-envelope"></span>
-                </div>
-            </div>
-        </div>
-        <div class="input-group mb-3">
-            <input type="password" name="password" class="form-control" placeholder="Password">
-            <div class="input-group-append">
-                <div class="input-group-text">
-                <span class="fas fa-lock"></span>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-8">
-                <div class="icheck-primary">
-                <input type="checkbox" id="remember" name="remember">
-                <label for="remember">
-                    Remember Me
-                </label>
-                </div>
-            </div>
-            <!-- /.col -->
-            <div class="col-4">
-                <button type="submit" class="btn btn-primary btn-block">Sign In</button>
-            </div>
-            <!-- /.col -->
-        </div>
-    </form>
-
-    {{-- <p class="mb-1 mt-4 text-center">
-    <a href="forgot-password.html">I forgot my password</a>
-    </p> --}}
-    <!-- /.card-body -->
+    </div>
 </div>
-<!-- /.card -->
-</div>
-<!-- /.login-box -->
 
-<!-- jQuery -->
-<script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
-<!-- Bootstrap 4 -->
-<script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-<!-- AdminLTE App -->
-<script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
+
+</div>
+    
+    
+
+    <script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
+    <script src="{{ asset('js/popper.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/main.js') }}"></script>
 </body>
 </html>

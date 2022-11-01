@@ -25,7 +25,7 @@ class SuppliersController extends Controller
      */
     public function create()
     {
-        //
+        return view('suppliers.create', ['title' => 'Suppliers', 'subtitle' => 'Create']);
     }
 
     /**
@@ -36,7 +36,14 @@ class SuppliersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        dd($request);
+        $validate = $request->validate([
+            'kode_pemasok' => 'required|unique:suppliers',
+            'nama_pemasok' => 'required|max:191|min:10',
+        ]);
+
+        $validate['user_id'];
     }
 
     /**

@@ -15,8 +15,9 @@ class CreateSuppliersTable extends Migration
     {
         Schema::create('suppliers', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id');
             $table->string('nama_pemasok');
-            $table->string('kode_pemasok');
+            $table->string('kode_pemasok')->unique();
             $table->integer('telpon')->nullable();
             $table->text('alamat')->nullable();
             $table->date('tanggal_daftar')->nullable();

@@ -3,7 +3,7 @@
     <div class="card">
         <div class="card-header">
             <div class="card-title">
-                <a class="btn btn-primary" href="/assets/create">
+                <a class="btn btn-primary" href="/suppliers/create">
                     <i class="fas fa-plus"></i>
                 </a>
             </div>

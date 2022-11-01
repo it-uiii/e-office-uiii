@@ -53,7 +53,7 @@
                             <li class="nav-item">
                                 <a href="{{ route('performance-reports.index') }}" class="nav-link">
                                     <i class="fas fa-file nav-icon"></i>
-                                    <p>Management Laporan</p>
+                                    <p>Managemen Laporan</p>
                                 </a>
                             </li>
                         </ul>
@@ -64,7 +64,7 @@
                         <a href="" class="nav-link">
                             <i class="nav-icon fas fa-cubes"></i>
                             <p>
-                                Asset Management
+                                Managemen Asset
                                 <i class="right fas fa-angle-left"></i>
                             </p>
                         </a>
@@ -72,13 +72,32 @@
                             <li class="nav-item">
                                 <a href="{{ route('assets.index') }}" class="nav-link">
                                     <i class="fas fa-archive nav-icon"></i>
-                                    <p>Data Items</p>
+                                    <p>Data Barang</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('supplier.index') }}" class="nav-link">
+                                <a href="{{ route('suppliers.index') }}" class="nav-link">
                                     <i class="fas fa-archive nav-icon"></i>
                                     <p>Data Suppliers</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    @endcan
+                    @can('human-list')
+                    <li class="nav-item">
+                        <a href="" class="nav-link">
+                            <i class="nav-icon fas fa-cubes"></i>
+                            <p>
+                                Managemen SDM
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{ route('employees.index') }}" class="nav-link">
+                                    <i class="fas fa-archive nav-icon"></i>
+                                    <p>Employees</p>
                                 </a>
                             </li>
                         </ul>
