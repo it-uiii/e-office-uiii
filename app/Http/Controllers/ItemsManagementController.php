@@ -16,6 +16,14 @@ use Illuminate\Support\Facades\Storage;
 
 class ItemsManagementController extends Controller
 {
+
+    function __construct()
+    {
+        $this->middleware('permission:asset-list|asset-create|asset-edit|asset-delete', ['only' => ['index', 'store']]);
+        $this->middleware('permission:asset-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:asset-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:asset-delete', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      *

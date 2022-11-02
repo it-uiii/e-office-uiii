@@ -33,8 +33,16 @@
                     <!-- /.col -->
                 </div>
                 <div class="form-group">
+                    <label>Google email</label>
+                    <input type="text" class="form-control" value="{{ $user->emailSoc }}" disabled>
+                </div>
+                <div class="form-group">
                     <label>Jabatan</label>
                     <input type="text" class="form-control" value="{{ $user->position->name }}" disabled>
+                </div>
+                <div class="form-group">
+                    <label>Atasan</label>
+                    <input type="text" class="form-control" value="{{ $user->head->name }}" disabled>
                 </div>
                 <div class="form-group">
                     <label>Role</label>

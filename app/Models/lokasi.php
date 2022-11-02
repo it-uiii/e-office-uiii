@@ -15,4 +15,9 @@ class lokasi extends Model
     {
         return $this->hasMany(item::class);
     }
+
+    // public function getRouteKeyName()
+    // {
+    //     return 'lokasi';
+    // }
 }

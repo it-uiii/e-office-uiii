@@ -15,6 +15,8 @@ use App\Http\Controllers\EntryLetterController;
 use App\Http\Controllers\HumanManagement;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\LaporanKinerjaController;
+use App\Http\Controllers\LeaderController;
+use App\Http\Controllers\LocationController;
 use App\Http\Controllers\OutgoingLetterController;
 use App\Http\Controllers\PerformanceReportController;
 use App\Http\Controllers\PositionController;
@@ -46,6 +48,7 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::post('/users/import', [UserController::class, 'import'])->name('users.import');
     Route::post('/users/export', [UserController::class, 'export'])->name('users.export');
     Route::resource('users', UserController::class);
+    Route::resource('leaders', LeaderController::class);
 
     Route::resource('roles', RoleController::class);
     Route::resource('permissions', PermissionController::class);
@@ -65,6 +68,7 @@ Route::group(['middleware' => ['web', 'auth']], function () {
 
     Route::resource('assets', ItemsManagementController::class);
     Route::resource('suppliers', SuppliersController::class);
+    Route::resource('locations', LocationController::class);
 
     Route::resource('employees', EmployeesController::class);
 });

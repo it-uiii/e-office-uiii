@@ -59,7 +59,7 @@
                         </ul>
                     </li>
                     @endcan
-                    @can('asset-list')
+                    @can('asset-management')
                     <li class="nav-item">
                         <a href="" class="nav-link">
                             <i class="nav-icon fas fa-cubes"></i>
@@ -69,18 +69,30 @@
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
+                            @can('asset-list')
                             <li class="nav-item">
                                 <a href="{{ route('assets.index') }}" class="nav-link">
                                     <i class="fas fa-archive nav-icon"></i>
                                     <p>Data Barang</p>
                                 </a>
-                            </li>
+                            </li>    
+                            @endcan
+                            @can('supplier-list')
                             <li class="nav-item">
                                 <a href="{{ route('suppliers.index') }}" class="nav-link">
                                     <i class="fas fa-archive nav-icon"></i>
                                     <p>Data Suppliers</p>
                                 </a>
-                            </li>
+                            </li>    
+                            @endcan
+                            @can('location-list')
+                            <li class="nav-item">
+                                <a href="{{ route('locations.index') }}" class="nav-link">
+                                    <i class="fas fa-archive nav-icon"></i>
+                                    <p>Lokasi</p>
+                                </a>
+                            </li>    
+                            @endcan
                         </ul>
                     </li>
                     @endcan

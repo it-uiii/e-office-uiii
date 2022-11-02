@@ -24,6 +24,19 @@
                     </form>
                 @endcan
             </div>
+            <div class="float-right mr-5">
+                <div class="input-group">
+                    <form action="/users" method="get">
+                        <input type="text" class="form-control" placeholder="Search name or NIP" name="search" autocomplete="off">
+                    </form>
+                    <div class="input-group-append">
+                        <a class="btn btn-outline-secondary" href="/users">
+                            <i class="fa-solid fa-arrows-rotate"></i>
+                            Reset
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -31,9 +44,9 @@
                     <thead>
                         <tr>
                             <th style="width: 10px">#</th>
+                            <th>NRP</th>
                             <th>Name</th>
                             <th>Email</th>
-                            <th>Roles</th>
                             <th>Created At</th>
                             <th>Updated At</th>
                             <th>Status</th>
@@ -44,15 +57,9 @@
                         @foreach ($data as $user)
                             <tr>
                                 <td>{{ $data->firstItem() + $loop->index }}</td>
+                                <td>{{ $user->nrp }}</td>
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
-                                <td>
-                                    @if (!empty($user->getRoleNames()))
-                                        @foreach ($user->getRoleNames() as $v)
-                                            {{ $v }}
-                                        @endforeach
-                                    @endif
-                                </td>
                                 <td>{{ $user->created_at }}</td>
                                 <td>{{ $user->updated_at }}</td>
                                 <td>

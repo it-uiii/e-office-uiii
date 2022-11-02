@@ -32,7 +32,14 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $data = User::orderBy('id', 'DESC')->paginate(20);
+        if ($request->has('search')) {
+            $data = User::where('name', 'LIKE', '%' . $request->search . '%')
+                ->orWhere('nrp', 'LIKE', '%' . $request->search . '%')
+                ->paginate(20);
+        } else {
+            $data = User::orderBy('id', 'DESC')->paginate(20);
+        }
+
         return view(
             'users.index',
             [
@@ -141,6 +148,8 @@ class UserController extends Controller
             'head_id'       => ['nullable', 'exists:users,id'],
         ]);
 
+        // dd($data);
+
         $data = $request->all();
         if (!empty($data['password'])) {
             $data['password'] = Hash::make($data['password']);
@@ -154,6 +163,8 @@ class UserController extends Controller
             $user->removeRole($user->getRoleNames()->first());
             $user->assignRole($request->roles);
         }
+
+        // dd($user);
 
         return redirect()->route('users.index')
             ->with('warning', 'User berhasil diperbarui');
