@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\lokasi as Locations;
+use App\Models\lokasi;
 use Illuminate\Http\Request;
 
 class LocationController extends Controller
@@ -32,7 +33,7 @@ class LocationController extends Controller
      */
     public function create()
     {
-        //
+        return view('locations.create', ['title' => 'Location', 'subtitle' => 'Create']);
     }
 
     /**
@@ -43,7 +44,14 @@ class LocationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validate = $request->validate([
+            'lokasi'        => 'required',
+            'kode_lokasi'   => 'required'
+        ]);
+
+        dd($validate);
+        lokasi::create($validate);
+        return redirect('locations')->with('success', 'Lokasi baru telah ditambahkan');
     }
 
     /**

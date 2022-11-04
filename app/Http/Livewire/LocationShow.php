@@ -10,4 +10,9 @@ class LocationShow extends Component
     {
         return view('livewire.location-show');
     }
+
+    public function locationShow($location)
+    {
+        dd($location);
+    }
 }

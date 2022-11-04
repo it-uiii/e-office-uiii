@@ -32,11 +32,10 @@
                             <th style="width: 10px">#</th>
                             <th>No Inventory</th>
                             <th>Name Item</th>
-                            <th>Gambar Item</th>
+                            <th>Image Item</th>
+                            <th class="text-center">Barcode</th>
                             <th>Total item</th>
-                            <th>Per Unit Measure</th>
                             <th>Merk</th>
-                            <th>Date</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -54,10 +53,14 @@
                                     <img src="{{ asset(Storage::url($item->image)) }}" class="img-fluid" style="max-width: 100px">
                                 @endif
                             </td>
-                            <td>{{ $item->jumlah_item }}</td>
-                            <td>{{ $item->ukuran_item }}</td>
+                            @php
+                                $generator = new Picqer\Barcode\BarcodeGeneratorHTML();
+                            @endphp
+                            <td>
+                                {!! $generator->getBarcode($item->no_inventory, $generator::TYPE_CODE_128) !!}
+                            </td>
+                            <td class="text-center">{{ $item->jumlah_item }} {{ $item->ukuran_item }}</td>
                             <td>{{ $item->brand->nama_brand }}</td>
-                            <td>{{ $item->created_at }}</td>
                             <td>
                                 <a class="btn btn-info" href="/assets/{{ $item->id }}"><i class="fas fa-eye"></i></a>
                                 <a class="btn btn-warning" href="/assets/{{ $item->id }}/edit">

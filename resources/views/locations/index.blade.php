@@ -1,5 +1,4 @@
 {{-- @dd($res); --}}
-{{-- @include('livewire.location-show') --}}
 @extends('layout.main')
 @section('container')
     <div class="card">
@@ -59,7 +58,7 @@
                                 <td>{{ $item->lokasi }}</td>
                                 <td>{{ $item->kode_lokasi }}</td>
                                 <td>
-                                    <button class="btn btn-default location" data-toggle="modal" data-target="#modal-maps" data-id="{{ $item->id }}">
+                                    <button class="btn btn-default location" data-toggle="modal" data-target="#modalMaps-{{ $item->id }}">
                                         <i class="fa-solid fa-map-pin"></i>
                                     </button>
                                 </td>
@@ -93,4 +92,34 @@
             {{ $locations->links('partials.pagination') }}
         </div>
     </div>
+
+@foreach ($locations as $item)
+{{-- show maps --}}
+<div class="modal fade" id="modalMaps-{{ $item->id }}">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Map pinned</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="mapouter"><div class="gmap_canvas"><iframe class="gmap_iframe" width="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=760&amp;height=500&amp;hl=en&amp;q={{ $item->kordinasi }}&amp;t=&amp;z=17&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe><a href="https://formatjson.org/">Format JSON</a></div><style>.mapouter{position:relative;text-align:right;width:100%;height:500px;}.gmap_canvas {overflow:hidden;background:none!important;width:100%;height:500px;}.gmap_iframe {height:500px!important;}</style></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="reset" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+@endforeach
+
 @endsection
