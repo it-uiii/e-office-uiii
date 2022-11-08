@@ -59,12 +59,23 @@
                         </ul>
                     </li>
                     @endcan
+                    @can('post-list')
+                    <li class="nav-item">
+                        <a href="pages/widgets.html" class="nav-link">
+                        <i class="nav-icon fas fa-newspaper"></i>
+                        <p>
+                            Blogs
+                            {{-- <span class="right badge badge-danger">New</span> --}}
+                        </p>
+                        </a>
+                    </li>
+                    @endcan
                     @can('asset-management')
                     <li class="nav-item">
                         <a href="" class="nav-link">
                             <i class="nav-icon fas fa-cubes"></i>
                             <p>
-                                Managemen Asset
+                                Management Barang
                                 <i class="right fas fa-angle-left"></i>
                             </p>
                         </a>
@@ -77,10 +88,18 @@
                                 </a>
                             </li>    
                             @endcan
+                            @can('logistic-list')
+                            <li class="nav-item">
+                                <a href="{{ route('logistics.index') }}" class="nav-link">
+                                    <i class="fas fa-truck-fast nav-icon"></i>
+                                    <p>Logistic</p>
+                                </a>
+                            </li>    
+                            @endcan
                             @can('supplier-list')
                             <li class="nav-item">
                                 <a href="{{ route('suppliers.index') }}" class="nav-link">
-                                    <i class="fas fa-archive nav-icon"></i>
+                                    <i class="fas fa-boxes-packing nav-icon"></i>
                                     <p>Data Suppliers</p>
                                 </a>
                             </li>    
@@ -88,7 +107,7 @@
                             @can('location-list')
                             <li class="nav-item">
                                 <a href="{{ route('locations.index') }}" class="nav-link">
-                                    <i class="fas fa-archive nav-icon"></i>
+                                    <i class="fas fa-location-pin nav-icon"></i>
                                     <p>Lokasi</p>
                                 </a>
                             </li>    
@@ -99,7 +118,7 @@
                     @can('human-list')
                     <li class="nav-item">
                         <a href="" class="nav-link">
-                            <i class="nav-icon fas fa-cubes"></i>
+                            <i class="nav-icon fas fa-users"></i>
                             <p>
                                 Managemen SDM
                                 <i class="right fas fa-angle-left"></i>

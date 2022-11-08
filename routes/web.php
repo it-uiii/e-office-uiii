@@ -17,6 +17,7 @@ use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\LaporanKinerjaController;
 use App\Http\Controllers\LeaderController;
 use App\Http\Controllers\LocationController;
+use App\Http\Controllers\LogisticController;
 use App\Http\Controllers\OutgoingLetterController;
 use App\Http\Controllers\PerformanceReportController;
 use App\Http\Controllers\PositionController;
@@ -67,6 +68,7 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::delete('additionals/{additional}', [AdditionalController::class, 'destroy'])->name('additionals.destroy');
 
     Route::resource('assets', ItemsManagementController::class);
+    Route::resource('logistics', LogisticController::class);
     Route::resource('suppliers', SuppliersController::class);
     Route::resource('locations', LocationController::class);
 

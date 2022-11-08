@@ -51,32 +51,55 @@
             </div>
             
             <div class="d-flex mb-5 align-items-center">
-            <a class="forgot-pass" href="">Guest Account</a>
-            <span class="ml-auto"><a href="#" class="forgot-pass">Help</a></span> 
+            {{-- <a class="forgot-pass" href="">Guest Account</a> --}}
+            <span class="ml-auto"><a href="" data-toggle="modal" data-target="#exampleModalScrollable" class="forgot-pass">Help</a></span> 
             </div>
 
             <input type="submit" value="Log In" class="btn btn-block btn-primary">
 
-            <span class="d-block text-center my-4 text-muted">&mdash; or &mdash;</span>
+            {{-- <span class="d-block text-center my-4 text-muted">&mdash; or &mdash;</span> --}}
             
             <div class="social-login">
-            <a href="#" class="facebook btn d-flex justify-content-center align-items-center">
+            {{-- <a href="#" class="facebook btn d-flex justify-content-center align-items-center">
                 New SSO Account
-            </a>
-            <a href="#" class="google btn d-flex justify-content-center align-items-center">
+            </a> --}}
+            {{-- <a href="#" class="google btn d-flex justify-content-center align-items-center">
                 <span class="icon-google mr-3"></span> Login with  Google
-            </a>
+            </a> --}}
             </div>
         </form>
         </div>
     </div>
     </div>
 </div>
-
-
 </div>
-    
-    
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalScrollableTitle">
+                Help
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body text-center">
+            if you need assist you can <a href="mailto:ict@uiii.ac.id">ict@uiii.ac.id</a> 
+            <br>
+            or 
+            <br>
+            you can open ticket with individual website to <a href="https://it.uiii.ac.id/">IT UIII CENTER</a>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+        </div>
+    </div>
+</div>
+
 
     <script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
     <script src="{{ asset('js/popper.min.js') }}"></script>

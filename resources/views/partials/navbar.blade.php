@@ -7,6 +7,9 @@
       <li class="nav-item d-none d-sm-inline-block">
         <a href="/" class="nav-link">Home</a>
       </li>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="/" class="nav-link">News</a>
+      </li>
     </ul>
 
     <!-- Right navbar links -->
@@ -35,13 +38,13 @@
       </li> --}}
       <li class="nav-item dropdown user-menu">
         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-          <img src="{{ asset('dist/img/user.png') }}" class="user-image img-circle elevation-2" alt="User Image">
+          <img src="{{ asset(Storage::url(auth()->user()->avatar)) }}" class="user-image img-circle elevation-2" alt="User Image">
           <span class="d-none d-md-inline">{{ auth()->user()->name }}</span>
         </a>
         <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
           <!-- User image -->
           <li class="user-header bg-primary">
-            <img src="{{ asset('dist/img/user.png') }}" class="img-circle elevation-2" alt="User Image">
+            <img src="{{ asset(Storage::url(auth()->user()->avatar)) }}" class="img-circle elevation-2" alt="User Image">
 
             <p>
               {{ auth()->user()->name }}

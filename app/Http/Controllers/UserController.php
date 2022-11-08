@@ -81,9 +81,20 @@ class UserController extends Controller
             'head_id'   => ['nullable', 'exists:users,id'],
         ]);
 
+        // if ($request->avatar) {
+        //     foreach ($request->avatar as $image) {
+        //         $data['avatar']   = $image->storeAs('public/profile', $image->getClientOriginalName());
+        //     }
+        // }
+
+        $image = $request->avatar;
+        $data['avatar'] = $image->storeAs('public/profile', $image->getClientOriginalName());
+
         $data['status'] = true;
         $password = '123456789';
         $data['password'] = Hash::make($password);
+
+        // ddd($data);
 
         $user = User::create($data);
         $user->assignRole($request->input('roles'));
