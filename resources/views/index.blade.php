@@ -2,7 +2,7 @@
 @extends('layout.main')
 @section('container')
 <!-- Small boxes (Stat box) -->
-<div class="row mb-4">
+{{-- <div class="row mb-4">
   <div class="col-lg-3 col-6">
     <!-- small card -->
     <div class="small-box bg-info">
@@ -71,27 +71,11 @@
     </div>
   </div>
   <!-- ./col -->
-</div>
+</div> --}}
 <!-- /.row -->
 <div class="container">
   <div class="text-center">
     <h4>LATEST NEWS</h4>
-  </div>
-  <div class="nav-scroller py-1 mb-2">
-    <nav class="nav d-flex justify-content-between">
-      <a class="p-2 text-muted" href="#">World</a>
-      <a class="p-2 text-muted" href="#">U.S.</a>
-      <a class="p-2 text-muted" href="#">Technology</a>
-      <a class="p-2 text-muted" href="#">Design</a>
-      <a class="p-2 text-muted" href="#">Culture</a>
-      <a class="p-2 text-muted" href="#">Business</a>
-      <a class="p-2 text-muted" href="#">Politics</a>
-      <a class="p-2 text-muted" href="#">Opinion</a>
-      <a class="p-2 text-muted" href="#">Science</a>
-      <a class="p-2 text-muted" href="#">Health</a>
-      <a class="p-2 text-muted" href="#">Style</a>
-      <a class="p-2 text-muted" href="#">Travel</a>
-    </nav>
   </div>
 
   <div class="jumbotron p-3 p-md-5 text-white rounded bg-dark">

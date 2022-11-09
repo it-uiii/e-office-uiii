@@ -56,4 +56,17 @@ class ProfileController extends Controller
             'subtitle' => Auth()->user()->name
         ]);
     }
+
+    public function changeName(Request $request, $id)
+    {
+
+        dd($request);
+        $image = $request->avatar;
+        $data['avatar'] = $image->storeAs('public/profile', $image->getClientOriginalName());
+
+        $data = $request->all();
+
+        $user = User::find($id);
+        $user->update($data);
+    }
 }

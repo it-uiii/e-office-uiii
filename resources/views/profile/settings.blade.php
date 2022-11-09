@@ -37,7 +37,7 @@
         </div>
         <div class="card-footer">
             <button type="submit" class="btn btn-primary">Change</button>
-            <a class="btn btn-danger" href="/">Cancel</a>
+            <a class="btn btn-danger" href="/profile/{{ auth()->user()->id }}/index">Cancel</a>
         </div>
         </form>
     </div>

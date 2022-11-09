@@ -45,6 +45,7 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::get('/profile/{id}/index', [ProfileController::class, 'index']);
     Route::get('/profile/{id}/settings', [ProfileController::class, 'setting']);
     Route::put('/profile/{id}/settings', [ProfileController::class, 'change']);
+    Route::put('/profile/{id}/changeName', [ProfileController::class, 'changeName']);
 
     Route::post('/users/import', [UserController::class, 'import'])->name('users.import');
     Route::post('/users/export', [UserController::class, 'export'])->name('users.export');

@@ -65,13 +65,20 @@
                         <i class="nav-icon fas fa-newspaper"></i>
                         <p>
                             Blogs
-                            {{-- <span class="right badge badge-danger">New</span> --}}
                         </p>
                         </a>
                     </li>
                     @endcan
                     @can('asset-management')
                     <li class="nav-item">
+                        <a href="" class="nav-link">
+                        <i class="nav-icon fas fa-cubes"></i>
+                        <p>
+                            Managemen Barang
+                        </p>
+                        </a>
+                    </li>
+                    {{-- <li class="nav-item">
                         <a href="" class="nav-link">
                             <i class="nav-icon fas fa-cubes"></i>
                             <p>
@@ -113,10 +120,18 @@
                             </li>    
                             @endcan
                         </ul>
-                    </li>
+                    </li> --}}
                     @endcan
                     @can('human-list')
                     <li class="nav-item">
+                        <a href="pages/widgets.html" class="nav-link">
+                        <i class="nav-icon fas fa-users"></i>
+                            <p>
+                                Managemen SDM
+                            </p>
+                        </a>
+                    </li>
+                    {{-- <li class="nav-item">
                         <a href="" class="nav-link">
                             <i class="nav-icon fas fa-users"></i>
                             <p>
@@ -132,7 +147,7 @@
                                 </a>
                             </li>
                         </ul>
-                    </li>
+                    </li> --}}
                     @endcan
                     @can('admin-list')
                     <li class="nav-item">

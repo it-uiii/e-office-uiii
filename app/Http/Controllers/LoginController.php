@@ -25,7 +25,7 @@ class LoginController extends Controller
 
         $fieldType = filter_var($request->username, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
         if (auth()->attempt(array($fieldType => $credential['username'], 'password' => $credential['password']))) {
-            return redirect('/')->with('success', 'Selamat datang kembali, ' . auth()->user()->name);
+            return redirect('/profile/{{ auth()->user()->id }}/index')->with('success', 'Selamat datang kembali, ' . auth()->user()->name);
         } else {
             return redirect()->route('login')
                 ->with('loginError', 'Please enter a correctly email and password. ');

@@ -38,67 +38,26 @@
 @endphp
 <div class="row">
     <div class="col-md-3">
-    <!-- Profile Image -->
-    <div class="card card-primary card-outline">
-        <div class="card-body box-profile">
-            <div class="text-center">
-                <img class="img-fluid img-circle"
-                    src="{{ asset(Storage::url($user_avatar)) }}"
-                    alt="User profile picture"
-                    style="max-width: 250px"
-                    >
+        <!-- Profile Image -->
+        <div class="card card-primary card-outline">
+            <div class="card-body box-profile">
+                <div class="text-center">
+                    <img class="img-fluid img-circle"
+                        src="{{ asset(Storage::url($user_avatar)) }}"
+                        alt="User profile picture"
+                        style="max-width: 250px"
+                        >
+                </div>
+
+                <h3 class="profile-username text-center">{{ $user_name }}</h3>
+
+                <p class="text-muted text-center">
+                    {{ $user_jabatan }}
+                </p>
             </div>
-
-            <h3 class="profile-username text-center">{{ $user_name }}</h3>
-
-            <p class="text-muted text-center">
-                {{ $user_jabatan }}
-            </p>
+            <!-- /.card-body -->
         </div>
-        <!-- /.card-body -->
-    </div>
-    <!-- /.card -->
-
-    <!-- About Me Box -->
-    <div class="card card-primary">
-        <div class="card-header">
-        <h3 class="card-title">About Me</h3>
-        </div>
-        <!-- /.card-header -->
-        <div class="card-body">
-        <strong><i class="fas fa-book mr-1"></i> Education</strong>
-
-        <p class="text-muted">
-            B.S. in Computer Science from the University of Tennessee at Knoxville
-        </p>
-
-        <hr>
-
-        <strong><i class="fas fa-map-marker-alt mr-1"></i> Location</strong>
-
-        <p class="text-muted">Malibu, California</p>
-
-        <hr>
-
-        <strong><i class="fas fa-pencil-alt mr-1"></i> Skills</strong>
-
-        <p class="text-muted">
-            <span class="tag tag-danger">UI Design</span>
-            <span class="tag tag-success">Coding</span>
-            <span class="tag tag-info">Javascript</span>
-            <span class="tag tag-warning">PHP</span>
-            <span class="tag tag-primary">Node.js</span>
-        </p>
-
-        <hr>
-
-        <strong><i class="far fa-file-alt mr-1"></i> Notes</strong>
-
-        <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
-        </div>
-        <!-- /.card-body -->
-    </div>
-    <!-- /.card -->
+        <!-- /.card -->
     </div>
     <!-- /.col -->
     <div class="col-md-9">
@@ -227,36 +186,47 @@
             <!-- /.tab-pane -->
 
             <div class="tab-pane" id="settings">
-            <form class="form-horizontal" action="">
+            <form class="form-horizontal" action="/profile/{{ auth()->user()->id }}/changeName">
+                @method('put')
+                @csrf
                 <div class="form-group row">
-                <label for="inputName" class="col-sm-2 col-form-label">Name</label>
-                <div class="col-sm-10">
-                    <input type="email" class="form-control" id="inputName" placeholder="Name">
-                </div>
-                </div>
-                <div class="form-group row">
-                <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
-                <div class="col-sm-10">
-                    <input type="email" class="form-control" id="inputEmail" placeholder="Email">
-                </div>
-                </div>
-                <div class="form-group row">
-                <label for="inputName2" class="col-sm-2 col-form-label">Name</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="inputName2" placeholder="Name">
-                </div>
-                </div>
-                <div class="form-group row">
-                <label for="inputExperience" class="col-sm-2 col-form-label">Experience</label>
-                <div class="col-sm-10">
-                    <textarea class="form-control" id="inputExperience" placeholder="Experience"></textarea>
-                </div>
+                    <label for="inputName" class="col-sm-2 col-form-label">Avatar</label>
+                    <div class="col-sm-10">
+                        <input type="hidden" name="oldCover" value="{{ auth()->user()->avatar }}">
+                        @if (auth()->user()->avatar)
+                            <img src="{{ asset(Storage::url(auth()->user()->avatar)) }}" class="img-preview img-fluid">
+                        @else
+                            <img class="img-preview img-fluid mb-3">
+                        @endif
+                        <div class="custom-file">
+                            {{-- <input type="file" class="custom-file-input" name="image" id="image" onchange="previewImage()"> --}}
+                            <input type="file" multiple class="custom-file-input" id="avatar" name="avatar" aria-describedby="image" aria-label="Upload" onchange="previewImage()">
+                            <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                            @error('image')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                    </div>
                 </div>
                 <div class="form-group row">
-                <label for="inputSkills" class="col-sm-2 col-form-label">Skills</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="inputSkills" placeholder="Skills">
+                    <label for="inputName" class="col-sm-2 col-form-label">Nama</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="name" value="{{ auth()->user()->name }}">
+                    </div>
                 </div>
+                <div class="form-group row">
+                    <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
+                    <div class="col-sm-10">
+                        <input type="email" class="form-control" id="email" value="{{ auth()->user()->email }}" readonly>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputName2" class="col-sm-2 col-form-label">Jabatan</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="position_id" value="{{ auth()->user()->position->name }}" readonly>
+                    </div>
                 </div>
                 <div class="form-group row">
                 <div class="offset-sm-2 col-sm-10">
@@ -269,8 +239,8 @@
                 </div>
                 <div class="form-group row">
                 <div class="offset-sm-2 col-sm-10">
-                    <a class="btn btn-warning" href="/profile/{{ auth()->user()->id }}/settings">Change Password</a>
                     <button type="submit" class="btn btn-danger">Submit</button>
+                    <a class="btn btn-warning" href="/profile/{{ auth()->user()->id }}/settings">Change Password</a>
                 </div>
                 </div>
             </form>
@@ -284,4 +254,21 @@
     </div>
     <!-- /.col -->
 </div>
+
+<script>
+    function previewImage(){
+        const avatar = document.querySelector('#avatar');
+        const imgPreview = document.querySelector('.img-preview');
+
+
+        imgPreview.style.display = 'block';
+
+        const oFReader = new FileReader();
+        oFReader.readAsDataURL(avatar.files[0]);
+
+        oFReader.onload = function(oFREvent) {
+            imgPreview.src = oFREvent.target.result;
+        }
+    }
+</script>
 @endsection
