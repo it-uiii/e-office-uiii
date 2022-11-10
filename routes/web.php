@@ -1,27 +1,29 @@
 <?php
 
-use App\Http\Controllers\ActivityController;
-use App\Http\Controllers\AdditionalController;
-use App\Http\Controllers\AdditionalReportController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\EmployeesController;
-use App\Http\Controllers\ItemsManagementController;
-use App\Http\Controllers\EntryLetterController;
 use App\Http\Controllers\HumanManagement;
-use App\Http\Controllers\PermissionController;
-use App\Http\Controllers\LaporanKinerjaController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LeaderController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\LogisticController;
-use App\Http\Controllers\OutgoingLetterController;
-use App\Http\Controllers\PerformanceReportController;
 use App\Http\Controllers\PositionController;
+use App\Http\Controllers\ContactUsController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\EmployeesController;
 use App\Http\Controllers\SuppliersController;
+use App\Http\Controllers\AdditionalController;
+use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\EntryLetterController;
+use App\Http\Controllers\LaporanKinerjaController;
+use App\Http\Controllers\OutgoingLetterController;
+use App\Http\Controllers\CategoriesRulesController;
+use App\Http\Controllers\ItemsManagementController;
+use App\Http\Controllers\AdditionalReportController;
+use App\Http\Controllers\PerformanceReportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,6 +48,8 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::get('/profile/{id}/settings', [ProfileController::class, 'setting']);
     Route::put('/profile/{id}/settings', [ProfileController::class, 'change']);
     Route::put('/profile/{id}/changeName', [ProfileController::class, 'changeName']);
+
+    Route::get('/contact-us', [ContactUsController::class, 'index']);
 
     Route::post('/users/import', [UserController::class, 'import'])->name('users.import');
     Route::post('/users/export', [UserController::class, 'export'])->name('users.export');
@@ -74,4 +78,6 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::resource('locations', LocationController::class);
 
     Route::resource('employees', EmployeesController::class);
+
+    Route::resource('categories', CategoriesRulesController::class);
 });

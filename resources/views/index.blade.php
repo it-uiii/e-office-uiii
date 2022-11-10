@@ -1,43 +1,147 @@
 {{-- @dd($users); --}}
 @extends('layout.main')
 @section('container')
+<style>
+h4 {
+  overflow: hidden;
+  text-align: center;
+}
+
+h4:before,
+h4:after {
+  background-color: #000;
+  content: "";
+  display: inline-block;
+  height: 1px;
+  position: relative;
+  vertical-align: middle;
+  width: 50%;
+}
+
+h4:before {
+  right: 0.5em;
+  margin-left: -50%;
+}
+
+h4:after {
+  left: 0.5em;
+  margin-right: -50%;
+}
+</style>
+
+<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+  <ol class="carousel-indicators">
+    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+  </ol>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img class="d-block w-100" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22800%22%20height%3D%22400%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20400%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_1846021abd3%20text%20%7B%20fill%3A%23555%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A40pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_1846021abd3%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22285.9187469482422%22%20y%3D%22217.76000022888184%22%3EFirst%20slide%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E">
+      <div class="carousel-caption d-none d-md-block">
+        <h5>Hallo world</h5>
+        <p>ini desct</p>
+        <a class="btn btn-primary" href="">read more</a>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img class="d-block w-100" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22800%22%20height%3D%22400%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20400%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_1846021abd4%20text%20%7B%20fill%3A%23444%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A40pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_1846021abd4%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23666%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22247.31874084472656%22%20y%3D%22217.76000022888184%22%3ESecond%20slide%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E">
+      <div class="carousel-caption d-none d-md-block">
+        <h5>...</h5>
+        <p>...</p>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img class="d-block w-100" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22800%22%20height%3D%22400%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20400%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_1846021abd5%20text%20%7B%20fill%3A%23333%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A40pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_1846021abd5%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23555%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22277%22%20y%3D%22217.76000022888184%22%3EThird%20slide%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E">
+      <div class="carousel-caption d-none d-md-block">
+        <h5>...</h5>
+        <p>...</p>
+      </div>
+    </div>
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+
+<div class="mt-4">
+  <h4>Quick Menu</h4>
+</div>
 <!-- Small boxes (Stat box) -->
-{{-- <div class="row mb-4">
+<div class="row mb-4">
+  @can('letter-list')
   <div class="col-lg-3 col-6">
     <!-- small card -->
-    <div class="small-box bg-info">
+    <div class="small-box" style="background-color:#64adf5; color:white;">
       <div class="inner">
-        <h3>JDIH</h3>
+        <h3>Mail</h3>
 
-        <p>Jaringan Dokumen & Informasi Hukum</p>
+        <p>Internal Mailing</p>
       </div>
       <div class="icon">
-        <i class="fas fa-gavel"></i>
+        <i class="fas fa-envelope"></i>
+      </div>
+      <a href="" target="_blank" class="small-box-footer">
+        More info <i class="fas fa-arrow-circle-right"></i>
+      </a>
+    </div>
+  </div>
+  @endcan
+  @can('performance-report-list')
+  <div class="col-lg-3 col-6">
+    <!-- small card -->
+    <div class="small-box" style="background-color:#3275a8; color:white;">
+      <div class="inner">
+        <h3>LKH</h3>
+
+        <p>Performance report</p>
+      </div>
+      <div class="icon">
+        <i class="fas fa-chart-line"></i>
+      </div>
+      <a href="{{ route('performance-reports.index') }}" class="small-box-footer">
+        More info <i class="fas fa-arrow-circle-right"></i>
+      </a>
+    </div>
+  </div>
+  @endcan
+  <!-- ./col -->
+  <div class="col-lg-3 col-6">
+    <!-- small card -->
+    <div class="small-box" style="background-color:#0b4b8a; color:white">
+      <div class="inner">
+        <h3>IT UIII</h3>
+        <p>Ticket & Request</p>
+      </div>
+      <div class="icon">
+        <i class="fa-sharp fa-solid fa-circle-info"></i>
+      </div>
+      <a href="https://it.uiii.ac.id/" class="small-box-footer" target="_blank">
+        More info <i class="fas fa-arrow-circle-right"></i>
+      </a>
+    </div>
+  </div>
+  <div class="col-lg-3 col-6">
+    <!-- small card -->
+    <div class="small-box" style="background-color:azure">
+      <div class="inner">
+        <h3>JDIH</h3>
+        <p>Jaringan Informasi Hukum</p>
+      </div>
+      <div class="icon">
+        <i class="fa-solid fa-gavel"></i>
       </div>
       <a href="https://jdih.uiii.ac.id/" class="small-box-footer" target="_blank">
         More info <i class="fas fa-arrow-circle-right"></i>
       </a>
     </div>
   </div>
-  <!-- ./col -->
-  <div class="col-lg-3 col-6">
-    <!-- small card -->
-    <div class="small-box bg-success">
-      <div class="inner">
-        <h3>UIII IT</h3>
-
-        <p>IT CENTER</p>
-      </div>
-      <div class="icon">
-        <i class="fas fa-digital-tachograph"></i>
-      </div>
-      <a href="https://it.uiii.ac.id/" target="_blank" class="small-box-footer">
-        More info <i class="fas fa-arrow-circle-right"></i>
-      </a>
-    </div>
-  </div>
-  <!-- ./col -->
-  <div class="col-lg-3 col-6">
+  {{-- <div class="col-lg-3 col-6">
     <!-- small card -->
     <div class="small-box bg-warning">
       <div class="inner">
@@ -52,68 +156,110 @@
         More info <i class="fas fa-arrow-circle-right"></i>
       </a>
     </div>
-  </div>
+  </div> --}}
   <!-- ./col -->
+  @can('asset-list')
   <div class="col-lg-3 col-6">
     <!-- small card -->
     <div class="small-box bg-danger">
       <div class="inner">
-        <h3>Asset</h3>
+        <h3>Assets</h3>
 
-        <p>Asset Management</p>
+        <p>Asset & Procurement</p>
       </div>
       <div class="icon">
         <i class="fas fa-cubes"></i>
       </div>
-      <a href="http://dev-asset.uiii.ac.id/login" class="small-box-footer">
+      <a href="http://assets.uiii.ac.id/" class="small-box-footer">
         More info <i class="fas fa-arrow-circle-right"></i>
       </a>
     </div>
   </div>
-  <!-- ./col -->
+  @endcan
+  <div class="col-lg-3 col-6">
+    <!-- small card -->
+    <div class="small-box" style="background-color: #32a887;">
+      <div class="inner">
+        <h3>Library UIII</h3>
+
+        <p>Library</p>
+      </div>
+      <div class="icon">
+        <i class="fas fa-solid fa-book"></i>
+      </div>
+      <a href="https://library.uiii.ac.id/" class="small-box-footer">
+        More info <i class="fas fa-arrow-circle-right"></i>
+      </a>
+    </div>
+  </div>
+  @can('human-list')
+  <div class="col-lg-3 col-6">
+    <!-- small card -->
+    <div class="small-box bg-warning">
+      <div class="inner">
+        <h3>SDM</h3>
+
+        <p>Human Resource Management</p>
+      </div>
+      <div class="icon">
+        <i class="fas fa-solid fa-graduation-cap"></i>
+      </div>
+      <a href="http://sdm.uiii.ac.id/" class="small-box-footer">
+        More info <i class="fas fa-arrow-circle-right"></i>
+      </a>
+    </div>
+  </div>
+  @endcan
+</div>
+{{-- <div class="col-lg-3 col-6">
+  <!-- small card -->
+  <div class="small-box" style="background-color: #0f4b5c;">
+    <div class="inner">
+      <h3>LMS UIII</h3>
+
+      <p>Learning Machine System</p>
+    </div>
+    <div class="icon">
+      <i class="fas fa-solid fa-graduation-cap"></i>
+    </div>
+    <a href="https://sia.lms-uiii.id/auth/signin" class="small-box-footer">
+      More info <i class="fas fa-arrow-circle-right"></i>
+    </a>
+  </div>
 </div> --}}
 <!-- /.row -->
-<div class="container">
-  <div class="text-center">
-    <h4>LATEST NEWS</h4>
-  </div>
 
-  <div class="jumbotron p-3 p-md-5 text-white rounded bg-dark">
-    <div class="col-md-6 px-0">
-      <h1 class="display-4 font-italic">Title of a longer featured blog post</h1>
-      <p class="lead my-3">Multiple lines of text that form the lede, informing new readers quickly and efficiently about what's most interesting in this post's contents.</p>
-      <p class="lead mb-0"><a href="#" class="text-white font-weight-bold">Continue reading...</a></p>
-    </div>
-  </div>
+<div class="mt-4">
+  <h4>Quick Menu</h4>
+</div>
 
-  <div class="row mb-2">
-    <div class="col-md-6">
-      <div class="card flex-md-row mb-4 box-shadow h-md-250">
-        <div class="card-body d-flex flex-column align-items-start">
-          <strong class="d-inline-block mb-2 text-primary">World</strong>
-          <h3 class="mb-0">
-            <a class="text-dark" href="#">Featured post</a>
-          </h3>
-          <div class="mb-1 text-muted">Nov 12</div>
-          <p class="card-text mb-auto">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
-          <a href="#">Continue reading</a>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-6">
-      <div class="card flex-md-row mb-4 box-shadow h-md-250">
-        <div class="card-body d-flex flex-column align-items-start">
-          <strong class="d-inline-block mb-2 text-success">Design</strong>
-          <h3 class="mb-0">
-            <a class="text-dark" href="#">Post title</a>
-          </h3>
-          <div class="mb-1 text-muted">Nov 11</div>
-          <p class="card-text mb-auto">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
-          <a href="#">Continue reading</a>
-        </div>
-
-      </div>
-    </div>
+<div class="card mb-4">
+  <div class="card-body">
+    <ul>
+      <li><a href="" data-toggle="modal" data-target="#modal-lg">hallo world</a></li>
+    </ul>
   </div>
 </div>
+
+<div class="modal fade" id="modal-lg">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Large Modal</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>One fine body&hellip;</p>
+      </div>
+      <div class="modal-footer justify-content-between">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 @endsection

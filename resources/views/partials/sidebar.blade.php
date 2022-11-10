@@ -59,7 +59,7 @@
                         </ul>
                     </li>
                     @endcan
-                    @can('post-list')
+                    {{-- @can('post-list')
                     <li class="nav-item">
                         <a href="pages/widgets.html" class="nav-link">
                         <i class="nav-icon fas fa-newspaper"></i>
@@ -68,16 +68,16 @@
                         </p>
                         </a>
                     </li>
-                    @endcan
+                    @endcan --}}
                     @can('asset-management')
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a href="" class="nav-link">
                         <i class="nav-icon fas fa-cubes"></i>
                         <p>
                             Managemen Barang
                         </p>
                         </a>
-                    </li>
+                    </li> --}}
                     {{-- <li class="nav-item">
                         <a href="" class="nav-link">
                             <i class="nav-icon fas fa-cubes"></i>
@@ -123,14 +123,14 @@
                     </li> --}}
                     @endcan
                     @can('human-list')
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a href="pages/widgets.html" class="nav-link">
                         <i class="nav-icon fas fa-users"></i>
                             <p>
                                 Managemen SDM
                             </p>
                         </a>
-                    </li>
+                    </li> --}}
                     {{-- <li class="nav-item">
                         <a href="" class="nav-link">
                             <i class="nav-icon fas fa-users"></i>
@@ -191,6 +191,30 @@
                                     </a>
                                 </li>
                             @endcan
+                            {{-- @can('permission-list') --}}
+                                <li class="nav-item">
+                                    <a href="" class="nav-link">
+                                        <i class="fas fa-images nav-icon"></i>
+                                        <p>Contents</p>
+                                    </a>
+                                </li>
+                            {{-- @endcan --}}
+                            {{-- @can('permission-list') --}}
+                                <li class="nav-item">
+                                    <a href="/categories" class="nav-link">
+                                        <i class="fas fa-list nav-icon"></i>
+                                        <p>Category Rules</p>
+                                    </a>
+                                </li>
+                            {{-- @endcan --}}
+                            {{-- @can('permission-list') --}}
+                                <li class="nav-item">
+                                    <a href="" class="nav-link">
+                                        <i class="fas fa-scale-balanced nav-icon"></i>
+                                        <p>Rules</p>
+                                    </a>
+                                </li>
+                            {{-- @endcan --}}
                         </ul>
                     </li>
                     @endcan
