@@ -129,7 +129,7 @@ hr {
       <div class="icon">
         <i class="fa-sharp fa-solid fa-circle-info"></i>
       </div>
-      <a href="https://it.uiii.ac.id/" class="small-box-footer" target="_blank">
+      <a href="https://it.uiii.ac.id/form_request" class="small-box-footer" target="_blank">
         More info <i class="fas fa-arrow-circle-right"></i>
       </a>
     </div>
