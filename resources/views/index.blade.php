@@ -178,7 +178,7 @@ hr {
       <div class="icon">
         <i class="fas fa-cubes"></i>
       </div>
-      <a href="http://assets.uiii.ac.id/" class="small-box-footer">
+      <a href="https://asset.uiii.ac.id/" class="small-box-footer">
         More info <i class="fas fa-arrow-circle-right"></i>
       </a>
     </div>
