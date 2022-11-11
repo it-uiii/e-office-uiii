@@ -1,10 +1,12 @@
 <?php
 
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\HumanManagement;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\QuoteController;
 use App\Http\Controllers\LeaderController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ActivityController;
@@ -23,6 +25,7 @@ use App\Http\Controllers\OutgoingLetterController;
 use App\Http\Controllers\CategoriesRulesController;
 use App\Http\Controllers\ItemsManagementController;
 use App\Http\Controllers\AdditionalReportController;
+use App\Http\Controllers\ContentController;
 use App\Http\Controllers\PerformanceReportController;
 
 /*
@@ -80,4 +83,16 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::resource('employees', EmployeesController::class);
 
     Route::resource('categories', CategoriesRulesController::class);
+
+    Route::resource('quotes', QuoteController::class);
+
+    Route::resource('contents', ContentController::class);
+
+    Route::get('news', function () {
+        $response = Http::get('https://library.uiii.ac.id/api/v1/news/list');
+
+        $client = json_decode($response->getBody())->data;
+
+        return view('news.index', ['title' => 'News', 'subtitle' => 'All'], compact('client'));
+    });
 });

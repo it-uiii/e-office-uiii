@@ -93,4 +93,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(supplier::class);
     }
+
+    public function quote()
+    {
+        return $this->hasMany(quote::class);
+    }
 }

@@ -1,4 +1,5 @@
 {{-- @dd($users); --}}
+{{-- @dd($rules); --}}
 @extends('layout.main')
 @section('container')
 <style>
@@ -27,9 +28,16 @@ h4:after {
   left: 0.5em;
   margin-right: -50%;
 }
+
+hr {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
 </style>
 
-<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+{{-- <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
   <ol class="carousel-indicators">
     <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
     <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
@@ -67,9 +75,9 @@ h4:after {
     <span class="carousel-control-next-icon" aria-hidden="true"></span>
     <span class="sr-only">Next</span>
   </a>
-</div>
+</div> --}}
 
-<div class="mt-4">
+<div>
   <h4>Quick Menu</h4>
 </div>
 <!-- Small boxes (Stat box) -->
@@ -230,28 +238,66 @@ h4:after {
 <!-- /.row -->
 
 <div class="mt-4">
-  <h4>Quick Menu</h4>
+  <h4>Quotes of the day</h4>
 </div>
 
 <div class="card mb-4">
   <div class="card-body">
     <ul>
-      <li><a href="" data-toggle="modal" data-target="#modal-lg">hallo world</a></li>
+      @foreach ($quotes as $quote)
+      <li>
+        <a href="" data-toggle="modal" data-target="#modal-lg-{{ $quote->id }}">
+          {{ $quote->title }}
+        </a>
+      </li>
+      @endforeach
     </ul>
   </div>
 </div>
 
-<div class="modal fade" id="modal-lg">
+<div class="mt-4">
+  <h4>Latest SOP</h4>
+</div>
+<div class="card">
+  <div class="card-body">
+    <ul class="list-unstyled">
+      @foreach ($rules as $rule)
+      <li class="media mb-3">
+        <img class="mr-3 img-fluid" style="max-width: 80px;" src="{{ asset('logo/sop.png') }}">
+        <div class="media-body">
+          <h5 class="mt-0 mb-1">{{ $rule->title }}</h5>
+          @if ($rule->status == 'Berlaku')
+            <span class="badge bg-success">Berlaku</span>
+          @else
+            <span class="badge bg-danger">Tidak Berlaku</span>
+          @endif
+          <br>
+          <a href="{{ $rule->file }}" target="_blank">read more</a>
+        </div>
+      </li>
+      <hr/>
+      @endforeach
+    </ul>
+  </div>
+  <div class="card-footer clearfix text-center">
+    For more information about SOP 
+    <a href="https://jdih.uiii.ac.id/sop" target="_blank">click here</a>
+      {{-- {{ $data->links('partials.pagination') }} --}}
+  </div>
+</div>
+
+@foreach ($quotes as $quote)
+<div class="modal fade" id="modal-lg-{{ $quote->id }}">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title">Large Modal</h4>
+        <h4 class="modal-title">{{ $quote->title }} - <span class="text-muted">created by  {{ $quote->user->name }}</span></h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <p>One fine body&hellip;</p>
+        {!! $quote->body !!}
       </div>
       <div class="modal-footer justify-content-between">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -262,4 +308,6 @@ h4:after {
   <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
+@endforeach
+
 @endsection

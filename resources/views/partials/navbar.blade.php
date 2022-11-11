@@ -31,10 +31,10 @@
                         <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Settings</a>
                         <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
                             @can('quote-list')
-                                <li><a href="" class="dropdown-item">Manage quote</a></li>
+                                <li><a href="/quotes" class="dropdown-item">Manage quote</a></li>
                             @endcan
                             @can('news-list')
-                                <li><a href="" class="dropdown-item">Manage news</a></li>
+                                <li><a href="/contents" class="dropdown-item">Manage Content</a></li>
                             @endcan
                             @can('user-list')
                                 <li><a href="{{ route('users.index') }}" class="dropdown-item">Users</a></li>
