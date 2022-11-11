@@ -1,0 +1,3 @@
+From: {{ $fromEmail }}
+<br>
+{{ $body }}

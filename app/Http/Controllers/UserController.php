@@ -91,7 +91,7 @@ class UserController extends Controller
         $data['avatar'] = $image->storeAs('public/profile', $image->getClientOriginalName());
 
         $data['status'] = true;
-        $password = '123456789';
+        $password = 'password';
         $data['password'] = Hash::make($password);
 
         // ddd($data);

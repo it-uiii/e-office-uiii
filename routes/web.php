@@ -53,6 +53,7 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::put('/profile/{id}/changeName', [ProfileController::class, 'changeName']);
 
     Route::get('/contact-us', [ContactUsController::class, 'index']);
+    Route::post('/contact-us', [ContactUsController::class, 'send'])->name('send.email');
 
     Route::post('/users/import', [UserController::class, 'import'])->name('users.import');
     Route::post('/users/export', [UserController::class, 'export'])->name('users.export');
