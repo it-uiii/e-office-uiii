@@ -164,7 +164,7 @@ hr {
     </div>
   </div> --}}
   <!-- ./col -->
-  @can('asset-list')
+  @can('asset')
   <div class="col-lg-3 col-6">
     <!-- small card -->
     <div class="small-box bg-danger">
@@ -198,7 +198,7 @@ hr {
       </a>
     </div>
   </div>
-  @can('human-list')
+  @can('human')
   <div class="col-lg-3 col-6">
     <!-- small card -->
     <div class="small-box bg-warning">
