@@ -1,5 +1,3 @@
-{{-- @dd($users); --}}
-{{-- @dd($rules); --}}
 @extends('layout.main')
 @section('container')
 <style>
@@ -87,14 +85,14 @@ hr {
     <!-- small card -->
     <div class="small-box" style="background-color:#64adf5; color:white;">
       <div class="inner">
-        <h3>Mail</h3>
+        <h3>e-archive UIII</h3>
 
-        <p>Internal Mailing</p>
+        <p>archive</p>
       </div>
       <div class="icon">
         <i class="fas fa-envelope"></i>
       </div>
-      <a href="" target="_blank" class="small-box-footer">
+      <a href="https://arsip.uiii.ac.id/" target="_blank" class="small-box-footer">
         More info <i class="fas fa-arrow-circle-right"></i>
       </a>
     </div>
