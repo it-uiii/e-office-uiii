@@ -182,7 +182,7 @@ hr {
     </div>
   </div>
   @endcan
-  <div class="col-lg-3 col-6">
+  {{-- <div class="col-lg-3 col-6">
     <!-- small card -->
     <div class="small-box" style="background-color: #32a887;">
       <div class="inner">
@@ -197,7 +197,7 @@ hr {
         More info <i class="fas fa-arrow-circle-right"></i>
       </a>
     </div>
-  </div>
+  </div> --}}
 </div>
 {{-- <div class="col-lg-3 col-6">
   <!-- small card -->
