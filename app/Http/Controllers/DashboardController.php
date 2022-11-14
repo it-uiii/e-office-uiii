@@ -10,7 +10,7 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $response = Http::get('http://192.168.74.57:8090/api/v1/sopid?start=1&limit=5');
+        $response = Http::get('http://192.168.74.57:8090/api/v1/sop');
         $rules = json_decode($response->getBody())->users;
         $menu = new Menu();
 
