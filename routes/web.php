@@ -89,11 +89,11 @@ Route::group(['middleware' => ['web', 'auth']], function () {
 
     Route::resource('contents', ContentController::class);
 
-    Route::get('news', function () {
-        $response = Http::get('https://library.uiii.ac.id/api/v1/news/list');
+    // Route::get('news', function () {
+    //     $response = Http::get('https://library.uiii.ac.id/api/v1/news/list');
 
-        $client = json_decode($response->getBody())->data;
+    //     $client = json_decode($response->getBody())->data;
 
-        return view('news.index', ['title' => 'News', 'subtitle' => 'All'], compact('client'));
-    });
+    //     return view('news.index', ['title' => 'News', 'subtitle' => 'All'], compact('client'));
+    // });
 });
