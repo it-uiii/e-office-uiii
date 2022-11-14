@@ -37,7 +37,6 @@
                     {{ $message }}
                 </div>
             @enderror
-
             </div>
             <div class="form-group last mb-3">
             <label for="password">Password</label>
