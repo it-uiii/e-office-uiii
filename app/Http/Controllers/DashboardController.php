@@ -10,8 +10,8 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $response = Http::get('http://192.168.74.57:8090/api/v1/sop');
-        $rules = json_decode($response->getBody())->users;
+        // $response = Http::get('http://192.168.74.57:8090/api/v1/sop');
+        // $rules = json_decode($response->getBody())->users;
         $menu = new Menu();
 
         $sidebar_menu = $menu->getMenu();
@@ -19,7 +19,7 @@ class DashboardController extends Controller
             'title' => 'Home',
             'subtitle' => 'Dashboard',
             'quotes' => quote::all(),
-            'rules' => $rules
+            // 'rules' => $rules
 
         ]);
     }
