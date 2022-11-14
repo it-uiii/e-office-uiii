@@ -31,6 +31,8 @@ class UserSeeder extends Seeder
         $role2 = Role::create(['name' => 'Pimpinan']);
         $role3 = Role::create(['name' => 'Admin']);
         $role4 = Role::create(['name' => 'Staff']);
+        $role5 = Role::create(['name' => 'Asset Logistik']);
+        $role6 = Role::create(['name' => 'Asset Umum']);
 
         Permission::create(['name' => 'user-list']);
         Permission::create(['name' => 'user-create']);
@@ -77,6 +79,7 @@ class UserSeeder extends Seeder
         Permission::create(['name' => 'additional-report-delete']);
         Permission::create(['name' => 'asset-management']);
         Permission::create(['name' => 'asset-list']);
+        Permission::create(['name' => 'asset-import']);
         Permission::create(['name' => 'asset-create']);
         Permission::create(['name' => 'asset-edit']);
         Permission::create(['name' => 'asset-delete']);
@@ -84,6 +87,54 @@ class UserSeeder extends Seeder
         Permission::create(['name' => 'supplier-create']);
         Permission::create(['name' => 'supplier-edit']);
         Permission::create(['name' => 'supplier-delete']);
+        Permission::create(['name' => 'location-list']);
+        Permission::create(['name' => 'location-create']);
+        Permission::create(['name' => 'location-edit']);
+        Permission::create(['name' => 'location-delete']);
+        Permission::create(['name' => 'logistic']);
+        Permission::create(['name' => 'logistic-list']);
+        Permission::create(['name' => 'logistic-create']);
+        Permission::create(['name' => 'logistic-edit']);
+        Permission::create(['name' => 'logistic-delete']);
+        Permission::create(['name' => 'quote-list']);
+        Permission::create(['name' => 'quote-create']);
+        Permission::create(['name' => 'quote-edit']);
+        Permission::create(['name' => 'quote-delete']);
+        Permission::create(['name' => 'content-list']);
+        Permission::create(['name' => 'content-create']);
+        Permission::create(['name' => 'content-edit']);
+        Permission::create(['name' => 'content-delete']);
+        Permission::create(['name' => 'status-content']);
+        Permission::create(['name' => 'sumber-list']);
+        Permission::create(['name' => 'sumber-create']);
+        Permission::create(['name' => 'sumber-edit']);
+        Permission::create(['name' => 'sumber-delete']);
+        Permission::create(['name' => 'golongan-list']);
+        Permission::create(['name' => 'golongan-create']);
+        Permission::create(['name' => 'golongan-edit']);
+        Permission::create(['name' => 'golongan-delete']);
+        Permission::create(['name' => 'tipeitem-list']);
+        Permission::create(['name' => 'tipeitem-create']);
+        Permission::create(['name' => 'tipeitem-edit']);
+        Permission::create(['name' => 'tipeitem-delete']);
+        Permission::create(['name' => 'kategoritem-list']);
+        Permission::create(['name' => 'kategoritem-create']);
+        Permission::create(['name' => 'kategoritem-edit']);
+        Permission::create(['name' => 'kategoritem-delete']);
+        Permission::create(['name' => 'detail-list']);
+        Permission::create(['name' => 'detail-create']);
+        Permission::create(['name' => 'detail-edit']);
+        Permission::create(['name' => 'detail-delete']);
+        Permission::create(['name' => 'pengadaan-list']);
+        Permission::create(['name' => 'pengadaan-create']);
+        Permission::create(['name' => 'pengadaan-edit']);
+        Permission::create(['name' => 'pengadaan-delete']);
+        Permission::create(['name' => 'brand-list']);
+        Permission::create(['name' => 'brand-create']);
+        Permission::create(['name' => 'brand-edit']);
+        Permission::create(['name' => 'brand-delete']);
+        Permission::create(['name' => 'asset']);
+
 
         $permissions = Permission::pluck('id', 'id')->all();
 
@@ -134,6 +185,57 @@ class UserSeeder extends Seeder
         $role4->givePermissionTo('additional-report-create');
         $role4->givePermissionTo('additional-report-edit');
         $role4->givePermissionTo('additional-report-delete');
+
+        // Role asset logistik
+        $role5->givePermissionTo('logistic-list');
+        $role5->givePermissionTo('logistic-create');
+        $role5->givePermissionTo('logistic-edit');
+        $role5->givePermissionTo('logistic-delete');
+
+        // role asset umum
+        $role5->givePermissionTo('asset-management');
+        $role5->givePermissionTo('asset-import');
+        $role5->givePermissionTo('asset-list');
+        $role5->givePermissionTo('asset-create');
+        $role5->givePermissionTo('asset-edit');
+        $role5->givePermissionTo('asset-delete');
+        $role5->givePermissionTo('logistic-list');
+        $role5->givePermissionTo('logistic-create');
+        $role5->givePermissionTo('logistic-edit');
+        $role5->givePermissionTo('logistic-delete');
+        $role5->givePermissionTo('supplier-list');
+        $role5->givePermissionTo('supplier-create');
+        $role5->givePermissionTo('supplier-edit');
+        $role5->givePermissionTo('supplier-delete');
+        $role5->givePermissionTo('location-list');
+        $role5->givePermissionTo('location-create');
+        $role5->givePermissionTo('location-edit');
+        $role5->givePermissionTo('location-delete');
+        $role5->givePermissionTo('sumber-list');
+        $role5->givePermissionTo('sumber-create');
+        $role5->givePermissionTo('sumber-edit');
+        $role5->givePermissionTo('sumber-delete');
+        $role5->givePermissionTo('golongan-list');
+        $role5->givePermissionTo('golongan-create');
+        $role5->givePermissionTo('golongan-edit');
+        $role5->givePermissionTo('golongan-delete');
+        $role5->givePermissionTo('tipeitem-list');
+        $role5->givePermissionTo('tipeitem-create');
+        $role5->givePermissionTo('tipeitem-edit');
+        $role5->givePermissionTo('tipeitem-delete');
+        $role5->givePermissionTo('kategoritem-list');
+        $role5->givePermissionTo('kategoritem-create');
+        $role5->givePermissionTo('kategoritem-edit');
+        $role5->givePermissionTo('kategoritem-delete');
+        $role5->givePermissionTo('detail-list');
+        $role5->givePermissionTo('detail-create');
+        $role5->givePermissionTo('detail-edit');
+        $role5->givePermissionTo('detail-delete');
+        $role5->givePermissionTo('brand-list');
+        $role5->givePermissionTo('brand-create');
+        $role5->givePermissionTo('brand-edit');
+        $role5->givePermissionTo('brand-delete');
+        $role5->givePermissionTo('asset');
 
         User::create([
             'name'      => 'Root',
