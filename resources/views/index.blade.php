@@ -92,7 +92,7 @@ hr {
       <div class="icon">
         <i class="fas fa-envelope"></i>
       </div>
-      <a href="https://arsip.uiii.ac.id/" target="_blank" class="small-box-footer">
+      <a href="{{ route('outgoing-letters.index') }}" target="_blank" class="small-box-footer">
         More info <i class="fas fa-arrow-circle-right"></i>
       </a>
     </div>
@@ -198,24 +198,6 @@ hr {
       </a>
     </div>
   </div>
-  @can('human')
-  <div class="col-lg-3 col-6">
-    <!-- small card -->
-    <div class="small-box bg-warning">
-      <div class="inner">
-        <h3>SDM</h3>
-
-        <p>Human Resource Management</p>
-      </div>
-      <div class="icon">
-        <i class="fas fa-solid fa-graduation-cap"></i>
-      </div>
-      <a href="http://sdm.uiii.ac.id/" class="small-box-footer">
-        More info <i class="fas fa-arrow-circle-right"></i>
-      </a>
-    </div>
-  </div>
-  @endcan
 </div>
 {{-- <div class="col-lg-3 col-6">
   <!-- small card -->

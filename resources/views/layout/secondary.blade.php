@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="base-url" content="{{ url('/') }}">
-    <title>{{ config('app.name') }} | {{ $title }}</title>
+    <title>General Service | {{ $title }}</title>
 
     {{-- icon --}}
     <link rel="apple-touch-icon" sizes="57x57" href="{{ asset('logo/logo_bulet.png') }}">
@@ -47,51 +48,66 @@
     @livewireStyles
     @yield('styles')
 </head>
-<body class="hold-transition layout-top-nav">
-<div class="wrapper">
 
-<!-- Navbar -->
-@include('partials.navbar')
-<!-- /.navbar -->
+<body class="hold-transition sidebar-mini">
+    <div class="wrapper">
 
-<!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-        <div class="content-header">
-            <div class="container">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1 class="m-0">{{ $title }}</h1>
-                    </div><!-- /.col -->
-                    <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">{{ $title }}</a></li>
-                        <li class="breadcrumb-item active">{{ $subtitle }}</li>
-                    </ol>
-                    </div><!-- /.col -->
-                </div><!-- /.row -->
-            </div><!-- /.container-fluid -->
+        <!-- Preloader -->
+        <div class="preloader flex-column justify-content-center align-items-center">
+            <img class="animation__shake" src="{{ asset('img/loading.png') }}" height="60" width="60">
         </div>
-    <!-- /.content-header -->
 
-    <!-- Main content -->
-        <div class="content">
-            <div class="container">
-                @yield('container')
-            <!-- /.row -->
-            </div><!-- /.container-fluid -->
+        <!-- Navbar -->
+        @include('partials.navbar2')
+        <!-- /.navbar -->
+
+        <!-- Main Sidebar Container -->
+        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+            <!-- Brand Logo -->
+            <a href="/" class="brand-link">
+                <img src="{{ asset('logo/logo_bulet.png') }}" class="brand-image">
+                <span class="brand-text font-weight-light">{{ config('app.name') }}</span>
+            </a>
+
+            <!-- Sidebar -->
+            @include('partials.sidebar')
+            <!-- /.sidebar -->
+        </aside>
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1 class="m-0">{{ $title }}</h1>
+                        </div><!-- /.col -->
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="#">{{ $title }}</a></li>
+                                <li class="breadcrumb-item active">{{ $subtitle }}</li>
+                            </ol>
+                        </div><!-- /.col -->
+                    </div><!-- /.row -->
+                </div><!-- /.container-fluid -->
+            </div>
+            <!-- /.content-header -->
+
+            <!-- Main content -->
+            <section class="content">
+                <div class="container-fluid">
+                    @yield('container')
+                </div>
+            </section>
+            <!-- /.content -->
         </div>
-    <!-- /.content -->
+        <!-- /.content-wrapper -->
+        @include('partials.footer')
     </div>
-<!-- /.content-wrapper -->
+    <!-- ./wrapper -->
 
-<!-- Main Footer -->
-    @include('partials.footer')
-</div>
-<!-- ./wrapper -->
-
-<!-- REQUIRED SCRIPTS -->
-    <script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
+    <script src="dist/js/adminlte.min.js"></script>
 
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
     <script>
@@ -240,4 +256,5 @@
     @endif
     @yield('scripts')
 </body>
+
 </html>

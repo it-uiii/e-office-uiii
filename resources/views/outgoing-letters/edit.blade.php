@@ -1,4 +1,4 @@
-@extends('layout.main')
+@extends('layout.secondary')
 @section('styles')
 <link rel="stylesheet" href="{{ asset('plugins/jquery-fancybox/jquery.fancybox.css') }}">
 <style>
