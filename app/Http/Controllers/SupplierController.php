@@ -36,7 +36,13 @@ class SupplierController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validate = $request->validate([
+            'lokasi'        => ['required', 'max:100'],
+            'kode_lokasi'   => ['required', 'max:3'],
+        ]);
+
+        supplier::create($validate);
+        return redirect('/suppliers')->with('success', 'Supplier baru ditambahkan');
     }
 
     /**
@@ -56,9 +62,10 @@ class SupplierController extends Controller
      * @param  \App\Models\supplier  $supplier
      * @return \Illuminate\Http\Response
      */
-    public function edit(supplier $supplier)
+    public function edit($id)
     {
-        //
+        $data = supplier::find($id);
+        return view('suppliers.edit', ['title' => 'Suppliers', 'subtitle' => 'Edit'], compact('data'));
     }
 
     /**
@@ -70,7 +77,13 @@ class SupplierController extends Controller
      */
     public function update(Request $request, supplier $supplier)
     {
-        //
+        $validate = $request->validate([
+            'lokasi'        => ['required', 'max:100'],
+            'kode_lokasi'   => ['required', 'max:3'],
+        ]);
+
+        $supplier->update($validate);
+        return redirect('/suppliers')->with('warning', 'Supplier berhasil diubah');
     }
 
     /**
@@ -81,6 +94,7 @@ class SupplierController extends Controller
      */
     public function destroy(supplier $supplier)
     {
-        //
+        $supplier->delete();
+        return redirect('/suppliers')->with('danger', 'Supplier berhasil dihapus');
     }
 }

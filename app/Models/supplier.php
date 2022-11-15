@@ -9,7 +9,15 @@ class supplier extends Model
 {
     use HasFactory;
 
-    protected $guarded = ['id'];
+    protected $fillable = [
+        'id',
+        'nama_pemasok',
+        'kode_pemasok',
+        'telpon',
+        'alamat',
+        'tanggal_daftar',
+
+    ];
 
     // public function item()
     // {
