@@ -49,7 +49,7 @@ class LocationController extends Controller
             'kode_lokasi'   => 'required'
         ]);
 
-        dd($validate);
+        // dd($validate);
         lokasi::create($validate);
         return redirect('locations')->with('success', 'Lokasi baru telah ditambahkan');
     }
