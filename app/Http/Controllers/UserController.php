@@ -160,6 +160,8 @@ class UserController extends Controller
         ]);
 
         // dd($data);
+        $image = $request->avatar;
+        $data['avatar'] = $image->storeAs('public/profile', $image->getClientOriginalName());
 
         $data = $request->all();
         if (!empty($data['password'])) {
