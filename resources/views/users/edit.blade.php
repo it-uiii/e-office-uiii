@@ -161,7 +161,7 @@
                     </div>
                     <div class="col-sm-10 mt-3">
                         <div class="custom-file">
-                            <input type="file" multiple class="custom-file-input" id="avatar" name="avatar" aria-describedby="image" aria-label="Upload" onchange="previewImage()">
+                            <input type="file" class="custom-file-input" id="avatar" name="avatar" onchange="previewImage()">
                             <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                             @error('image')
                                 <div class="invalid-feedback">

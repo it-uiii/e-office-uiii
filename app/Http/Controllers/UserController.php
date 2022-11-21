@@ -159,16 +159,16 @@ class UserController extends Controller
             'head_id'       => ['nullable', 'exists:users,id'],
         ]);
 
-        // dd($data);
         $image = $request->avatar;
-        $data['avatar'] = $image->storeAs('public/profile', $image->getClientOriginalName());
+        $data['avatar']   = $image->storeAs('public/profile', $image->getClientOriginalName());
 
-        $data = $request->all();
         if (!empty($data['password'])) {
             $data['password'] = Hash::make($data['password']);
         } else {
             $data = Arr::except($data, array('password'));
         }
+
+        // dd($data);
 
         $user = User::find($id);
         $user->update($data);
