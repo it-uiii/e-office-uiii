@@ -158,6 +158,7 @@ class UserController extends Controller
             'roles'         => ['required'],
             'position_id'   => ['nullable', 'exists:positions,id'],
             'head_id'       => ['nullable', 'exists:users,id'],
+            'avatar'        => ['nullable']
         ]);
 
         $image = $request->avatar;
