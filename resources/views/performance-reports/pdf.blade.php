@@ -139,14 +139,23 @@
         <table class="w-100">
             <tr>
                 <td class="text-center"><br>Pemimpin Penilai<br>
-                    <img class="w-100" src="{{ public_path(Storage::url($data->signature_leader)) }}" alt=""><br>
+                    <img class="w-100" src="{{ public_path(Storage::url($data->signature_leader)) }}" alt="">
+                    <br>
+                    <br>
+                    <br>
+                    <br>
                     <u>{{ $data->report_created_by->head->name }}</u><br>
-                    {{ $data->report_created_by->head->position->name }}
+                    {{-- {{ $data->report_created_by->head->position->name }} --}}
                 </td>
+                <td style="width: 50%">&nbsp;</td>
                 <td class="text-center">Depok, {{ tgl($data->date) }}<br>Pegawai yang dinilai<br>
-                    <img class="w-100" src="{{ public_path(Storage::url($data->signature_reporter)) }}" alt=""><br>
+                    <img class="w-100" src="{{ public_path(Storage::url($data->signature_reporter)) }}" alt="">
+                    <br>
+                    <br>
+                    <br>
+                    <br>
                     <u>{{ $data->report_created_by->name }}</u><br>
-                    {{ $data->report_created_by->position->name }}
+                    {{-- {{ $data->report_created_by->position->name }} --}}
                 </td>
             </tr>
         </table>
