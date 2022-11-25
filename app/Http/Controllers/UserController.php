@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Exports\UserExport;
-use App\Imports\UserImport;
+use App\Models\User;
 use App\Models\Jabatan;
 use App\Models\Position;
-use App\Models\User;
+use App\Exports\UserExport;
+use App\Imports\UserImport;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -208,6 +209,7 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
+        Storage::delete($user->file);
         User::destroy($user->id);
         return redirect('/users')->with('danger', 'User has been deleted!');
     }

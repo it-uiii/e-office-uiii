@@ -135,6 +135,7 @@ class PerformanceReportController extends Controller
      */
     public function show(PerformanceReport $performance_report)
     {
+        // dd($performance_report);
         $pdf = App::make('dompdf.wrapper');
         $pdf->loadView('performance-reports.pdf', ['data' => $performance_report])->setPaper(array(0, 0, 609.449, 935.433));
         return $pdf->stream('Laporan kinerja ' . $performance_report->report_created_by->name . ' - ' . $performance_report->date . '.pdf');
@@ -194,8 +195,8 @@ class PerformanceReportController extends Controller
                 $image_type_aux = explode("image/", $image_parts[0]);
                 $image_type = $image_type_aux[1];
                 $image_base64 = base64_decode($image_parts[1]);
-                Storage::put('public/ttd/' . auth()->user()->name . ' - laporan kinerja tanggal - ' . $performance_report->date . ' - ' . $timestamp . '.' . $image_type, $image_base64);
-                $data['signature_reporter'] = 'public/ttd/' . auth()->user()->name . ' - laporan kinerja tanggal - ' . $performance_report->date . ' - ' . $timestamp . '.' . $image_type;
+                Storage::put('public/ttd/' . auth()->user()->name . '-laporan kinerja tanggal-' . $performance_report->date . '-' . $timestamp . '.' . $image_type, $image_base64);
+                $data['signature_reporter'] = 'public/ttd/' . auth()->user()->name . '-laporan kinerja tanggal-' . $performance_report->date . '-' . $timestamp . '.' . $image_type;
             }
 
             if (auth()->user()->hasRole('Pimpinan')) {

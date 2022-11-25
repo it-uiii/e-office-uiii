@@ -30,14 +30,14 @@ class OutgoingLetterController extends Controller
         $data = OutgoingLetter::when(auth()->user()->hasRole('Staff'), function ($query) {
             $query->where('created_by', auth()->user()->id);
         })->when(auth()->user()->hasRole('Admin') && auth()->user()->position->name == 'Pelaksana Sekretariat', function ($query) {
-            $query->where('status',0)->orWhere('status',1)->orWhere('status',4);
+            $query->where('status', 0)->orWhere('status', 1)->orWhere('status', 4);
         })->when(auth()->user()->hasRole('Pimpinan') && auth()->user()->position->name == 'KTU Sekretaris', function ($query) {
-            $query->where('status',1)->orWhere('status',2)->orWhere('status',4);
+            $query->where('status', 1)->orWhere('status', 2)->orWhere('status', 4);
         })->when(auth()->user()->hasRole('Admin') && auth()->user()->position->name == 'Sekretaris Universitas', function ($query) {
-            $query->where('status',2)->orWhere('status',3)->orWhere('status',4);
+            $query->where('status', 2)->orWhere('status', 3)->orWhere('status', 4);
         })->when(auth()->user()->hasRole('Pimpinan') && auth()->user()->position->name == 'Rektor', function ($query) {
-            $query->where('status',3)->orWhere('status',4);
-        })->orderBy('created_at','desc')->paginate(10);
+            $query->where('status', 3)->orWhere('status', 4);
+        })->orderBy('created_at', 'desc')->paginate(10);
         return view('outgoing-letters.index', ['title' => 'Surat Keluar', 'subtitle' => 'List'], compact('data'));
     }
 
@@ -60,12 +60,12 @@ class OutgoingLetterController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'subject'       => ['required','string','max:128'],
-            'date'          => ['required','date'],
-            'destination'   => ['required','string','max:128'],
-            'description'   => ['required','string'],
-            'file.*'        => ['nullable','image','max:2048'],
-        ],[],[
+            'subject'       => ['required', 'string', 'max:128'],
+            'date'          => ['required', 'date'],
+            'destination'   => ['required', 'string', 'max:128'],
+            'description'   => ['required', 'string'],
+            'file.*'        => ['nullable', 'image', 'max:2048'],
+        ], [], [
             'subject'       => 'Perihal',
             'date'          => 'Tanggal',
             'destination'   => 'Tujuan',
@@ -109,8 +109,8 @@ class OutgoingLetterController extends Controller
                 $query->where('name', 'Rektor');
             })->first();
             $pdf = App::make('dompdf.wrapper');
-            $pdf->loadView('outgoing-letters.pdf', ['data' => $outgoing_letter, 'rektor' => $rektor])->setPaper(array(0,0,609.449,935.433));
-            return $pdf->stream($outgoing_letter->perihal. '.pdf');
+            $pdf->loadView('outgoing-letters.pdf', ['data' => $outgoing_letter, 'rektor' => $rektor])->setPaper(array(0, 0, 609.449, 935.433));
+            return $pdf->stream($outgoing_letter->perihal . '.pdf');
         }
         return abort(404);
     }
@@ -124,10 +124,11 @@ class OutgoingLetterController extends Controller
     public function edit(OutgoingLetter $outgoing_letter)
     {
         if ((auth()->user()->position->name == 'Rektor' && ($outgoing_letter->status == 3 || $outgoing_letter->status == 4)) ||
-        (auth()->user()->position->name == 'Sekretaris Universitas' && ($outgoing_letter->status == 2 || $outgoing_letter->status == 3)) ||
-        (auth()->user()->position->name == 'KTU Sekretaris' && ($outgoing_letter->status == 1 || $outgoing_letter->status == 2)) ||
-        (auth()->user()->position->name == 'Pelaksana Sekretariat' && ($outgoing_letter->status == 0 || $outgoing_letter->status == 1)) ||
-        (auth()->user()->hasRole('Staff') && $outgoing_letter->status == 0)) {
+            (auth()->user()->position->name == 'Sekretaris Universitas' && ($outgoing_letter->status == 2 || $outgoing_letter->status == 3)) ||
+            (auth()->user()->position->name == 'KTU Sekretaris' && ($outgoing_letter->status == 1 || $outgoing_letter->status == 2)) ||
+            (auth()->user()->position->name == 'Pelaksana Sekretariat' && ($outgoing_letter->status == 0 || $outgoing_letter->status == 1)) ||
+            (auth()->user()->hasRole('Staff') && $outgoing_letter->status == 0)
+        ) {
             return view('outgoing-letters.edit', ['title' => 'Surat Keluar', 'subtitle' => 'Ubah', 'data' => $outgoing_letter]);
         } else {
             return abort(404);
@@ -143,17 +144,17 @@ class OutgoingLetterController extends Controller
     public function update(Request $request, OutgoingLetter $outgoing_letter)
     {
         $data = $request->validate([
-            'number'                => [auth()->user()->position && auth()->user()->position->name == 'Pelaksana Sekretariat' ? 'required' : 'nullable','string','max:128'],
-            'subject'               => ['required','string','max:128'],
-            'date'                  => ['required','date'],
-            'destination'           => ['required','string','max:128'],
-            'description'           => ['required','string'],
-            'file.*'                => ['nullable','image','max:2048'],
+            'number'                => [auth()->user()->position && auth()->user()->position->name == 'Pelaksana Sekretariat' ? 'required' : 'nullable', 'string', 'max:128'],
+            'subject'               => ['required', 'string', 'max:128'],
+            'date'                  => ['required', 'date'],
+            'destination'           => ['required', 'string', 'max:128'],
+            'description'           => ['required', 'string'],
+            'file.*'                => ['nullable', 'image', 'max:2048'],
             'revision'              => ['nullable'],
-            'revision_description'  => ['nullable','required_if:revision,1'],
-        ],[
+            'revision_description'  => ['nullable', 'required_if:revision,1'],
+        ], [
             'revision_description.required_if'  => 'Keterangan revisi harus diisi jika tidak disetujui',
-        ],[
+        ], [
             'number'                => 'Nomor Surat',
             'subject'               => 'Perihal',
             'date'                  => 'Tanggal',
@@ -206,8 +207,8 @@ class OutgoingLetterController extends Controller
                         $image_type_aux = explode("image/", $image_parts[0]);
                         $image_type = $image_type_aux[1];
                         $image_base64 = base64_decode($image_parts[1]);
-                        Storage::put('public/ttd/'. $data['subject'] .' - '. $timestamp .'.'. $image_type, $image_base64);
-                        $data['signature'] = 'public/ttd/'. $data['subject'] .' - '. $timestamp .'.'. $image_type;
+                        Storage::put('public/ttd/' . $data['subject'] . ' - ' . $timestamp . '.' . $image_type, $image_base64);
+                        $data['signature'] = 'public/ttd/' . $data['subject'] . ' - ' . $timestamp . '.' . $image_type;
                     }
                 }
             }
