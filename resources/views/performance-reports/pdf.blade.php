@@ -144,7 +144,8 @@
                     <br>
                     <br>
                     <br>
-                    <u>{{ $data->report_created_by->head->name }}</u><br>
+                    {{ $data->report_created_by->head->name }}
+                    <br>
                     {{-- {{ $data->report_created_by->head->position->name }} --}}
                 </td>
                 <td style="width: 50%">&nbsp;</td>
@@ -154,7 +155,8 @@
                     <br>
                     <br>
                     <br>
-                    <u>{{ $data->report_created_by->name }}</u><br>
+                    {{ $data->report_created_by->name }}
+                    <br>
                     {{-- {{ $data->report_created_by->position->name }} --}}
                 </td>
             </tr>
