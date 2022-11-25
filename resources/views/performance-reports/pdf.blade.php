@@ -139,7 +139,7 @@
         <table class="w-100">
             <tr>
                 <td class="text-center"><br>Pemimpin Penilai<br>
-                    {{-- <img class="w-100" src="{{ public_path(Storage::url($data->signature_leader)) }}" alt=""> --}}
+                    <img class="w-100" src="{{ public_path(Storage::url($data->signature_leader)) }}" alt="">
                     <br>
                     <br>
                     <br>
