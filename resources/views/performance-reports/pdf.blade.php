@@ -150,7 +150,6 @@
                     <br>
                     <br>
                     <br>
-                    <br>
                     {{ $data->report_created_by->name }}
                     <br>
                     {{-- {{ $data->report_created_by->position->name }} --}}
