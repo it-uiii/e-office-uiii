@@ -10,8 +10,8 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $response = file_get_contents(url('/json/sopid.json'));
-        $rules = json_decode($response)->results;
+        // $response = file_get_contents(url('/json/sopid.json'));
+        // $rules = json_decode($response)->results;
         $menu = new Menu();
 
         $sidebar_menu = $menu->getMenu();
