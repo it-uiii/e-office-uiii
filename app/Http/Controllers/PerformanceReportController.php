@@ -63,53 +63,61 @@ class PerformanceReportController extends Controller
             'output.*'          => ['required', 'string'],
             'volume.*'          => ['nullable'],
             'description.*'     => ['nullable'],
+            'attachment.*'      => ['nullable', 'image', 'max:8048'],
             'file.*'            => ['nullable', 'image', 'max:8048'],
-            'signature_reporter' => ['nullable'],
-            'signature_leader'  => ['nullable'],
+            // 'signature_reporter'=> ['nullable'],
+            // 'signature_leader'  => ['nullable'],
         ], [], [
             'date'          => 'Tanggal',
             'activity.*'    => 'Kegiatan',
             'output.*'      => 'Output',
             'volume.*'      => 'Volume',
+            'attachment.*'  => 'Lampiran',
         ]);
 
 
         try {
             DB::beginTransaction();
-            $timestamp = strtotime(now());
-            if ($request->signature_reporter) {
-                if (!file_exists(storage_path('app/public/ttd'))) {
-                    mkdir(storage_path('app/public/ttd'), 0777, true);
-                }
-                $image_parts = explode(";base64,", $request->signature_reporter);
-                $image_type_aux = explode("image/", $image_parts[0]);
-                $image_type = $image_type_aux[1];
-                $image_base64 = base64_decode($image_parts[1]);
-                Storage::put('public/ttd/' . auth()->user()->name . '_laporan_kinerja_tanggal_' . $data['date'] . '_' . $timestamp . '.' . $image_type, $image_base64);
-                $data['signature_reporter'] = 'public/ttd/' . auth()->user()->name . '_laporan_kinerja_tanggal_' . $data['date'] . ' - ' . $timestamp . '.' . $image_type;
-            }
+            // $timestamp = strtotime(now());
+            // if ($request->signature_reporter) {
+            //     if (!file_exists(storage_path('app/public/ttd'))) {
+            //         mkdir(storage_path('app/public/ttd'), 0777, true);
+            //     }
+            //     $image_parts = explode(";base64,", $request->signature_reporter);
+            //     $image_type_aux = explode("image/", $image_parts[0]);
+            //     $image_type = $image_type_aux[1];
+            //     $image_base64 = base64_decode($image_parts[1]);
+            //     Storage::put('public/ttd/' . auth()->user()->name . '_laporan_kinerja_tanggal_' . $data['date'] . '_' . $timestamp . '.' . $image_type, $image_base64);
+            //     $data['signature_reporter'] = 'public/ttd/' . auth()->user()->name . '_laporan_kinerja_tanggal_' . $data['date'] . ' - ' . $timestamp . '.' . $image_type;
+            // }
 
             $data['created_by'] = auth()->user()->id;
 
             $performance_report = PerformanceReport::create($data);
 
             foreach ($request->activity as $key => $value) {
+                $attachment = null;
+                if ($request->attachment[$key]) {
+                    $attachment = $request->attachment[$key]->storeAs('public/performance-reports', $request->attachment[$key]->getClientOriginalName());
+                }
                 Activity::create([
                     'performance_report_id' => $performance_report->id,
                     'activity'              => $value,
                     'output'                => $request->output[$key],
                     'volume'                => $request->volume[$key],
                     'description'           => $request->description[$key],
+                    'attachment'            => $attachment
                 ]);
             }
 
-            if ($request->file) {
-                foreach ($request->file as $file) {
-                    $data['performance_report_id'] = $performance_report->id;
-                    $data['file']   = $file->storeAs('public/performance-reports', $file->getClientOriginalName());
-                    AdditionalReport::create($data);
-                }
-            }
+
+            // if ($request->file) {
+            //     foreach ($request->file as $file) {
+            //         $data['performance_report_id'] = $performance_report->id;
+            //         $data['file']   = $file->storeAs('public/performance-reports', $file->getClientOriginalName());
+            //         AdditionalReport::create($data);
+            //     }
+            // }
 
             DB::commit();
             return response()->json([
@@ -177,28 +185,29 @@ class PerformanceReportController extends Controller
         $data = $request->validate([
             'date'              => ['required', 'date'],
             'file.*'            => ['nullable', 'image', 'max:8048'],
+            'attachment.*'      => ['nullable', 'image', 'max:8048'],
         ], [], [
             'date'          => 'Tanggal',
             'activity.*'    => 'Kegiatan',
             'output.*'      => 'Output',
             'volume.*'      => 'Volume',
+            'attachment.*'  => 'Lampiran',
         ]);
 
         try {
             DB::beginTransaction();
-            $timestamp = strtotime(now());
-            if ($request->signature_reporter) {
-                if (!file_exists(storage_path('app/public/ttd'))) {
-                    mkdir(storage_path('app/public/ttd'), 0777, true);
-                }
-                $image_parts = explode(";base64,", $request->signature_reporter);
-                $image_type_aux = explode("image/", $image_parts[0]);
-                $image_type = $image_type_aux[1];
-                $image_base64 = base64_decode($image_parts[1]);
-                Storage::put('public/ttd/' . auth()->user()->name . '_laporan_kinerja_tanggal_' . $performance_report->date . '_' . $timestamp . '.' . $image_type, $image_base64);
-                $data['signature_reporter'] = 'public/ttd/' . auth()->user()->name . '_laporan_kinerja_tanggal_' . $performance_report->date . '_' . $timestamp . '.' . $image_type;
-            }
-
+            // $timestamp = strtotime(now());
+            // if ($request->signature_reporter) {
+            //     if (!file_exists(storage_path('app/public/ttd'))) {
+            //         mkdir(storage_path('app/public/ttd'), 0777, true);
+            //     }
+            //     $image_parts = explode(";base64,", $request->signature_reporter);
+            //     $image_type_aux = explode("image/", $image_parts[0]);
+            //     $image_type = $image_type_aux[1];
+            //     $image_base64 = base64_decode($image_parts[1]);
+            //     Storage::put('public/ttd/' . auth()->user()->name . '_laporan_kinerja_tanggal_' . $performance_report->date . '_' . $timestamp . '.' . $image_type, $image_base64);
+            //     $data['signature_reporter'] = 'public/ttd/' . auth()->user()->name . '_laporan_kinerja_tanggal_' . $performance_report->date . '_' . $timestamp . '.' . $image_type;
+            // }
             if (auth()->user()->hasRole('Pimpinan')) {
                 if ($request->revision) {
                     $data['status'] = 0;
@@ -206,17 +215,17 @@ class PerformanceReportController extends Controller
                     $data['status'] = 1;
                     $data['revision'] = null;
                     $data['revision_description'] = null;
-                    if ($request->signature_leader) {
-                        if (!file_exists(storage_path('app/public/ttd'))) {
-                            mkdir(storage_path('app/public/ttd'), 0777, true);
-                        }
-                        $image_parts = explode(";base64,", $request->signature_leader);
-                        $image_type_aux = explode("image/", $image_parts[0]);
-                        $image_type = $image_type_aux[1];
-                        $image_base64 = base64_decode($image_parts[1]);
-                        Storage::put('public/ttd/' . auth()->user()->name . '_laporan_kinerja_tanggal_' . $performance_report->date . '_' . $timestamp . '.' . $image_type, $image_base64);
-                        $data['signature_leader'] = 'public/ttd/' . auth()->user()->name . '_laporan_kinerja_tanggal_' . $performance_report->date . '_' . $timestamp . '.' . $image_type;
-                    }
+                    // if ($request->signature_leader) {
+                    //     if (!file_exists(storage_path('app/public/ttd'))) {
+                    //         mkdir(storage_path('app/public/ttd'), 0777, true);
+                    //     }
+                    //     $image_parts = explode(";base64,", $request->signature_leader);
+                    //     $image_type_aux = explode("image/", $image_parts[0]);
+                    //     $image_type = $image_type_aux[1];
+                    //     $image_base64 = base64_decode($image_parts[1]);
+                    //     Storage::put('public/ttd/' . auth()->user()->name . '_laporan_kinerja_tanggal_' . $performance_report->date . '_' . $timestamp . '.' . $image_type, $image_base64);
+                    //     $data['signature_leader'] = 'public/ttd/' . auth()->user()->name . '_laporan_kinerja_tanggal_' . $performance_report->date . '_' . $timestamp . '.' . $image_type;
+                    // }
                 }
             }
 
@@ -230,7 +239,6 @@ class PerformanceReportController extends Controller
                     AdditionalReport::create($data);
                 }
             }
-
             DB::commit();
             if ($performance_report->status == 0) {
                 return back()->with('success', 'Laporan Kinerja berhasil diubah');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Activity;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ActivityController extends Controller
 {
@@ -21,7 +22,12 @@ class ActivityController extends Controller
             'output'                => ['required','string','max:191'],
             'volume'                => ['nullable','string','max:191'],
             'description'           => ['nullable'],
+            'attachment'            => ['nullable', 'image', 'max:8048'],
         ]);
+
+        if ($request->attachment) {
+            $data['attachment'] = $request->attachment->storeAs('public/performance-reports', $request->attachment->getClientOriginalName());
+        }
 
         Activity::updateOrCreate(['id' => $request->id], $data);
 
@@ -41,5 +47,20 @@ class ActivityController extends Controller
     {
         $activity->delete();
         return back()->with('success', 'Kegiatan berhasil dihapus');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Activity  $activity
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy_attachment(Activity $activity)
+    {
+        Storage::delete($activity->attachment);
+        $activity->update([
+            'attachment'    => null
+        ]);
+        return back()->with('success', 'Lampiran Kegiatan berhasil dihapus');
     }
 }
