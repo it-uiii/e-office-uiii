@@ -1,0 +1,64 @@
+{
+  "count": 55,
+  "limit": 5,
+  "next": "/sopid?start=6&limit=5",
+  "previous": "",
+  "results": [
+    {
+      "applied_date": "2021-02-01",
+      "description": null,
+      "file": "https://jdih.uiii.ac.id/storage/documents-file/6CHb7sRWffQoWlyo7jYf5TcMipgQjKvyJ2KsN5F3.pdf",
+      "id_sop": 115,
+      "number": "1/SOP/2021",
+      "reason": "Menjadi SOP Nomor 6/Sek/SOP/8/2022",
+      "slug": "sop-alur-surat-keluar-tanda-tangan-rektor-2021",
+      "status": "Tidak Berlaku",
+      "title": "SOP Alur Surat Keluar Tanda Tangan Rektor (2021)"
+    },
+    {
+      "applied_date": "2021-02-02",
+      "description": null,
+      "file": "https://jdih.uiii.ac.id/storage/documents-file/vPXc5maG1Zm9KWOT7qZmYAiKYOU1bHUl7kKRy7e1.pdf",
+      "id_sop": 116,
+      "number": "2/SOP/2021",
+      "reason": "19/WR.PKPU/SOP/10/2022",
+      "slug": "sop-pencairan-konsumsi-kegiatan-rapat-2021",
+      "status": "Tidak Berlaku",
+      "title": "SOP Pencairan Konsumsi Kegiatan Rapat (2021)"
+    },
+    {
+      "applied_date": "2022-01-03",
+      "description": null,
+      "file": "https://jdih.uiii.ac.id/storage/documents-file/slO8J7HIz14aHue9AUxexYKeohZCojp2DwuauVa6.pdf",
+      "id_sop": 117,
+      "number": "3/SOP/2021",
+      "reason": "Menjadi Nomor 1/Sek/SOP/1/2022",
+      "slug": "sop-pengadaan-barangjasa-dibawah-200-juta-2021",
+      "status": "Tidak Berlaku",
+      "title": "SOP Pengadaan Barang/Jasa dibawah 200 Juta (2021)"
+    },
+    {
+      "applied_date": "2021-04-04",
+      "description": null,
+      "file": "https://jdih.uiii.ac.id/storage/documents-file/KubEB4BsOcQEyNxIJgRKJlTlYo41aMRB4yvw9LsS.pdf",
+      "id_sop": 118,
+      "number": "4/SOP/2021",
+      "reason": null,
+      "slug": "sop-seleksi-proposal-dan-penetapan-penerima-biaya-penelitian-2021",
+      "status": "Berlaku",
+      "title": "SOP Seleksi Proposal dan Penetapan Penerima Biaya Penelitian (2021)"
+    },
+    {
+      "applied_date": "2021-04-05",
+      "description": null,
+      "file": "https://jdih.uiii.ac.id/storage/documents-file/UPSOI09hAXYfscPY4Z3NM1XPCmPS7ciFEnUk7miz.pdf",
+      "id_sop": 119,
+      "number": "5/SOP/2021",
+      "reason": null,
+      "slug": "sop-pembiayaan-penelitian-2021",
+      "status": "Berlaku",
+      "title": "SOP Pembiayaan Penelitian (2021)"
+    }
+  ],
+  "start": 1
+}
