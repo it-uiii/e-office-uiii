@@ -102,7 +102,7 @@
             <tr>
                 <td style="width: 100px">Jabatan</td>
                 <td style="width: 5px">:</td>
-                <td>{{ $data->report_created_by->position->name }}</td>
+                <td>{{ $data->report_created_by->position ? $data->report_created_by->position->name : '' }}</td>
             </tr>
             <tr>
                 <td style="width: 100px">Hari, Tanggal</td>
@@ -120,6 +120,7 @@
                     <th>Output</th>
                     <th>Volume</th>
                     <th>Keterangan</th>
+                    <th>Lampiran</th>
                 </tr>
             </thead>
             <tbody>
@@ -130,6 +131,11 @@
                         <td>{{ $item->output }}</td>
                         <td>{{ $item->volume }}</td>
                         <td>{{ $item->description }}</td>
+                        <td class="text-center">
+                            @if ($item->attachment)
+                                <img src="{{ url(Storage::url($item->attachment)) }}" alt="" style="width: 200px; height: 100px;">
+                            @endif
+                        </td>
                     </tr>
                 @endforeach
             </tbody>
@@ -138,33 +144,24 @@
     <div class="mt-5">
         <table class="w-100">
             <tr>
-                <td class="text-center"><br>Pemimpin Penilai<br>
-                    <img class="w-100" src="{{ public_path(Storage::url($data->signature_leader)) }}" alt="">
-                    {{ $data->report_created_by->head->name }}
-                    <br>
+                <td width="50%"></td>
+                <td width="50%" class="text-center"><br>Pemimpin Penilai<br>
+                    <img class="mw-100" style="position: absolute;" src="{{ public_path('img/Tanda Tangan.png') }}" alt="">
+                    <br><br><br><br><br><b><br><br>
+                    {{ $data->report_created_by->head ? $data->report_created_by->head->name : '' }}
                     {{-- {{ $data->report_created_by->head->position->name }} --}}
-                </td>
-                <td style="width: 40%">&nbsp;</td>
-                <td class="text-center">Depok, {{ tgl($data->date) }}<br>Pegawai yang dinilai<br>
-                    {{-- <img class="w-100" src="{{ public_path(Storage::url($data->signature_reporter)) }}" alt=""> --}}
-                    <br>
-                    <br>
-                    <br>
-                    {{ $data->report_created_by->name }}
-                    <br>
-                    {{-- {{ $data->report_created_by->position->name }} --}}
                 </td>
             </tr>
         </table>
     </div>
     {{-- Page Break --}}
-    <div class="page-break"></div>
+    {{-- <div class="page-break"></div>
     <div class="text-center">
         <h4>LAMPIRAN</h4>
     </div>
     @foreach ($data->additional_reports as $item)
         <img src="{{ public_path(Storage::url($item->file)) }}" alt="{{ $item->file }}" width="100%">
         <div class="pagenum"></div>
-    @endforeach
+    @endforeach --}}
 </body>
 </html>
