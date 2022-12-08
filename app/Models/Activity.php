@@ -12,6 +12,7 @@ class Activity extends Model
         'output',
         'volume',
         'description',
+        'attachment'
     ];
 
     public function performance_report()

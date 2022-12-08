@@ -1,6 +1,6 @@
 @extends('layout.main')
 @section('styles')
-<style>
+{{-- <style>
     .wrapper-ttd {
         position: relative;
         width: 100%;
@@ -25,30 +25,20 @@
     #signature-leader {
         display: none;
     }
-</style>
+</style> --}}
 @endsection
 @section('container')
 <form action="{{ route('performance-reports.store') }}" method="post" enctype="multipart/form-data">
     @csrf
     <div class="card card-primary">
         <div class="card-body">
-            <div class="row">
+            <div class="form-group">
+                <label for="date">Tanggal</label>
+                <input type="date" class="form-control " id="date" name="date">
+                <div class="invalid-feedback"></div>
+            </div>
+            {{-- <div class="row">
                 <div class="col-lg-4 col-md-6">
-                    <div class="form-group">
-                        <label for="date">Tanggal</label>
-                        <input type="date" class="form-control " id="date" name="date">
-                        <div class="invalid-feedback"></div>
-                    </div>
-                    <div class="form-group">
-                        <label for="file">Lampiran</label>
-                        <div class="input-group">
-                            <div class="custom-file">
-                                <input type="file" accept="image/*" multiple class="custom-file-input" id="file" name="file[]" aria-describedby="file" aria-label="Upload">
-                                <label class="custom-file-label" for="file">Masukkan beberapa lampiran ...</label>
-                            </div>
-                        </div>
-                        <div class="invalid-feedback"></div>
-                    </div>
                     <div class="form-group signature-reporter">
                         <i>Tanda Tangan Yang Dinilai</i>
                         <div class="wrapper-ttd">
@@ -59,13 +49,11 @@
                         <textarea type="hidden" id='signature-reporter' name="signature_reporter"></textarea>
                     </div>
                 </div>
-                <div class="col-lg-8 col-md-6">
-                    <div class="kegiatan mt-3">
+            </div> --}}
+            <div class="kegiatan mt-3">
 
-                    </div>
-                    <button type="button" id="add-activity" class="btn btn-success btn-block">Tambah Kegiatan</button>
-                </div>
             </div>
+            <button type="button" id="add-activity" class="btn btn-success btn-block">Tambah Kegiatan</button>
         </div>
         <div class="card-footer text-right">
             <button type="submit" class="btn btn-primary">Simpan</button>
@@ -76,13 +64,12 @@
 @endsection
 
 @section('scripts')
-<script src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js"></script>
+{{-- <script src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js"></script> --}}
 <script>
-    var signaturePadReport = new SignaturePad(document.getElementById('signature-pad-report'), {
-        backgroundColor: 'rgba(255, 255, 255, 0)',
-        penColor: 'rgb(0, 0, 0)'
-    });
-
+    // var signaturePadReport = new SignaturePad(document.getElementById('signature-pad-report'), {
+    //     backgroundColor: 'rgba(255, 255, 255, 0)',
+    //     penColor: 'rgb(0, 0, 0)'
+    // });
     $(document).ready(function() {
         $('#submit-signature-reporter').click(function() {
             let imageData = signaturePadReport.toDataURL('image/png');
@@ -106,22 +93,28 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-lg-4 col-md-6">
+                            <div class="col-lg-3 col-md-6">
                                 <div class="form-group">
                                     <label for="activity">Kegiatan</label>
                                     <input type="text" name="activity[]" class="form-control" placeholder="Masukkan Kegiatan">
                                 </div>
                             </div>
-                            <div class="col-lg-4 col-md-6">
+                            <div class="col-lg-3 col-md-6">
                                 <div class="form-group">
                                     <label for="output">Output</label>
                                     <input type="text" name="output[]" class="form-control" placeholder="Masukkan Output">
                                 </div>
                             </div>
-                            <div class="col-lg-4 col-md-6">
+                            <div class="col-lg-3 col-md-6">
                                 <div class="form-group">
                                     <label for="volume">Volume</label>
                                     <input type="text" name="volume[]" class="form-control" placeholder="Masukkan Volume">
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6">
+                                <div class="form-group">
+                                    <label for="attachment">Lampiran</label>
+                                    <input type="file" name="attachment[]" accept="image/*" class="form-control" placeholder="Masukkan Lampiran">
                                 </div>
                             </div>
                             <div class="col-12">
