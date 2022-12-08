@@ -10,7 +10,7 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $response = Http::withOptions(["verify"=>false])->get(config('setting.api_url').'/api/v1/sopid?start=1&limit=5');
+        $response = Http::withOptions(["verify"=>false])->get(config('setting.api_url').'/sopid?start=1&limit=5');
         $rules = json_decode($response->getBody())->results;
         $menu = new Menu();
 
