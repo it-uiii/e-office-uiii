@@ -235,7 +235,7 @@ hr {
   </div>
 </div>
 
-{{-- <div class="mt-4">
+<div class="mt-4">
   <h4>Latest SOP</h4>
 </div>
 <div class="card">
@@ -260,10 +260,10 @@ hr {
     </ul>
   </div>
   <div class="card-footer clearfix text-center">
-    For more information about SOP 
+    For more information about SOP
     <a href="https://jdih.uiii.ac.id/sop" target="_blank">click here</a>
   </div>
-</div> --}}
+</div>
 
 @foreach ($quotes as $quote)
 <div class="modal fade" id="modal-lg-{{ $quote->id }}">
