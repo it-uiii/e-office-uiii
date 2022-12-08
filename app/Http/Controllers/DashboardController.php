@@ -19,7 +19,7 @@ class DashboardController extends Controller
             'title' => 'Home',
             'subtitle' => 'Dashboard',
             'quotes' => quote::all(),
-            'rules' => $rules
+            // 'rules' => $rules
 
         ]);
     }
