@@ -120,7 +120,6 @@
                     <th>Output</th>
                     <th>Volume</th>
                     <th>Keterangan</th>
-                    <th>Lampiran</th>
                 </tr>
             </thead>
             <tbody>
@@ -131,11 +130,6 @@
                         <td>{{ $item->output }}</td>
                         <td>{{ $item->volume }}</td>
                         <td>{{ $item->description }}</td>
-                        <td class="text-center">
-                            @if ($item->attachment)
-                                <img src="{{ url(Storage::url($item->attachment)) }}" alt="" style="width: 200px; height: 100px;">
-                            @endif
-                        </td>
                     </tr>
                 @endforeach
             </tbody>

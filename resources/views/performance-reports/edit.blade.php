@@ -118,7 +118,6 @@
                         <th>Output</th>
                         <th>Volume</th>
                         <th>Keterangan</th>
-                        <th>Lampiran</th>
                         <th>Opsi</th>
                     </tr>
                 </thead>
@@ -130,15 +129,8 @@
                             <td>{{ $activity->output }}</td>
                             <td>{{ $activity->volume }}</td>
                             <td>{{ $activity->description }}</td>
-                            <td class="text-center">
-                                @if ($activity->attachment)
-                                    <a href="{{ asset(Storage::url($activity->attachment)) }}" data-fancybox="attachment">
-                                        <img src="{{ url(Storage::url($activity->attachment)) }}" alt="" style="width: 200px; height: 100px;" class="image border rounded">
-                                    </a>
-                                @endif
-                            </td>
                             <td>
-                                <a href="#activityModal" class="btn btn-warning btn-sm edit-activity"
+                                <a href="#activityModal" class="btn btn-warning btn-sm edit-activity mb-2"
                                     data-toggle="modal"
                                     data-id="{{ $activity->id }}"
                                     data-activity="{{ $activity->activity }}"
@@ -146,14 +138,17 @@
                                     data-volume="{{ $activity->volume }}"
                                     data-description="{{ $activity->description }}"><i class="fas fa-pen"></i> Edit
                                 </a>
-                                <form action="{{ route('activities.destroy', $activity->id) }}" method="post" class="my-2">
+                                <form action="{{ route('activities.destroy', $activity->id) }}" method="post" class="mb-2">
                                     @csrf @method('DELETE')
                                     <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah anda yakin?')"><i class="fas fa-trash"></i> Kegiatan</button>
                                 </form>
-                                <form action="{{ route('activities.destroy_attachment', $activity->id) }}" method="post" class="">
+                                <form action="{{ route('activities.destroy_attachment', $activity->id) }}" method="post" class="mb-2">
                                     @csrf @method('DELETE')
                                     <button type="submit" class="btn btn-outline-danger btn-sm" onclick="return confirm('Apakah anda yakin?')"><i class="fas fa-trash"></i> Lampiran</button>
                                 </form>
+                                @if ($activity->attachment)
+                                    <a href="{{ asset(Storage::url($activity->attachment)) }}" class="btn btn-outline-primary btn-sm"><i class="fas fa-download"></i> Lampiran</a>
+                                @endif
                             </td>
                         </tr>
                     @empty
@@ -197,7 +192,7 @@
                     </div>
                     <div class="form-group">
                         <label for="attachment">Lampiran</label>
-                        <input type="file" accept="image/*" name="attachment" id="attachment" class="form-control" placeholder="Masukkan Lampiran">
+                        <input type="file" accept=".pdf" name="attachment" id="attachment" class="form-control" placeholder="Masukkan Lampiran">
                         <span class="invalid-feedback"></span>
                     </div>
                     <div class="form-group">

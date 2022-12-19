@@ -114,7 +114,7 @@
                             <div class="col-lg-3 col-md-6">
                                 <div class="form-group">
                                     <label for="attachment">Lampiran</label>
-                                    <input type="file" name="attachment[]" accept="image/*" class="form-control" placeholder="Masukkan Lampiran">
+                                    <input type="file" name="attachment[]" accept=".pdf" class="form-control" placeholder="Masukkan Lampiran">
                                 </div>
                             </div>
                             <div class="col-12">

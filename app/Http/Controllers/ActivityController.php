@@ -22,7 +22,7 @@ class ActivityController extends Controller
             'output'                => ['required','string','max:191'],
             'volume'                => ['nullable','string','max:191'],
             'description'           => ['nullable'],
-            'attachment'            => ['nullable', 'image', 'max:8048'],
+            'attachment'            => ['nullable', 'file', 'mimes:pdf', 'max:8048'],
         ]);
 
         if ($request->attachment) {
