@@ -29,11 +29,11 @@ class PerformanceReportController extends Controller
      */
     public function index()
     {
-        if (auth()->user()->hasRole('Staff')) {
-            $data = PerformanceReport::where('created_by', auth()->user()->id)->paginate(10);
-        } elseif (auth()->user()->hasRole('Pimpinan')) {
+        if (session('user')->role == 'Staff') {
+            $data = PerformanceReport::where('created_by', session('user')->id)->paginate(10);
+        } elseif (session('user')->role == 'Pimpinan') {
             $data = PerformanceReport::whereHas('report_created_by', function ($query) {
-                $query->where('head_id', auth()->user()->id);
+                $query->where('head_id', session('user')->id);
             })->paginate(10);
         } else {
             $data = PerformanceReport::paginate(10);
@@ -89,11 +89,11 @@ class PerformanceReportController extends Controller
             //     $image_type_aux = explode("image/", $image_parts[0]);
             //     $image_type = $image_type_aux[1];
             //     $image_base64 = base64_decode($image_parts[1]);
-            //     Storage::put('public/ttd/' . auth()->user()->name . '_laporan_kinerja_tanggal_' . $data['date'] . '_' . $timestamp . '.' . $image_type, $image_base64);
-            //     $data['signature_reporter'] = 'public/ttd/' . auth()->user()->name . '_laporan_kinerja_tanggal_' . $data['date'] . ' - ' . $timestamp . '.' . $image_type;
+            //     Storage::put('public/ttd/' . session('user')->fullname . '_laporan_kinerja_tanggal_' . $data['date'] . '_' . $timestamp . '.' . $image_type, $image_base64);
+            //     $data['signature_reporter'] = 'public/ttd/' . session('user')->fullname . '_laporan_kinerja_tanggal_' . $data['date'] . ' - ' . $timestamp . '.' . $image_type;
             // }
 
-            $data['created_by'] = auth()->user()->id;
+            $data['created_by'] = session('user')->id;
 
             $performance_report = PerformanceReport::create($data);
 
@@ -244,10 +244,10 @@ class PerformanceReportController extends Controller
             //     $image_type_aux = explode("image/", $image_parts[0]);
             //     $image_type = $image_type_aux[1];
             //     $image_base64 = base64_decode($image_parts[1]);
-            //     Storage::put('public/ttd/' . auth()->user()->name . '_laporan_kinerja_tanggal_' . $performance_report->date . '_' . $timestamp . '.' . $image_type, $image_base64);
-            //     $data['signature_reporter'] = 'public/ttd/' . auth()->user()->name . '_laporan_kinerja_tanggal_' . $performance_report->date . '_' . $timestamp . '.' . $image_type;
+            //     Storage::put('public/ttd/' . session('user')->fullname . '_laporan_kinerja_tanggal_' . $performance_report->date . '_' . $timestamp . '.' . $image_type, $image_base64);
+            //     $data['signature_reporter'] = 'public/ttd/' . session('user')->fullname . '_laporan_kinerja_tanggal_' . $performance_report->date . '_' . $timestamp . '.' . $image_type;
             // }
-            if (auth()->user()->hasRole('Pimpinan')) {
+            if (session('user')->role == 'Pimpinan') {
                 if ($request->revision) {
                     $data['status'] = 0;
                 } else {
@@ -262,13 +262,13 @@ class PerformanceReportController extends Controller
                     //     $image_type_aux = explode("image/", $image_parts[0]);
                     //     $image_type = $image_type_aux[1];
                     //     $image_base64 = base64_decode($image_parts[1]);
-                    //     Storage::put('public/ttd/' . auth()->user()->name . '_laporan_kinerja_tanggal_' . $performance_report->date . '_' . $timestamp . '.' . $image_type, $image_base64);
-                    //     $data['signature_leader'] = 'public/ttd/' . auth()->user()->name . '_laporan_kinerja_tanggal_' . $performance_report->date . '_' . $timestamp . '.' . $image_type;
+                    //     Storage::put('public/ttd/' . session('user')->fullname . '_laporan_kinerja_tanggal_' . $performance_report->date . '_' . $timestamp . '.' . $image_type, $image_base64);
+                    //     $data['signature_leader'] = 'public/ttd/' . session('user')->fullname . '_laporan_kinerja_tanggal_' . $performance_report->date . '_' . $timestamp . '.' . $image_type;
                     // }
                 }
             }
 
-            $data['updated_by'] = auth()->user()->id;
+            $data['updated_by'] = session('user')->id;
             $performance_report->update($data);
 
             // if ($request->file) {

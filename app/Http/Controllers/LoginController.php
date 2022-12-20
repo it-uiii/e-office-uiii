@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use GuzzleHttp\Client;
 use Illuminate\Http\Request;
-use illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 
 class LoginController extends Controller
 {
@@ -18,26 +17,29 @@ class LoginController extends Controller
 
     public function auth(Request $request)
     {
-        $credential = $request->validate([
-            'username' => 'required',
-            'password' => 'required'
+        $data = $request->validate([
+            'username'  => ['required'],
+            'password'  => ['required']
         ]);
 
-        $fieldType = filter_var($request->username, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
-        if (auth()->attempt(array($fieldType => $credential['username'], 'password' => $credential['password']))) {
-            return redirect('/')->with('success', 'Selamat datang kembali, ' . auth()->user()->name);
-        } else {
-            return redirect()->route('login')
-                ->with('loginError', 'Please enter a correctly email and password. ');
+        $data['key'] = config('setting.api_key');
+        $response = json_decode(Http::withOptions([
+            'verify' => false
+        ])->withHeaders([
+            'Authorization' => 'Bearer ' . config('setting.api_token')
+        ])->get(config('setting.api_url').'/login?key='.$data['key'].'&email='. $data['username'] .'&password='. $data['password'])->getBody());
+        if (isset($response->token)) {
+            session(['token' => $response->token]);
+            session(['user' => $response->session[0]]);
+            return redirect('/')->with('success', 'Selamat datang kembali, ' . session('user')->fullname);
         }
+
+        return redirect('/login')->with('error', 'Please enter a correctly email and password.');
     }
 
     public function logout(Request $request)
     {
-        Auth::logout();
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-
+        session()->flush();
         return redirect('/');
     }
 }

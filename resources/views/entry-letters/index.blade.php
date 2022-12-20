@@ -4,7 +4,7 @@
         <div class="card-header">
             <div class="d-flex justify-content-between">
                 @can('entry-letter-create')
-                    @if (auth()->user()->position && auth()->user()->position->name == 'Pelaksana Sekretariat')
+                    @if (session('user')->position && session('user')->position == 'Pelaksana Sekretariat')
                         <a class="btn btn-primary" href="{{ route('entry-letters.create') }}">
                             <i class="fas fa-plus"></i>
                         </a>
@@ -64,11 +64,11 @@
                                     </a>
                                     @can('entry-letter-edit')
 
-                                        @if (auth()->user()->hasRole('Admin') && auth()->user()->position && auth()->user()->position->name == 'Pelaksana Sekretariat' && $item->status == 0)
+                                        @if (session('user')->role == 'Admin' && session('user')->position && session('user')->position == 'Pelaksana Sekretariat' && $item->status == 0)
                                             <a class="mb-1 btn btn-warning" href="{{ route('entry-letters.edit', $item) }}"><i class="fas fa-pen"></i></a>
                                         @endif
 
-                                        @if(auth()->user()->position && ((auth()->user()->position->name == 'KTU Sekretaris' && ($item->status == 1 || $item->status == 0)) || auth()->user()->position->name == 'Rektor'))
+                                        @if(session('user')->position && ((session('user')->position == 'KTU Sekretaris' && ($item->status == 1 || $item->status == 0)) || session('user')->position == 'Rektor'))
                                             <a class="mb-1 btn btn-warning" href="{{ route('entry-letters.edit', $item) }}"><i class="fas fa-pen"></i></a>
                                         @endif
                                     @endcan

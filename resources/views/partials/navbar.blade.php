@@ -88,29 +88,29 @@
             </li>
             <li class="nav-item dropdown user-menu">
                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-                <img src="{{ asset(Storage::url(auth()->user()->avatar)) }}" class="user-image img-circle elevation-2" alt="User Image">
-                <span class="d-none d-md-inline">{{ auth()->user()->name }}</span>
+                <img src="{{ asset(Storage::url(session('user')->avatar ?? 'public/default.jpg')) }}" class="user-image img-circle elevation-2" alt="User Image">
+                <span class="d-none d-md-inline">{{ session('user')->fullname }}</span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                 <!-- User image -->
                 <li class="user-header bg-primary">
-                    <img src="{{ asset(Storage::url(auth()->user()->avatar)) }}" class="img-circle elevation-2" alt="User Image">
+                    <img src="{{ asset(Storage::url(session('user')->avatar ?? 'public/default.jpg')) }}" class="img-circle elevation-2" alt="User Image">
 
                     <p>
-                    {{ auth()->user()->name }}
+                    {{ session('user')->fullname }}
                     <br>
-                    <small>{{ auth()->user()->nrp }} - 
-                    @if (empty(auth()->user()->position->name))
+                    <small>{{ session('user')->id }} -
+                    @if (empty(session('user')->position))
                         No Jabatan
                     @else
-                        {{ auth()->user()->position->name }}
+                        {{ session('user')->position }}
                     @endif</small>
-                    <small>Entry since {{ \Carbon\Carbon::parse(auth()->user()->tgl_masuk)->format('M Y') }}</small>
+                    {{-- <small>Entry since {{ \Carbon\Carbon::parse(session('user')->tgl_masuk)->format('M Y') }}</small> --}}
                     </p>
                 </li>
                 <!-- Menu Footer-->
                 <li class="user-footer">
-                    <a href="/profile/{{ auth()->user()->id }}/index" class="btn btn-default btn-flat">Profile</a>
+                    <a href="/profile/{{ session('user')->id }}/index" class="btn btn-default btn-flat">Profile</a>
                     <a class="d-inline float-right">
                     <form action="/logout" method="post">
                         @csrf

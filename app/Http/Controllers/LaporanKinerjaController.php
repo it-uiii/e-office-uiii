@@ -61,7 +61,7 @@ class LaporanKinerjaController extends Controller
             }
         }
         $data['status'] = 'Proses';
-        $data['user_id'] = auth()->user()->id;
+        $data['user_id'] = session('user')->id;
         $data['filenames'] = implode('|', $image);
 
         Laporan::create($data);

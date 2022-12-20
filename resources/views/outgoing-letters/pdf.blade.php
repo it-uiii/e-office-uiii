@@ -100,7 +100,7 @@
     <div class="mt-5" style="width: 30%; margin-left: 70%;">
         Hormat Saya,
         <br>
-        {{ $rektor->position->name }}
+        {{ $rektor->position }}
         @if ($data->signature)
             <br>
             <img src="{{ public_path(Storage::url($data->signature)) }}" alt="Signature" style="width: 100px;">

@@ -43,25 +43,25 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label for="number">Nomor Surat</label>
-                        <input @if(auth()->user()->position && auth()->user()->position->name != 'Pelaksana Sekretariat') readonly @endif type="text" class="form-control @error('number') is-invalid @enderror" id="number" name="number" placeholder="Masukkan Nomor Surat" value="{{ old('number', $data->number) }}">
+                        <input @if(session('user')->position && session('user')->position != 'Pelaksana Sekretariat') readonly @endif type="text" class="form-control @error('number') is-invalid @enderror" id="number" name="number" placeholder="Masukkan Nomor Surat" value="{{ old('number', $data->number) }}">
                         @error('number')<div class="invalid-feedback">{{ $message }}</div>@enderror
                     </div>
                     <div class="form-group">
                         <label for="subject">Perihal</label>
-                        <input @if((auth()->user()->position && auth()->user()->position->name != 'Pelaksana Sekretariat') && !auth()->user()->hasRole('Staff')) readonly @endif type="text" class="form-control @error('subject') is-invalid @enderror" id="subject" name="subject" placeholder="Masukkan Perihal" value="{{ old('subject', $data->subject) }}">
+                        <input @if((session('user')->position && session('user')->position != 'Pelaksana Sekretariat') && session('user')->role != 'Staff') readonly @endif type="text" class="form-control @error('subject') is-invalid @enderror" id="subject" name="subject" placeholder="Masukkan Perihal" value="{{ old('subject', $data->subject) }}">
                         @error('subject')<div class="invalid-feedback">{{ $message }}</div>@enderror
                     </div>
                     <div class="form-group">
                         <label for="date">Tanggal Surat</label>
-                        <input @if((auth()->user()->position && auth()->user()->position->name != 'Pelaksana Sekretariat') && !auth()->user()->hasRole('Staff')) readonly @endif type="date" class="form-control @error('date') is-invalid @enderror" id="date" name="date" placeholder="" value="{{ old('date', $data->date) }}">
+                        <input @if((session('user')->position && session('user')->position != 'Pelaksana Sekretariat') && session('user')->role != 'Staff') readonly @endif type="date" class="form-control @error('date') is-invalid @enderror" id="date" name="date" placeholder="" value="{{ old('date', $data->date) }}">
                         @error('date')<div class="invalid-feedback">{{ $message }}</div>@enderror
                     </div>
                     <div class="form-group">
                         <label for="destination">Tujuan</label>
-                        <input @if((auth()->user()->position && auth()->user()->position->name != 'Pelaksana Sekretariat') && !auth()->user()->hasRole('Staff')) readonly @endif type="text" class="form-control @error('destination') is-invalid @enderror" id="destination" name="destination" placeholder="Masukkan Tujuan" value="{{ old('destination', $data->destination) }}">
+                        <input @if((session('user')->position && session('user')->position != 'Pelaksana Sekretariat') && session('user')->role != 'Staff') readonly @endif type="text" class="form-control @error('destination') is-invalid @enderror" id="destination" name="destination" placeholder="Masukkan Tujuan" value="{{ old('destination', $data->destination) }}">
                         @error('destination')<div class="invalid-feedback">{{ $message }}</div>@enderror
                     </div>
-                    @if((auth()->user()->position && auth()->user()->position->name == 'Pelaksana Sekretariat') || auth()->user()->hasRole('Staff'))
+                    @if((session('user')->position && session('user')->position == 'Pelaksana Sekretariat') || session('user')->role == 'Staff')
                         <div class="form-group">
                             <label for="description">Keterangan</label>
                             <textarea type="text" class="form-control @error('description') is-invalid @enderror" id="description" name="description" placeholder="Masukkan Keterangan">{{ old('description', $data->description) }}</textarea>
@@ -101,7 +101,7 @@
                             <textarea type="text" class="form-control @error('revision_description') is-invalid @enderror" id="revision_description" name="revision_description" placeholder="Masukkan Revisi">{{ old('revision_description', $data->revision_description) }}</textarea>
                             @error('revision_description')<div class="invalid-feedback">{{ $message }}</div>@enderror
                         </div>
-                        @if (auth()->user()->position->name == 'Rektor')
+                        @if (session('user')->position == 'Rektor')
                             <div class="form-group signature d-none">
                                 <i>Tanda Tangan</i>
                                 <div class="wrapper-ttd">
@@ -133,7 +133,7 @@
                             <a href="{{ asset(Storage::url($item->file)) }}" data-fancybox="lampiran">
                                 <img src="{{ asset(Storage::url($item->file)) }}" class="image border rounded">
                             </a>
-                            @if((auth()->user()->position && auth()->user()->position->name == 'Pelaksana Sekretariat') || auth()->user()->hasRole('Staff'))
+                            @if((session('user')->position && session('user')->position == 'Pelaksana Sekretariat') || session('user')->role == 'Staff')
                                 <form action="{{ route('additionals.destroy', $item) }}" method="post">
                                     @csrf @method('delete')
                                     <button type="submit" class="btn btn-danger btn-sm btn-block mt-1" onclick="return confirm('Apakah anda yakin?')">Hapus</button>
@@ -149,7 +149,7 @@
 @endsection
 
 @section('scripts')
-@if (auth()->user()->position->name == 'Rektor')
+@if (session('user')->position == 'Rektor')
 <script src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js"></script>
 <script>
     var signaturePad = new SignaturePad(document.getElementById('signature-pad'), {
@@ -177,7 +177,7 @@
 </script>
 @endif
 <script src="{{ asset('plugins/jquery-fancybox/jquery.fancybox.js') }}"></script>
-@if((auth()->user()->position && auth()->user()->position->name == 'Pelaksana Sekretariat') || auth()->user()->hasRole('Staff'))
+@if((session('user')->position && session('user')->position == 'Pelaksana Sekretariat') || session('user')->role == 'Staff')
     <script>
         $(document).ready(function() {
             $("#description").summernote({

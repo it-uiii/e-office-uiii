@@ -196,48 +196,7 @@
 
         });
     </script>
-
-    @if (session('success'))
-        <script>
-            toastr.options = {
-                "closeButton": true,
-                "progressBar": true
-            }
-            toastr.success("{{ session('success') }}");
-        </script>
-    @endif
-
-    @if (session('danger'))
-        <script>
-            toastr.options = {
-                "closeButton": true,
-                "progressBar": true
-            }
-            toastr.error("{{ session('danger') }}");
-        </script>
-    @endif
-
-    @if (session('warning'))
-        <script>
-            toastr.options = {
-                "closeButton": true,
-                "progressBar": true
-            }
-            toastr.warning("{{ session('warning') }}");
-        </script>
-    @endif
-
-    @if ($errors->any())
-        @foreach ($errors->all() as $error)
-            <script>
-                toastr.options = {
-                    "closeButton": true,
-                    "progressBar": true
-                }
-                toastr.error("{{ $error }}");
-            </script>
-        @endforeach
-    @endif
+    @include('partials.alerts')
     @yield('scripts')
 </body>
 </html>

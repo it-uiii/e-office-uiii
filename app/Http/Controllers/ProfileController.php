@@ -53,7 +53,7 @@ class ProfileController extends Controller
     {
         return view('profile.profil', [
             'title' => 'Profile',
-            'subtitle' => Auth()->user()->name
+            'subtitle' => session('user')->fullname
         ]);
     }
 

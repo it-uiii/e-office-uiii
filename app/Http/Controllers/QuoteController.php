@@ -48,7 +48,7 @@ class QuoteController extends Controller
             'title' => ['required', 'max:255']
         ]);
 
-        $validate['user_id'] = auth()->user()->id;
+        $validate['user_id'] = session('user')->id;
         $validate['body'] = $request->body;
 
         // dd($validate);
@@ -93,7 +93,7 @@ class QuoteController extends Controller
             'title' => ['required', 'max:255']
         ]);
 
-        $validate['user_id'] = auth()->user()->id;
+        $validate['user_id'] = session('user')->id;
         $validate['body'] = $request->body;
 
         // dd($validate);

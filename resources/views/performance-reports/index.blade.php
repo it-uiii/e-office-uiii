@@ -51,7 +51,7 @@
                     <thead>
                         <tr>
                             <th style="width: 10px">#</th>
-                            @if (!auth()->user()->hasRole('Staff'))
+                            @if (session('user')->role != 'Staff')
                                 <th>Pegawai</th>
                             @endif
                             <th>Hari, Tanggal</th>
@@ -66,7 +66,7 @@
                         @forelse ($data as $item)
                             <tr>
                                 <td>{{ $data->firstItem() + $loop->index }}</td>
-                                @if (!auth()->user()->hasRole('Staff'))
+                                @if (session('user')->role != 'Staff')
                                     <td>{{ $item->report_created_by->name }}</td>
                                 @endif
                                 <td>{{ hari(date('N', strtotime($item->date))) }}, {{ tgl($item->date) }}</td>
@@ -86,7 +86,7 @@
                                     </button>
 
                                     @can('performance-report-edit')
-                                        @if (auth()->user()->hasRole('Staff') && $item->status == 0)
+                                        @if (session('user')->role == 'Staff' && $item->status == 0)
                                             <a class="mb-1 btn btn-warning" href="{{ route('performance-reports.edit', $item) }}"><i class="fas fa-pen"></i></a>
                                         @endif
 

@@ -2,7 +2,7 @@
 @section('container')
 <div class="col-md-6">
     <div class="card card-primary">
-        <form action="/profile/{{ auth()->user()->id }}/settings" method="post">
+        <form action="/profile/{{ session('user')->id }}/settings" method="post">
         @method('put')
         @csrf
         <div class="card-body">
@@ -37,7 +37,7 @@
         </div>
         <div class="card-footer">
             <button type="submit" class="btn btn-primary">Change</button>
-            <a class="btn btn-danger" href="/profile/{{ auth()->user()->id }}/index">Cancel</a>
+            <a class="btn btn-danger" href="/profile/{{ session('user')->id }}/index">Cancel</a>
         </div>
         </form>
     </div>

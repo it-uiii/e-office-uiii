@@ -24,11 +24,11 @@ class EntryLetterController extends Controller
      */
     public function index()
     {
-        $data = EntryLetter::filter()->when(auth()->user()->hasRole('Admin') && auth()->user()->position->name == 'Pelaksana Sekretariat', function ($query) {
-            $query->where('created_by', auth()->user()->id);
-        })->when(auth()->user()->hasRole('Admin') && auth()->user()->position->name == 'KTU Sekretaris', function ($query) {
+        $data = EntryLetter::filter()->when(session('user')->role == 'Admin' && session('user')->position == 'Pelaksana Sekretariat', function ($query) {
+            $query->where('created_by', session('user')->id);
+        })->when(session('user')->role == 'Admin' && session('user')->position == 'KTU Sekretaris', function ($query) {
             $query->where('status',0)->orWhere('status',1);
-        })->when(auth()->user()->hasRole('Admin') && auth()->user()->position->name == 'Rektor', function ($query) {
+        })->when(session('user')->role == 'Admin' && session('user')->position == 'Rektor', function ($query) {
             $query->where('status',1)->orWhere('status',2);
         })->paginate(10);
         $data->appends(request()->query());
@@ -60,7 +60,7 @@ class EntryLetterController extends Controller
             'subject'               => ['required','string','max:128'],
             'date_in'               => ['required','date'],
             'sender'                => ['required','string','max:128'],
-            'disposition_id'        => [(auth()->user()->position && auth()->user()->position->name == 'Rektor' ? 'required' : 'nullable')],
+            'disposition_id'        => [(session('user')->position && session('user')->position == 'Rektor' ? 'required' : 'nullable')],
             'description'           => ['nullable'],
             'file'                  => [($request->id ? 'nullable' : 'required'),'file','mimes:pdf,doc,docx','max:2048'],
             'acc'                   => ['nullable'],
@@ -80,19 +80,19 @@ class EntryLetterController extends Controller
         ]);
 
         if ($request->id) {
-            $data['updated_by'] = auth()->user()->id;
+            $data['updated_by'] = session('user')->id;
         } else {
-            $data['created_by'] = auth()->user()->id;
+            $data['created_by'] = session('user')->id;
         }
         if ($request->file) {
             $data['file']       = $request->file('file')->storeAs('public/entry-letters', $request->file('file')->getClientOriginalName());
         }
 
-        if (auth()->user()->hasRole('Admin') && auth()->user()->position->name == 'Pelaksana Sekretariat') {
+        if (session('user')->role == 'Admin' && session('user')->position == 'Pelaksana Sekretariat') {
             $data['status'] = 0;
             $data['revision'] = null;
             $data['revision_description'] = null;
-        } elseif (auth()->user()->hasRole('Pimpinan') && auth()->user()->position->name == 'KTU Sekretaris') {
+        } elseif (session('user')->role == 'Pimpinan' && session('user')->position == 'KTU Sekretaris') {
             if ($request->revision) {
                 $data['status'] = 0;
             } else {
@@ -100,7 +100,7 @@ class EntryLetterController extends Controller
                 $data['revision'] = null;
                 $data['revision_description'] = null;
             }
-        } elseif (auth()->user()->hasRole('Pimpinan') && auth()->user()->position->name == 'Rektor') {
+        } elseif (session('user')->role == 'Pimpinan' && session('user')->position == 'Rektor') {
             if ($request->revision) {
                 $data['status'] = 1;
             } else {
@@ -113,7 +113,7 @@ class EntryLetterController extends Controller
         try {
             $entry_letter = EntryLetter::updateOrCreate(['id' => $request->id],$data);
             if ($request->id) {
-                if (auth()->user()->position && auth()->user()->position->name == 'Rektor') {
+                if (session('user')->position && session('user')->position == 'Rektor') {
                     foreach ($entry_letter->dispositions as $item) {
                         $item->delete();
                     }

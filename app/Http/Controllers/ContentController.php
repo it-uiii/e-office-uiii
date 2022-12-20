@@ -55,7 +55,7 @@ class ContentController extends Controller
         $image = $request->image;
         $validate['image']   = $image->storeAs('public/content-img', $image->getClientOriginalName());
 
-        $validate['user_id'] = auth()->user()->id;
+        $validate['user_id'] = session('user')->id;
         $validate['excerpt'] = Str::limit(strip_tags($request->body), 100);
         $validate['status'] = $request->status;
 

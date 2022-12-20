@@ -6,11 +6,11 @@
         <div class="card-body">
             <div class="form-group">
                 <label for="name">Fullname</label>
-                <input type="text" class="form-control" value="{{ auth()->user()->name }}" disabled readonly>
+                <input type="text" class="form-control" value="{{ session('user')->fullname }}" disabled readonly>
             </div>
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="text" class="form-control" value="{{ auth()->user()->email }}" disabled readonly>
+                <input type="text" class="form-control" value="{{ session('user')->email }}" disabled readonly>
             </div>
             <div class="form-group">
                 <label>Role : </label>
@@ -22,7 +22,7 @@
             </div>
         </div>
         <div class="card-footer">
-            <a class="btn btn-warning" href="/profile/{{ auth()->user()->id }}/settings">Change Password</a>
+            <a class="btn btn-warning" href="/profile/{{ session('user')->id }}/settings">Change Password</a>
             <a class="btn btn-danger" href="/">Back</a>
         </div>
         </form>
@@ -30,10 +30,10 @@
 </div> --}}
 
 @php
-    $user_name      = auth()->user()->name;
-    $user_jabatan   = auth()->user()->position->name;
-    $user_avatar    = auth()->user()->avatar;
-    $user_email     = auth()->user()->email;
+    $user_name      = session('user')->fullname;
+    $user_jabatan   = session('user')->position;
+    $user_avatar    = session('user')->avatar;
+    $user_email     = session('user')->email;
 
 @endphp
 <div class="row">
@@ -186,15 +186,15 @@
             <!-- /.tab-pane -->
 
             <div class="tab-pane" id="settings">
-            <form class="form-horizontal" action="/profile/{{ auth()->user()->id }}/changeName">
+            <form class="form-horizontal" action="/profile/{{ session('user')->id }}/changeName">
                 @method('put')
                 @csrf
                 <div class="form-group row">
                     <label for="inputName" class="col-sm-2 col-form-label">Avatar</label>
                     <div class="col-sm-10">
-                        <input type="hidden" name="oldCover" value="{{ auth()->user()->avatar }}">
-                        @if (auth()->user()->avatar)
-                            <img src="{{ asset(Storage::url(auth()->user()->avatar)) }}" class="img-preview img-fluid">
+                        <input type="hidden" name="oldCover" value="{{ session('user')->avatar }}">
+                        @if (session('user')->avatar)
+                            <img src="{{ asset(Storage::url(session('user')->avatar)) }}" class="img-preview img-fluid">
                         @else
                             <img class="img-preview img-fluid mb-3">
                         @endif
@@ -213,19 +213,19 @@
                 <div class="form-group row">
                     <label for="inputName" class="col-sm-2 col-form-label">Nama</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="name" value="{{ auth()->user()->name }}">
+                        <input type="text" class="form-control" id="name" value="{{ session('user')->fullname }}">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
                     <div class="col-sm-10">
-                        <input type="email" class="form-control" id="email" value="{{ auth()->user()->email }}" readonly>
+                        <input type="email" class="form-control" id="email" value="{{ session('user')->email }}" readonly>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="inputName2" class="col-sm-2 col-form-label">Jabatan</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="position_id" value="{{ auth()->user()->position->name }}" readonly>
+                        <input type="text" class="form-control" id="position_id" value="{{ session('user')->position }}" readonly>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -240,7 +240,7 @@
                 <div class="form-group row">
                 <div class="offset-sm-2 col-sm-10">
                     <button type="submit" class="btn btn-danger">Submit</button>
-                    <a class="btn btn-warning" href="/profile/{{ auth()->user()->id }}/settings">Change Password</a>
+                    <a class="btn btn-warning" href="/profile/{{ session('user')->id }}/settings">Change Password</a>
                 </div>
                 </div>
             </form>

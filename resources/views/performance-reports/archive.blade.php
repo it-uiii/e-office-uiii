@@ -103,7 +103,7 @@
                 <tr>
                     <td style="width: 100px">Jabatan</td>
                     <td style="width: 5px">:</td>
-                    <td>{{ $data->report_created_by->position->name }}</td>
+                    <td>{{ $data->report_created_by->position }}</td>
                 </tr>
                 <tr>
                     <td style="width: 100px">Hari, Tanggal</td>
@@ -142,12 +142,12 @@
                     <td class="text-center"><br>Pemimpin Penilai<br>
                         <img class="w-100" src="{{ public_path(Storage::url($data->signature_leader)) }}" alt=""><br>
                         <u>{{ $data->report_created_by->head->name }}</u><br>
-                        {{ $data->report_created_by->head->position->name }}
+                        {{ $data->report_created_by->head->position }}
                     </td>
                     <td class="text-center">Depok, {{ tgl($data->date) }}<br>Pegawai yang dinilai<br>
                         <img class="w-100" src="{{ public_path(Storage::url($data->signature_reporter)) }}" alt=""><br>
                         <u>{{ $data->report_created_by->name }}</u><br>
-                        {{ $data->report_created_by->position->name }}
+                        {{ $data->report_created_by->position }}
                     </td>
                 </tr>
             </table>

@@ -73,32 +73,32 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </li>
         <li class="nav-item dropdown user-menu">
             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-            @if (empty(auth()->user()->avatar))
+            @if (empty(session('user')->avatar))
                 <img src="{{ asset('dist/img/user.png') }}" class="user-image img-circle elevation-2" alt="User Image">
             @else
-                <img src="{{ asset(Storage::url(auth()->user()->avatar)) }}" class="user-image img-circle elevation-2" alt="User Image">
+                <img src="{{ asset(Storage::url(session('user')->avatar)) }}" class="user-image img-circle elevation-2" alt="User Image">
             @endif
-            <span class="d-none d-md-inline">{{ auth()->user()->name }}</span>
+            <span class="d-none d-md-inline">{{ session('user')->fullname }}</span>
             </a>
             <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
             <!-- User image -->
             <li class="user-header bg-primary">
-                @if (empty(auth()->user()->avatar))
+                @if (empty(session('user')->avatar))
                     <img src="{{ asset('dist/img/user.png') }}" class="img-circle elevation-2" alt="User Image">
                 @else
-                    <img src="{{ asset(Storage::url(auth()->user()->avatar)) }}" class="img-circle elevation-2" alt="User Image">
+                    <img src="{{ asset(Storage::url(session('user')->avatar)) }}" class="img-circle elevation-2" alt="User Image">
                 @endif
 
                 <p>
-                {{ auth()->user()->name }}
+                {{ session('user')->fullname }}
                 <br>
-                <small>{{ auth()->user()->nrp }} - 
-                @if (empty(auth()->user()->position->name))
+                <small>{{ session('user')->id }} -
+                @if (empty(session('user')->position))
                     No Jabatan
                 @else
-                    {{ auth()->user()->position->name }}
+                    {{ session('user')->position }}
                 @endif</small>
-                <small>Entry since {{ \Carbon\Carbon::parse(auth()->user()->tgl_masuk)->format('M Y') }}</small>
+                <small>Entry since {{ \Carbon\Carbon::parse(session('user')->tgl_masuk)->format('M Y') }}</small>
                 </p>
             </li>
             <!-- Menu Footer-->

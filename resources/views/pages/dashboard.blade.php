@@ -8,37 +8,37 @@
                 </div>
                 <div class="card-body box-profile">
                     <div class="text-center">
-                    @if (empty(auth()->user()->avatar))
+                    @if (empty(session('user')->avatar))
                         <img class="profile-user-img img-fluid img-circle"
                             src="{{ asset('dist/img/user.png') }}"
                             alt="User profile picture">
                     @else
                         <img class="profile-user-img img-fluid img-circle"
-                            src="{{ asset(Storage::url(auth()->user()->avatar)) }}"
+                            src="{{ asset(Storage::url(session('user')->avatar)) }}"
                             alt="User profile picture">
                     @endif
                     </div>
-                    <h3 class="profile-username text-center">{{ auth()->user()->name }}</h3>
+                    <h3 class="profile-username text-center">{{ session('user')->fullname }}</h3>
                     <p class="text-muted text-center">
-                        {{ auth()->user()->nrp }}
+                        {{ session('user')->id }}
                         <br>
-                        {{ auth()->user()->jabatan }}
+                        {{ session('user')->jabatan }}
                         <br>
-                        {{ auth()->user()->position->name }}
+                        {{ session('user')->position }}
                     </p>
                     <ul class="list-group list-group-unbordered mb-3">
                         <li class="list-group-item">
-                            <b>Role</b> <a class="float-right">{{ auth()->user()->jabatan }}</a>
+                            <b>Role</b> <a class="float-right">{{ session('user')->jabatan }}</a>
                         </li>
                         <li class="list-group-item">
-                            @if (empty(auth()->user()->phone))
+                            @if (empty(session('user')->phone))
                                 <b>Phone</b> <a class="float-right">-</a>
                             @else
-                                <b>Phone</b> <a class="float-right">{{ auth()->user()->phone }}</a>
+                                <b>Phone</b> <a class="float-right">{{ session('user')->phone }}</a>
                             @endif
                         </li>
                         <li class="list-group-item">
-                            <b>Email</b> <a class="float-right">{{ auth()->user()->email }}</a>
+                            <b>Email</b> <a class="float-right">{{ session('user')->email }}</a>
                         </li>
                         <a href="#" class="btn btn-warning btn-block"><b>Edit Profile</b></a>
                     </ul>
@@ -52,7 +52,7 @@
                     <h5 class="card-title m-0">Academic</h5>
                 </div>
                 <div class="card-body">
-                    
+
                 </div>
             </div>
             <div class="card card-warning card-outline">
@@ -60,7 +60,7 @@
                     <h5 class="card-title m-0">News</h5>
                 </div>
                 <div class="card-body">
-                    
+
                 </div>
             </div>
             <div class="card card-danger card-outline">
@@ -68,7 +68,7 @@
                     <h5 class="card-title m-0">Newslatter</h5>
                 </div>
                 <div class="card-body">
-                    
+
                 </div>
             </div>
             <div class="card card-info card-outline">
@@ -76,7 +76,7 @@
                     <h5 class="card-title m-0"></h5>
                 </div>
                 <div class="card-body">
-                    
+
                 </div>
             </div>
         </div>
@@ -87,7 +87,7 @@
             <h5 class="card-title m-0">Facilities</h5>
         </div>
         <div class="card-body">
-            
+
         </div>
     </div>
     <div class="card">
@@ -95,7 +95,7 @@
             <h5 class="card-title m-0">Appications & Services</h5>
         </div>
         <div class="card-body">
-            
+
         </div>
     </div>
 @endsection

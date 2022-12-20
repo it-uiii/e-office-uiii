@@ -148,7 +148,7 @@ class ItemsManagementController extends Controller
         $data['umur_penyusutan'] = $request->umur_penyusutan;
         $data['stock'] = $request->stock;
         $data['tanggal_invoice'] = $request->tanggal_invoice;
-        $data['user_id'] = auth()->user()->id;
+        $data['user_id'] = session('user')->id;
         $data['no_inventory'] = 'UIII' . $kode_lokasi . $kode_sumber . $kode_golongan . $kode_jenis . $kode_kelompok . $year . $seq_number;
 
         // dd($data);
@@ -275,7 +275,7 @@ class ItemsManagementController extends Controller
         $data['umur_penyusutan'] = $request->umur_penyusutan;
         $data['stock'] = $request->stock;
         $data['tanggal_invoice'] = $request->tanggal_invoice;
-        $data['user_id'] = auth()->user()->id;
+        $data['user_id'] = session('user')->id;
         $data['no_inventory'] = 'UIII' . $kode_lokasi . $kode_sumber . $kode_golongan . $kode_jenis . $kode_kelompok . $year . $seq_number;
 
         $asset->update($data);

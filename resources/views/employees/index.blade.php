@@ -57,10 +57,10 @@
                                 <td>{{ $users->firstItem() + $loop->index }}</td>
                                 <td>{{ $user->name }}</td>
                                 <td>
-                                    @if (empty($user->position->name))
+                                    @if (empty($user->position))
                                         Jabatan Kosong
                                     @else
-                                        {{ $user->position->name }}
+                                        {{ $user->position }}
                                     @endif
                                 </td>
                                 <td>{{ $user->created_at }}</td>

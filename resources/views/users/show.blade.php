@@ -38,7 +38,7 @@
                 </div>
                 <div class="form-group">
                     <label>Jabatan</label>
-                    <input type="text" class="form-control" value="{{ $user->position->name }}" disabled>
+                    <input type="text" class="form-control" value="{{ $user->position }}" disabled>
                 </div>
                 <div class="form-group">
                     <label>Atasan</label>

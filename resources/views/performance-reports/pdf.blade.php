@@ -102,7 +102,7 @@
             <tr>
                 <td style="width: 100px">Jabatan</td>
                 <td style="width: 5px">:</td>
-                <td>{{ $data->report_created_by->position ? $data->report_created_by->position->name : '' }}</td>
+                <td>{{ $data->report_created_by->position ? $data->report_created_by->position : '' }}</td>
             </tr>
             <tr>
                 <td style="width: 100px">Hari, Tanggal</td>
@@ -143,7 +143,7 @@
                     <img class="mw-100" style="position: absolute;" src="{{ public_path('img/Tanda Tangan.png') }}" alt="">
                     <br><br><br><br><br><b><br><br>
                     {{ $data->report_created_by->head ? $data->report_created_by->head->name : '' }}
-                    {{-- {{ $data->report_created_by->head->position->name }} --}}
+                    {{-- {{ $data->report_created_by->head->position }} --}}
                 </td>
             </tr>
         </table>

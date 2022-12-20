@@ -50,7 +50,7 @@ class SuppliersController extends Controller
             'kode_pemasok'  => ['required', 'max:5'],
         ]);
 
-        $validate['user_id'] = auth()->user()->id;
+        $validate['user_id'] = session('user')->id;
         $validate = $request->all();
 
         supplier::create($validate);

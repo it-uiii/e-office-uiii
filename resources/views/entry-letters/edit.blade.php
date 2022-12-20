@@ -12,28 +12,28 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label for="number">Nomor Surat</label>
-                        <input @if (!auth()->user()->hasRole('Admin') || auth()->user()->position->name != 'Pelaksana Sekretariat') readonly @endif type="text" class="form-control @error('number') is-invalid @enderror" id="number" name="number" placeholder="Masukkan Perihal" value="{{ old('number', $data->number) }}">
+                        <input @if (session('user')->role != 'Admin' || session('user')->position != 'Pelaksana Sekretariat') readonly @endif type="text" class="form-control @error('number') is-invalid @enderror" id="number" name="number" placeholder="Masukkan Perihal" value="{{ old('number', $data->number) }}">
                         @error('number')<div class="invalid-feedback">{{ $message }}</div>@enderror
                     </div>
                     <div class="form-group">
                         <label for="subject">Perihal</label>
-                        <input @if (!auth()->user()->hasRole('Admin') || auth()->user()->position->name != 'Pelaksana Sekretariat') readonly @endif type="text" class="form-control @error('subject') is-invalid @enderror" id="subject" name="subject" placeholder="Masukkan Perihal" value="{{ old('subject', $data->subject) }}">
+                        <input @if (session('user')->role != 'Admin' || session('user')->position != 'Pelaksana Sekretariat') readonly @endif type="text" class="form-control @error('subject') is-invalid @enderror" id="subject" name="subject" placeholder="Masukkan Perihal" value="{{ old('subject', $data->subject) }}">
                         @error('subject')<div class="invalid-feedback">{{ $message }}</div>@enderror
                     </div>
                     <div class="form-group">
                         <label for="date_in">Tanggal Diterima</label>
-                        <input @if (!auth()->user()->hasRole('Admin') || auth()->user()->position->name != 'Pelaksana Sekretariat') readonly @endif type="date" class="form-control @error('date_in') is-invalid @enderror" id="date_in" name="date_in" placeholder="" value="{{ old('date_in', $data->date_in) }}">
+                        <input @if (session('user')->role != 'Admin' || session('user')->position != 'Pelaksana Sekretariat') readonly @endif type="date" class="form-control @error('date_in') is-invalid @enderror" id="date_in" name="date_in" placeholder="" value="{{ old('date_in', $data->date_in) }}">
                         @error('date_in')<div class="invalid-feedback">{{ $message }}</div>@enderror
                     </div>
                     <div class="form-group">
                         <label for="sender">Pengirim</label>
-                        <input @if (!auth()->user()->hasRole('Admin') || auth()->user()->position->name != 'Pelaksana Sekretariat') readonly @endif type="text" class="form-control @error('sender') is-invalid @enderror" id="sender" name="sender" placeholder="Nama Instansi" value="{{ old('sender', $data->sender) }}">
+                        <input @if (session('user')->role != 'Admin' || session('user')->position != 'Pelaksana Sekretariat') readonly @endif type="text" class="form-control @error('sender') is-invalid @enderror" id="sender" name="sender" placeholder="Nama Instansi" value="{{ old('sender', $data->sender) }}">
                         @error('sender')<div class="invalid-feedback">{{ $message }}</div>@enderror
                     </div>
-                    @if (auth()->user()->position && auth()->user()->position->name == 'Rektor')
+                    @if (session('user')->position && session('user')->position == 'Rektor')
                         <div class="form-group">
                             <label for="disposition_id">Disposisi</label>
-                            <select @if (!auth()->user()->hasRole('Admin') || auth()->user()->position->name != 'Pelaksana Sekretariat') readonly @endif multiple class="form-control @error('disposition_id') is-invalid @enderror" id="disposition_id" name="disposition_id[]">
+                            <select @if (session('user')->role != 'Admin' || session('user')->position != 'Pelaksana Sekretariat') readonly @endif multiple class="form-control @error('disposition_id') is-invalid @enderror" id="disposition_id" name="disposition_id[]">
                                 @foreach ($users as $item)
                                     <option value="{{ $item->id }}" {{ in_array($item->id, old('disposition_id', $data->dispositions->pluck('user_id')->toArray(),[])) ? 'selected' : '' }}>{{ $item->name }}</option>
                                 @endforeach
@@ -41,10 +41,10 @@
                             @error('disposition_id')<div class="invalid-feedback">{{ $message }}</div>@enderror
                         </div>
                     @endif
-                    @if (auth()->user()->hasRole('Admin') && auth()->user()->position->name == 'Pelaksana Sekretariat')
+                    @if (session('user')->role == 'Admin' && session('user')->position == 'Pelaksana Sekretariat')
                         <div class="form-group">
                             <label for="description">Keterangan</label>
-                            <textarea @if (!auth()->user()->hasRole('Admin') || auth()->user()->position->name != 'Pelaksana Sekretariat') readonly @endif type="text" class="form-control @error('description') is-invalid @enderror" id="description" name="description" placeholder="Masukkan Keterangan">{{ old('description', $data->description) }}</textarea>
+                            <textarea @if (session('user')->role != 'Admin' || session('user')->position != 'Pelaksana Sekretariat') readonly @endif type="text" class="form-control @error('description') is-invalid @enderror" id="description" name="description" placeholder="Masukkan Keterangan">{{ old('description', $data->description) }}</textarea>
                             @error('description')<div class="invalid-feedback">{{ $message }}</div>@enderror
                         </div>
                         <div class="form-group">
@@ -69,7 +69,7 @@
                             <a class="btn btn-outline-success" target="_blank" href="{{ asset(Storage::url($data->file)) }}" title="Download"><i class="fas fa-download"></i> Download Surat Masuk</a>
                         </div>
                     @endif
-                    @if (auth()->user()->position && (auth()->user()->position->name == 'Rektor' || auth()->user()->position->name == 'KTU Sekretaris'))
+                    @if (session('user')->position && (session('user')->position == 'Rektor' || session('user')->position == 'KTU Sekretaris'))
                         <div class="form-group">
                             <div class="custom-control custom-radio custom-control-inline">
                                 <input type="radio" id="acc1" name="acc" class="custom-control-input" value="1" {{ old('acc') == 1 ? 'checked' : '' }}>
@@ -99,7 +99,7 @@
 @endsection
 @section('scripts')
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-@if (auth()->user()->hasRole('Admin') && auth()->user()->position->name == 'Pelaksana Sekretariat')
+@if (session('user')->role == 'Admin' && session('user')->position == 'Pelaksana Sekretariat')
 <script>
     $(document).ready(function() {
         $("#description").summernote({
@@ -119,7 +119,7 @@
     });
 </script>
 @endif
-@if (auth()->user()->position && auth()->user()->position->name == 'Rektor')
+@if (session('user')->position && session('user')->position == 'Rektor')
 <script>
     $(document).ready(function() {
         $("#disposition_id").select2({

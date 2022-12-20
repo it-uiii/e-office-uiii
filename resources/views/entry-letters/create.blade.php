@@ -53,7 +53,7 @@
 @endsection
 @section('scripts')
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-@if (auth()->user()->position && auth()->user()->position->name == 'Rektor')
+@if (session('user')->position && session('user')->position == 'Rektor')
     <script>
         $(document).ready(function() {
             $("#disposition_id").select2({

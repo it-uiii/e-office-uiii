@@ -27,15 +27,15 @@ class OutgoingLetterController extends Controller
      */
     public function index()
     {
-        $data = OutgoingLetter::when(auth()->user()->hasRole('Staff'), function ($query) {
-            $query->where('created_by', auth()->user()->id);
-        })->when(auth()->user()->hasRole('Admin') && auth()->user()->position->name == 'Pelaksana Sekretariat', function ($query) {
+        $data = OutgoingLetter::when(session('user')->role == 'Staff', function ($query) {
+            $query->where('created_by', session('user')->id);
+        })->when(session('user')->role == 'Admin' && session('user')->position == 'Pelaksana Sekretariat', function ($query) {
             $query->where('status', 0)->orWhere('status', 1)->orWhere('status', 4);
-        })->when(auth()->user()->hasRole('Pimpinan') && auth()->user()->position->name == 'KTU Sekretaris', function ($query) {
+        })->when(session('user')->role == 'Pimpinan' && session('user')->position == 'KTU Sekretaris', function ($query) {
             $query->where('status', 1)->orWhere('status', 2)->orWhere('status', 4);
-        })->when(auth()->user()->hasRole('Admin') && auth()->user()->position->name == 'Sekretaris Universitas', function ($query) {
+        })->when(session('user')->role == 'Admin' && session('user')->position == 'Sekretaris Universitas', function ($query) {
             $query->where('status', 2)->orWhere('status', 3)->orWhere('status', 4);
-        })->when(auth()->user()->hasRole('Pimpinan') && auth()->user()->position->name == 'Rektor', function ($query) {
+        })->when(session('user')->role == 'Pimpinan' && session('user')->position == 'Rektor', function ($query) {
             $query->where('status', 3)->orWhere('status', 4);
         })->orderBy('created_at', 'desc')->paginate(10);
         return view('outgoing-letters.index', ['title' => 'Surat Keluar', 'subtitle' => 'List'], compact('data'));
@@ -72,7 +72,7 @@ class OutgoingLetterController extends Controller
             'description'   => 'Description',
         ]);
 
-        $data['created_by'] = auth()->user()->id;
+        $data['created_by'] = session('user')->id;
 
         $outgoing_letter = OutgoingLetter::create($data);
         if ($request->file) {
@@ -123,11 +123,11 @@ class OutgoingLetterController extends Controller
      */
     public function edit(OutgoingLetter $outgoing_letter)
     {
-        if ((auth()->user()->position->name == 'Rektor' && ($outgoing_letter->status == 3 || $outgoing_letter->status == 4)) ||
-            (auth()->user()->position->name == 'Sekretaris Universitas' && ($outgoing_letter->status == 2 || $outgoing_letter->status == 3)) ||
-            (auth()->user()->position->name == 'KTU Sekretaris' && ($outgoing_letter->status == 1 || $outgoing_letter->status == 2)) ||
-            (auth()->user()->position->name == 'Pelaksana Sekretariat' && ($outgoing_letter->status == 0 || $outgoing_letter->status == 1)) ||
-            (auth()->user()->hasRole('Staff') && $outgoing_letter->status == 0)
+        if ((session('user')->position == 'Rektor' && ($outgoing_letter->status == 3 || $outgoing_letter->status == 4)) ||
+            (session('user')->position == 'Sekretaris Universitas' && ($outgoing_letter->status == 2 || $outgoing_letter->status == 3)) ||
+            (session('user')->position == 'KTU Sekretaris' && ($outgoing_letter->status == 1 || $outgoing_letter->status == 2)) ||
+            (session('user')->position == 'Pelaksana Sekretariat' && ($outgoing_letter->status == 0 || $outgoing_letter->status == 1)) ||
+            (session('user')->role == 'Staff' && $outgoing_letter->status == 0)
         ) {
             return view('outgoing-letters.edit', ['title' => 'Surat Keluar', 'subtitle' => 'Ubah', 'data' => $outgoing_letter]);
         } else {
@@ -144,7 +144,7 @@ class OutgoingLetterController extends Controller
     public function update(Request $request, OutgoingLetter $outgoing_letter)
     {
         $data = $request->validate([
-            'number'                => [auth()->user()->position && auth()->user()->position->name == 'Pelaksana Sekretariat' ? 'required' : 'nullable', 'string', 'max:128'],
+            'number'                => [session('user')->position && session('user')->position == 'Pelaksana Sekretariat' ? 'required' : 'nullable', 'string', 'max:128'],
             'subject'               => ['required', 'string', 'max:128'],
             'date'                  => ['required', 'date'],
             'destination'           => ['required', 'string', 'max:128'],
@@ -166,7 +166,7 @@ class OutgoingLetterController extends Controller
         ]);
 
         if ($request->acc) {
-            if (auth()->user()->hasRole('Admin') && auth()->user()->position->name == 'Pelaksana Sekretariat') {
+            if (session('user')->role == 'Admin' && session('user')->position == 'Pelaksana Sekretariat') {
                 if ($request->revision) {
                     $data['status'] = 0;
                 } else {
@@ -174,7 +174,7 @@ class OutgoingLetterController extends Controller
                     $data['revision'] = null;
                     $data['revision_description'] = null;
                 }
-            } elseif (auth()->user()->hasRole('Pimpinan') && auth()->user()->position->name == 'KTU Sekretaris') {
+            } elseif (session('user')->role == 'Pimpinan' && session('user')->position == 'KTU Sekretaris') {
                 if ($request->revision) {
                     $data['status'] = 1;
                 } else {
@@ -182,7 +182,7 @@ class OutgoingLetterController extends Controller
                     $data['revision'] = null;
                     $data['revision_description'] = null;
                 }
-            } elseif (auth()->user()->hasRole('Admin') && auth()->user()->position->name == 'Sekretaris Universitas') {
+            } elseif (session('user')->role == 'Admin' && session('user')->position == 'Sekretaris Universitas') {
                 if ($request->revision) {
                     $data['status'] = 2;
                 } else {
@@ -190,7 +190,7 @@ class OutgoingLetterController extends Controller
                     $data['revision'] = null;
                     $data['revision_description'] = null;
                 }
-            } elseif (auth()->user()->hasRole('Pimpinan') && auth()->user()->position->name == 'Rektor') {
+            } elseif (session('user')->role == 'Pimpinan' && session('user')->position == 'Rektor') {
                 if ($request->revision) {
                     $data['status'] = 3;
                 } else {
@@ -222,7 +222,7 @@ class OutgoingLetterController extends Controller
             }
         }
 
-        $data['updated_by'] = auth()->user()->id;
+        $data['updated_by'] = session('user')->id;
 
         $outgoing_letter->update($data);
         if ($request->file) {

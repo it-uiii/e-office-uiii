@@ -52,7 +52,7 @@
                                 <td>{{ $item->created_at }}</td>
                                 <td>{{ $item->updated_at }}</td>
                                 <td>
-                                    @if (auth()->user()->position && auth()->user()->position->name == 'Rektor')
+                                    @if (session('user')->position && session('user')->position == 'Rektor')
                                         <!-- Button trigger modal -->
                                         @if ($item->status == 4)
                                             <button type="button" class="mb-1 btn btn-info" data-toggle="modal" data-target="#pdfModal" data-title="{{ $item->subject }}" data-url="{{ route('outgoing-letters.pdf', $item) }}">
@@ -66,15 +66,15 @@
                                         <a class="mb-1 btn btn-info" href="{{ route('outgoing-letters.show', $item) }}"><i class="fas fa-eye"></i></a>
                                     @endif
                                     @can('outgoing-letter-edit')
-                                        @if (auth()->user()->hasRole('Staff') && $item->status == 0)
+                                        @if (session('user')->role == 'Staff' && $item->status == 0)
                                             <a class="mb-1 btn btn-warning" href="{{ route('outgoing-letters.edit', $item) }}"><i class="fas fa-pen"></i></a>
                                         @endif
 
                                         @role("Admin|Pimpinan")
-                                            @if ((auth()->user()->position->name == 'Rektor' && ($item->status == 3 || $item->status == 4)) ||
-                                                (auth()->user()->position->name == 'Sekretaris Universitas' && ($item->status == 2 || $item->status == 3)) ||
-                                                (auth()->user()->position->name == 'KTU Sekretaris' && ($item->status == 1 || $item->status == 2)) ||
-                                                (auth()->user()->position->name == 'Pelaksana Sekretariat' && ($item->status == 0 || $item->status == 1)))
+                                            @if ((session('user')->position == 'Rektor' && ($item->status == 3 || $item->status == 4)) ||
+                                                (session('user')->position == 'Sekretaris Universitas' && ($item->status == 2 || $item->status == 3)) ||
+                                                (session('user')->position == 'KTU Sekretaris' && ($item->status == 1 || $item->status == 2)) ||
+                                                (session('user')->position == 'Pelaksana Sekretariat' && ($item->status == 0 || $item->status == 1)))
                                                 <a class="mb-1 btn btn-warning" href="{{ route('outgoing-letters.edit', $item) }}"><i class="fas fa-pen"></i></a>
                                             @endif
                                         @endrole

@@ -44,10 +44,10 @@
         <div class="card-body">
             <div class="form-group">
                 <label for="date">Tanggal</label>
-                <input @if ($performance_report->created_by != auth()->user()->id) readonly @endif type="date" class="form-control" id="date" name="date" value="{{ $performance_report->date }}">
+                <input @if ($performance_report->created_by != session('user')->id) readonly @endif type="date" class="form-control" id="date" name="date" value="{{ $performance_report->date }}">
                 <div class="invalid-feedback"></div>
             </div>
-            @if ($performance_report->created_by == auth()->user()->id)
+            @if ($performance_report->created_by == session('user')->id)
                 {{-- <div class="form-group">
                     <label for="file">Lampiran</label>
                     <div class="input-group">
@@ -214,7 +214,7 @@
 @section('scripts')
 {{-- <script src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js"></script> --}}
 <script src="{{ asset('js/jquery.fancybox.js') }}"></script>
-@if ($performance_report->created_by == auth()->user()->id)
+@if ($performance_report->created_by == session('user')->id)
     <script>
         var signaturePadReport = new SignaturePad(document.getElementById('signature-pad-reporter'), {
             backgroundColor: 'rgba(255, 255, 255, 0)',
