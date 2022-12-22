@@ -80,7 +80,7 @@ hr {
 </div>
 <!-- Small boxes (Stat box) -->
 <div class="row mb-4">
-  @can('letter-list')
+  @permission('letter-list')
   <div class="col-lg-3 col-6">
     <!-- small card -->
     <div class="small-box" style="background-color:#64adf5; color:white;">
@@ -97,8 +97,8 @@ hr {
       </a>
     </div>
   </div>
-  @endcan
-  @can('performance-report-list')
+  @endpermission
+  @permission('performance-report-list')
   <div class="col-lg-3 col-6">
     <!-- small card -->
     <div class="small-box" style="background-color:#3275a8; color:white;">
@@ -115,7 +115,7 @@ hr {
       </a>
     </div>
   </div>
-  @endcan
+  @endpermission
   <!-- ./col -->
   <div class="col-lg-3 col-6">
     <!-- small card -->
@@ -164,7 +164,7 @@ hr {
     </div>
   </div> --}}
   <!-- ./col -->
-  @can('asset')
+  @permission('asset')
   <div class="col-lg-3 col-6">
     <!-- small card -->
     <div class="small-box bg-danger">
@@ -181,7 +181,7 @@ hr {
       </a>
     </div>
   </div>
-  @endcan
+  @endpermission
   {{-- <div class="col-lg-3 col-6">
     <!-- small card -->
     <div class="small-box" style="background-color: #32a887;">

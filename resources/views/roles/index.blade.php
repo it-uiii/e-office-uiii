@@ -5,9 +5,9 @@
             <div class="card">
                 <div class="card-header">
                     <div class="card-title">
-                        @can('role-create')
+                        @permission('role-create')
                             <a class="btn btn-primary" href="/roles/create">Create New</a>
-                        @endcan
+                        @endpermission
                     </div>
                 </div>
                 <div class="card-body">
@@ -32,11 +32,11 @@
                                         <td>
                                             <a class="btn btn-info" href="/roles/{{ $role->id }}"><i
                                                     class="fas fa-eye"></i></a>
-                                            @can('role-edit')
+                                            @permission('role-edit')
                                                 <a class="btn btn-warning" href="/roles/{{ $role->id }}/edit"><i
                                                         class="fas fa-pen"></i></a>
-                                            @endcan
-                                            @can('role-delete')
+                                            @endpermission
+                                            @permission('role-delete')
                                                 <form action="/roles/{{ $role->id }}" method="post" class="d-inline">
                                                     @method('delete')
                                                     @csrf
@@ -45,7 +45,7 @@
                                                         <i class="fas fa-trash"></i>
                                                     </button>
                                                 </form>
-                                            @endcan
+                                            @endpermission
                                         </td>
                                     </tr>
                                 @endforeach

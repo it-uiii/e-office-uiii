@@ -11,7 +11,7 @@
                     </p>
                 </a>
                 <ul class="nav nav-treeview">
-                    @can('letter-list')
+                    @permission('letter-list')
                     <li class="nav-item">
                         <a class="nav-link">
                             <i class="fas fa-envelope nav-icon"></i>
@@ -21,26 +21,26 @@
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
-                            @can('outgoing-letter-list')
+                            @permission('outgoing-letter-list')
                             <li class="nav-item">
                                 <a href="{{ route('outgoing-letters.index') }}" class="nav-link">
                                     <i class="fa-sharp fa-solid fa-arrow-up nav-icon"></i>
                                     <p>Surat Keluar</p>
                                 </a>
                             </li>
-                            @endcan
-                            @can('entry-letter-list')
+                            @endpermission
+                            @permission('entry-letter-list')
                             <li class="nav-item">
                                 <a href="{{ route('entry-letters.index') }}" class="nav-link">
                                     <i class="fa-sharp fa-solid fa-arrow-down nav-icon"></i>
                                     <p>Surat Masuk</p>
                                 </a>
                             </li>
-                            @endcan
+                            @endpermission
                         </ul>
                     </li>
-                    @endcan
-                    @can('performance-report-list')
+                    @endpermission
+                    @permission('performance-report-list')
                     <li class="nav-item">
                         <a class="nav-link">
                             <i class="nav-icon fas fa-file-alt"></i>
@@ -58,8 +58,8 @@
                             </li>
                         </ul>
                     </li>
-                    @endcan
-                    {{-- @can('post-list')
+                    @endpermission
+                    {{-- @permission('post-list')
                     <li class="nav-item">
                         <a href="pages/widgets.html" class="nav-link">
                         <i class="nav-icon fas fa-newspaper"></i>
@@ -68,8 +68,8 @@
                         </p>
                         </a>
                     </li>
-                    @endcan --}}
-                    @can('asset-management')
+                    @endpermission --}}
+                    @permission('asset-management')
                     {{-- <li class="nav-item">
                         <a href="" class="nav-link">
                         <i class="nav-icon fas fa-cubes"></i>
@@ -87,42 +87,42 @@
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
-                            @can('asset-list')
+                            @permission('asset-list')
                             <li class="nav-item">
                                 <a href="{{ route('assets.index') }}" class="nav-link">
                                     <i class="fas fa-archive nav-icon"></i>
                                     <p>Data Barang</p>
                                 </a>
-                            </li>    
-                            @endcan
-                            @can('logistic-list')
+                            </li>
+                            @endpermission
+                            @permission('logistic-list')
                             <li class="nav-item">
                                 <a href="{{ route('logistics.index') }}" class="nav-link">
                                     <i class="fas fa-truck-fast nav-icon"></i>
                                     <p>Logistic</p>
                                 </a>
-                            </li>    
-                            @endcan
-                            @can('supplier-list')
+                            </li>
+                            @endpermission
+                            @permission('supplier-list')
                             <li class="nav-item">
                                 <a href="{{ route('suppliers.index') }}" class="nav-link">
                                     <i class="fas fa-boxes-packing nav-icon"></i>
                                     <p>Data Suppliers</p>
                                 </a>
-                            </li>    
-                            @endcan
-                            @can('location-list')
+                            </li>
+                            @endpermission
+                            @permission('location-list')
                             <li class="nav-item">
                                 <a href="{{ route('locations.index') }}" class="nav-link">
                                     <i class="fas fa-location-pin nav-icon"></i>
                                     <p>Lokasi</p>
                                 </a>
-                            </li>    
-                            @endcan
+                            </li>
+                            @endpermission
                         </ul>
                     </li> --}}
-                    @endcan
-                    @can('human-list')
+                    @endpermission
+                    @permission('human-list')
                     {{-- <li class="nav-item">
                         <a href="pages/widgets.html" class="nav-link">
                         <i class="nav-icon fas fa-users"></i>
@@ -148,8 +148,8 @@
                             </li>
                         </ul>
                     </li> --}}
-                    @endcan
-                    @can('admin-list')
+                    @endpermission
+                    @permission('admin-list')
                     <li class="nav-item">
                         <a href="" class="nav-link">
                             <i class="nav-icon fas fa-wrench"></i>
@@ -159,65 +159,65 @@
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
-                            @can('user-list')
+                            @permission('user-list')
                                 <li class="nav-item">
                                     <a href="{{ route('users.index') }}" class="nav-link">
                                         <i class="fas fa-users nav-icon"></i>
                                         <p>Users</p>
                                     </a>
                                 </li>
-                            @endcan
-                            @can('position-list')
+                            @endpermission
+                            @permission('position-list')
                                 <li class="nav-item">
                                     <a href="{{ route('positions.index') }}" class="nav-link">
                                         <i class="fas fa-user-tie nav-icon"></i>
                                         <p>Jabatan</p>
                                     </a>
                                 </li>
-                            @endcan
-                            @can('role-list')
+                            @endpermission
+                            @permission('role-list')
                                 <li class="nav-item">
                                     <a href="{{ route('roles.index') }}" class="nav-link">
                                         <i class="fas fa-user-tag nav-icon"></i>
                                         <p>Roles</p>
                                     </a>
                                 </li>
-                            @endcan
-                            @can('permission-list')
+                            @endpermission
+                            @permission('permission-list')
                                 <li class="nav-item">
                                     <a href="{{ route('permissions.index') }}" class="nav-link">
                                         <i class="fas fa-user-lock nav-icon"></i>
                                         <p>Permissions</p>
                                     </a>
                                 </li>
-                            @endcan
-                            {{-- @can('permission-list') --}}
+                            @endpermission
+                            {{-- @permission('permission-list') --}}
                                 <li class="nav-item">
                                     <a href="" class="nav-link">
                                         <i class="fas fa-images nav-icon"></i>
                                         <p>Contents</p>
                                     </a>
                                 </li>
-                            {{-- @endcan --}}
-                            {{-- @can('permission-list') --}}
+                            {{-- @endpermission --}}
+                            {{-- @permission('permission-list') --}}
                                 <li class="nav-item">
                                     <a href="/categories" class="nav-link">
                                         <i class="fas fa-list nav-icon"></i>
                                         <p>Category Rules</p>
                                     </a>
                                 </li>
-                            {{-- @endcan --}}
-                            {{-- @can('permission-list') --}}
+                            {{-- @endpermission --}}
+                            {{-- @permission('permission-list') --}}
                                 <li class="nav-item">
                                     <a href="" class="nav-link">
                                         <i class="fas fa-scale-balanced nav-icon"></i>
                                         <p>Rules</p>
                                     </a>
                                 </li>
-                            {{-- @endcan --}}
+                            {{-- @endpermission --}}
                         </ul>
                     </li>
-                    @endcan
+                    @endpermission
                 </ul>
             </li>
             {{-- @foreach ($menu as $item => $value)

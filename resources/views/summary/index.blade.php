@@ -7,7 +7,7 @@
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
     <span aria-hidden="true">&times;</span>
     </button>
-</div>    
+</div>
 @endif
 <div class="card">
     <div class="card-header">
@@ -88,10 +88,10 @@
                 </td>
                 <td>
                     <a class="btn btn-info" href=""><i class="fas fa-eye"></i></a>
-                    @can('user-edit')
-                    <a class="btn btn-warning" href=""><i class="fas fa-pen"></i></a>    
-                    @endcan
-                    @can('user-delete')
+                    @permission('user-edit')
+                    <a class="btn btn-warning" href=""><i class="fas fa-pen"></i></a>
+                    @endpermission
+                    @permission('user-delete')
                     <form action="" method="post" class="d-inline">
                         @method('delete')
                         @csrf
@@ -99,7 +99,7 @@
                             <i class="fas fa-trash"></i>
                         </button>
                     </form>
-                    @endcan
+                    @endpermission
                 </td>
             </tr>
             </tbody>
@@ -134,10 +134,10 @@
                 </td>
                 <td>
                     <a class="btn btn-info" href=""><i class="fas fa-eye"></i></a>
-                    @can('user-edit')
-                    <a class="btn btn-warning" href=""><i class="fas fa-pen"></i></a>    
-                    @endcan
-                    @can('user-delete')
+                    @permission('user-edit')
+                    <a class="btn btn-warning" href=""><i class="fas fa-pen"></i></a>
+                    @endpermission
+                    @permission('user-delete')
                     <form action="" method="post" class="d-inline">
                         @method('delete')
                         @csrf
@@ -145,7 +145,7 @@
                             <i class="fas fa-trash"></i>
                         </button>
                     </form>
-                    @endcan
+                    @endpermission
                 </td>
             </tr>
             </tbody>

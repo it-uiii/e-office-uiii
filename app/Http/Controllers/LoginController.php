@@ -30,7 +30,8 @@ class LoginController extends Controller
         ])->get(config('setting.api_url').'/login?key='.$data['key'].'&email='. $data['username'] .'&password='. $data['password'])->getBody());
         if (isset($response->token)) {
             session(['token' => $response->token]);
-            session(['user' => $response->session[0]]);
+            session(['user' => $response->session[0]->user]);
+            session(['role' => $response->session[0]->role]);
             return redirect('/')->with('success', 'Selamat datang kembali, ' . session('user')->fullname);
         }
 

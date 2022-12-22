@@ -13,11 +13,11 @@
     <div class="card">
         <div class="card-header">
             <div class="card-title">
-                @can('outgoing-letter-create')
+                @permission('outgoing-letter-create')
                     <a class="btn btn-primary" href="{{ route('outgoing-letters.create') }}">
                         <i class="fas fa-plus"></i>
                     </a>
-                @endcan
+                @endpermission
             </div>
         </div>
         <div class="card-body">
@@ -65,7 +65,7 @@
                                         @endif
                                         <a class="mb-1 btn btn-info" href="{{ route('outgoing-letters.show', $item) }}"><i class="fas fa-eye"></i></a>
                                     @endif
-                                    @can('outgoing-letter-edit')
+                                    @permission('outgoing-letter-edit')
                                         @if (session('user')->role == 'Staff' && $item->status == 0)
                                             <a class="mb-1 btn btn-warning" href="{{ route('outgoing-letters.edit', $item) }}"><i class="fas fa-pen"></i></a>
                                         @endif
@@ -78,8 +78,8 @@
                                                 <a class="mb-1 btn btn-warning" href="{{ route('outgoing-letters.edit', $item) }}"><i class="fas fa-pen"></i></a>
                                             @endif
                                         @endrole
-                                    @endcan
-                                    @can('outgoing-letter-delete')
+                                    @endpermission
+                                    @permission('outgoing-letter-delete')
                                         @if ($item->status == 0)
                                             <form action="{{ route('outgoing-letters.destroy', $item) }}" method="post"
                                                 class="d-inline">
@@ -90,7 +90,7 @@
                                                 </button>
                                             </form>
                                         @endif
-                                    @endcan
+                                    @endpermission
                                 </td>
                             </tr>
                         @empty
