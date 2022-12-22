@@ -3,26 +3,26 @@
     <div class="card">
         <div class="card-header">
             <div class="card-title">
-                @can('position-create')
+                @permission('position-create')
                     <a class="btn btn-primary" href="{{ route('positions.create') }}">
                         <i class="fas fa-plus"></i>
                     </a>
-                @endcan
+                @endpermission
             </div>
             <div class="float-right">
-                @can('position-import')
+                @permission('position-import')
                     <button type="button" class="btn btn-outline-success" title="Import" data-toggle="modal" data-target="#modal-import">
                         <i class="far fa-file-excel"></i>
                     </button>
-                @endcan
-                @can('position-export')
+                @endpermission
+                @permission('position-export')
                     <form action="{{ route('positions.export') }}" class="d-inline" method="POST">
                         @csrf
                         <button type="submit" class="btn btn-outline-info" title="Export">
                             <i class="fas fa-file-export"></i>
                         </button>
                     </form>
-                @endcan
+                @endpermission
             </div>
         </div>
         <div class="card-body">
@@ -47,11 +47,11 @@
                                 <td>
                                     <a class="btn btn-info" href="{{ route('positions.show', $item) }}"><i
                                             class="fas fa-eye"></i></a>
-                                    @can('position-edit')
+                                    @permission('position-edit')
                                         <a class="btn btn-warning" href="{{ route('positions.edit', $item) }}"><i
                                                 class="fas fa-pen"></i></a>
-                                    @endcan
-                                    @can('position-delete')
+                                    @endpermission
+                                    @permission('position-delete')
                                         <form action="{{ route('positions.destroy', $item) }}" method="post" class="d-inline">
                                             @csrf @method('delete')
                                             <button class="btn btn-danger"
@@ -59,7 +59,7 @@
                                                 <i class="fas fa-trash"></i>
                                             </button>
                                         </form>
-                                    @endcan
+                                    @endpermission
                                 </td>
                             </tr>
                         @endforeach

@@ -3,26 +3,26 @@
     <div class="card">
         <div class="card-header">
             <div class="card-title">
-                @can('user-create')
+                @permission('user-create')
                     <a class="btn btn-primary" href="/users/create">
                         <i class="fas fa-plus"></i>
                     </a>
-                @endcan
+                @endpermission
             </div>
             <div class="float-right">
-                @can('user-import')
+                @permission('user-import')
                     <button type="button" class="btn btn-outline-success" title="Import" data-toggle="modal" data-target="#modal-import">
                         <i class="far fa-file-excel"></i>
                     </button>
-                @endcan
-                @can('user-export')
+                @endpermission
+                @permission('user-export')
                     <form action="{{ route('users.export') }}" class="d-inline" method="POST">
                         @csrf
                         <button type="submit" class="btn btn-outline-info" title="Export">
                             <i class="fas fa-file-export"></i>
                         </button>
                     </form>
-                @endcan
+                @endpermission
             </div>
             <div class="float-right mr-5">
                 <div class="input-group">
@@ -71,11 +71,11 @@
                                 </td>
                                 <td>
                                     <a class="btn btn-info" href="/users/{{ $user->id }}"><i class="fas fa-eye"></i></a>
-                                    @can('user-edit')
+                                    @permission('user-edit')
                                         <a class="btn btn-warning" href="/users/{{ $user->id }}/edit"><i
                                                 class="fas fa-pen"></i></a>
-                                    @endcan
-                                    @can('user-delete')
+                                    @endpermission
+                                    @permission('user-delete')
                                         <form action="/users/{{ $user->id }}" method="post" class="d-inline">
                                             @method('delete')
                                             @csrf
@@ -84,7 +84,7 @@
                                                 <i class="fas fa-trash"></i>
                                             </button>
                                         </form>
-                                    @endcan
+                                    @endpermission
                                 </td>
                             </tr>
                         @endforeach

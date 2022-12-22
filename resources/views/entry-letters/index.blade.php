@@ -3,13 +3,13 @@
     <div class="card">
         <div class="card-header">
             <div class="d-flex justify-content-between">
-                @can('entry-letter-create')
+                @permission('entry-letter-create')
                     @if (session('user')->position && session('user')->position == 'Pelaksana Sekretariat')
                         <a class="btn btn-primary" href="{{ route('entry-letters.create') }}">
                             <i class="fas fa-plus"></i>
                         </a>
                     @endif
-                @endcan
+                @endpermission
                 <form>
                     <div class="input-group input-group-sm">
                         <input type="text" name="search" class="form-control float-right" placeholder="Search" value="{{ request('search') }}">
@@ -62,7 +62,7 @@
                                         data-status="{{ $item->display_status }}"
                                         data-revisi="{{ $item->revision_description }}"><i class="fas fa-eye"></i>
                                     </a>
-                                    @can('entry-letter-edit')
+                                    @permission('entry-letter-edit')
 
                                         @if (session('user')->role == 'Admin' && session('user')->position && session('user')->position == 'Pelaksana Sekretariat' && $item->status == 0)
                                             <a class="mb-1 btn btn-warning" href="{{ route('entry-letters.edit', $item) }}"><i class="fas fa-pen"></i></a>
@@ -71,8 +71,8 @@
                                         @if(session('user')->position && ((session('user')->position == 'KTU Sekretaris' && ($item->status == 1 || $item->status == 0)) || session('user')->position == 'Rektor'))
                                             <a class="mb-1 btn btn-warning" href="{{ route('entry-letters.edit', $item) }}"><i class="fas fa-pen"></i></a>
                                         @endif
-                                    @endcan
-                                    @can('entry-letter-delete')
+                                    @endpermission
+                                    @permission('entry-letter-delete')
                                         @if ($item->status == 0)
                                             <form action="{{ route('entry-letters.destroy', $item) }}" method="post"
                                                 class="d-inline">
@@ -83,7 +83,7 @@
                                                 </button>
                                             </form>
                                         @endif
-                                    @endcan
+                                    @endpermission
                                 </td>
                             </tr>
                         @empty

@@ -50,7 +50,7 @@
                 </div>
             </div>
         </div>
-        @can('status-content')
+        @permission('status-content')
         <div class="form-group row">
             <label for="" class="col-sm-2 col-form-label">Status</label>
             <div class="col-sm-10">
@@ -71,7 +71,7 @@
                 @enderror
             </div>
         </div>
-        @endcan
+        @endpermission
     </div>
     <div class="card-footer">
         <button type="submit" class="btn btn-warning">Update</button>

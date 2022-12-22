@@ -33,16 +33,16 @@
     <div class="card">
         <div class="card-header">
             <div class="card-title">
-                @can('performance-report-create')
+                @permission('performance-report-create')
                     <a class="btn btn-primary" href="{{ route('performance-reports.create') }}">
                         <i class="fas fa-plus"></i>
                     </a>
-                @endcan
-                @can('performance-report-archive')
+                @endpermission
+                @permission('performance-report-archive')
                     <a class="btn btn-success" href="#archiveModal" data-toggle="modal">
                         <i class="fas fa-archive"></i> Buat Arsip Laporan Kinerja
                     </a>
-                @endcan
+                @endpermission
             </div>
         </div>
         <div class="card-body">
@@ -85,7 +85,7 @@
                                         <i class="fas fa-eye"></i>
                                     </button>
 
-                                    @can('performance-report-edit')
+                                    @permission('performance-report-edit')
                                         @if (session('user')->role == 'Staff' && $item->status == 0)
                                             <a class="mb-1 btn btn-warning" href="{{ route('performance-reports.edit', $item) }}"><i class="fas fa-pen"></i></a>
                                         @endif
@@ -93,9 +93,9 @@
                                         @role("Pimpinan")
                                             <a class="mb-1 btn btn-warning" href="{{ route('performance-reports.edit', $item) }}"><i class="fas fa-pen"></i></a>
                                         @endrole
-                                    @endcan
+                                    @endpermission
 
-                                    @can('performance-report-delete')
+                                    @permission('performance-report-delete')
                                         @if ($item->status == 0)
                                             <form action="{{ route('performance-reports.destroy', $item) }}" method="post"
                                                 class="d-inline">
@@ -106,7 +106,7 @@
                                                 </button>
                                             </form>
                                         @endif
-                                    @endcan
+                                    @endpermission
                                 </td>
                             </tr>
                         @empty
@@ -188,7 +188,7 @@
 
 @section('scripts')
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    @can ('performance-report-archive')
+    @permission ('performance-report-archive')
     <script>
         $(document).ready(function() {
             $("#formArchive").submit(function(event) {
@@ -226,7 +226,7 @@
             });
         });
     </script>
-    @endcan
+    @endpermission
     <script>
         $(document).ready(function() {
             $('#pdfModal').on('show.bs.modal', function(event) {

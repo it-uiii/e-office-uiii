@@ -23,35 +23,35 @@
                     {{-- <li><a href="#" class="dropdown-item"></a></li> --}}
                     <li><a href="/news" class="dropdown-item">News</a></li>
 
-                    @can('admin-list')
+                    @permission('admin-list')
                         <li class="dropdown-divider"></li>
 
                     <!-- Level two dropdown-->
                     <li class="dropdown-submenu dropdown-hover">
                         <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Settings</a>
                         <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
-                            @can('quote-list')
+                            @permission('quote-list')
                                 <li><a href="/quotes" class="dropdown-item">Manage quote</a></li>
-                            @endcan
-                            @can('news-list')
+                            @endpermission
+                            @permission('news-list')
                                 <li><a href="/contents" class="dropdown-item">Manage Content</a></li>
-                            @endcan
-                            @can('user-list')
+                            @endpermission
+                            @permission('user-list')
                                 <li><a href="{{ route('users.index') }}" class="dropdown-item">Users</a></li>
-                            @endcan
-                            @can('position-list')
+                            @endpermission
+                            @permission('position-list')
                             <li><a href="{{ route('positions.index') }}" class="dropdown-item">Positions</a></li>
-                            @endcan
-                            @can('role-list')
+                            @endpermission
+                            @permission('role-list')
                             <li><a href="{{ route('roles.index') }}" class="dropdown-item">Roles</a></li>
-                            @endcan
-                            @can('permission-list')
+                            @endpermission
+                            @permission('permission-list')
                             <li><a href="{{ route('permissions.index') }}" class="dropdown-item">Permissions</a></li>
-                            @endcan
+                            @endpermission
                         </ul>
                     </li>
                     <!-- End Level two -->
-                    @endcan
+                    @endpermission
                 </ul>
             </li>
         </ul>

@@ -6,9 +6,9 @@
             <div class="card">
                 <div class="card-header">
                     <div class="card-title">
-                        @can('user-create')
+                        @permission('user-create')
                             <a class="btn btn-primary" href="/permissions/create">Create New</a>
-                        @endcan
+                        @endpermission
                     </div>
                 </div>
                 <div class="card-body">
@@ -32,11 +32,11 @@
                                         <td>{{ $permission->updated_at }}</td>
                                         <td>
                                             {{-- <a class="btn btn-info" href="/permissions/{{ $permission->id }}"><i class="fas fa-eye"></i></a> --}}
-                                            @can('user-edit')
+                                            @permission('user-edit')
                                                 <a class="btn btn-warning" href="/permissions/{{ $permission->id }}/edit"><i
                                                         class="fas fa-pen"></i></a>
-                                            @endcan
-                                            @can('user-delete')
+                                            @endpermission
+                                            @permission('user-delete')
                                                 <form action="/permissions/{{ $permission->id }}" method="post" class="d-inline">
                                                     @method('delete')
                                                     @csrf
@@ -45,7 +45,7 @@
                                                         <i class="fas fa-trash"></i>
                                                     </button>
                                                 </form>
-                                            @endcan
+                                            @endpermission
                                         </td>
                                     </tr>
                                 @endforeach
