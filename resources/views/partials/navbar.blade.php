@@ -88,24 +88,24 @@
             </li>
             <li class="nav-item dropdown user-menu">
                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-                <img src="{{ asset(Storage::url(session('user')->avatar ?? 'public/default.jpg')) }}" class="user-image img-circle elevation-2" alt="User Image">
+                {{-- <img src="{{ asset(Storage::url(session('user')->avatar ?? 'dist/img/user.png')) }}" class="user-image img-circle elevation-2"> --}}
                 <span class="d-none d-md-inline">{{ session('user')->fullname }}</span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                 <!-- User image -->
-                <li class="user-header bg-primary">
-                    <img src="{{ asset(Storage::url(session('user')->avatar ?? 'public/default.jpg')) }}" class="img-circle elevation-2" alt="User Image">
+                <li class="user-header-1 bg-primary">
+                    {{-- <img src="{{ asset(Storage::url(session('user')->avatar ?? 'dist/img/user.png')) }}" class="img-circle elevation-2"> --}}
 
                     <p>
                     {{ session('user')->fullname }}
                     <br>
-                    <small>{{ session('user')->id }} -
+                    <small>{{ session('user')->nrp }} -
                     @if (empty(session('user')->position))
                         No Jabatan
                     @else
                         {{ session('user')->position }}
                     @endif</small>
-                    {{-- <small>Entry since {{ \Carbon\Carbon::parse(session('user')->tgl_masuk)->format('M Y') }}</small> --}}
+                    {{-- <small>Entry since {{ \Carbon\Carbon::parse(session('user')->created_at)->format('M Y') }}</small> --}}
                     </p>
                 </li>
                 <!-- Menu Footer-->

@@ -46,6 +46,12 @@
     <!-- livewire-->
     @livewireStyles
     @yield('styles')
+    <style>
+        .user-header-1 {
+            padding: 10px;
+            text-align: center;
+        }
+    </style>
 </head>
 <body class="hold-transition layout-top-nav">
 <div class="wrapper">
