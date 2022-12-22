@@ -10,10 +10,10 @@ class LeaderController extends Controller
 
     function __construct()
     {
-        $this->middleware('permission:leader-list|leader-create|leader-edit|leader-delete', ['only' => ['index', 'store']]);
-        $this->middleware('permission:leader-create', ['only' => ['create', 'store']]);
-        $this->middleware('permission:leader-edit', ['only' => ['edit', 'update']]);
-        $this->middleware('permission:leader-delete', ['only' => ['destroy']]);
+        $this->middleware('user_permission:leader-list|leader-create|leader-edit|leader-delete', ['only' => ['index', 'store']]);
+        $this->middleware('user_permission:leader-create', ['only' => ['create', 'store']]);
+        $this->middleware('user_permission:leader-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('user_permission:leader-delete', ['only' => ['destroy']]);
     }
     /**
      * Display a listing of the resource.

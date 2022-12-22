@@ -10,10 +10,10 @@ class QuoteController extends Controller
 
     function __construct()
     {
-        $this->middleware('permission:quote-list|quote-create|quote-edit|quote-delete', ['only' => ['index', 'store']]);
-        $this->middleware('permission:quote-create', ['only' => ['create', 'store']]);
-        $this->middleware('permission:quote-edit', ['only' => ['edit', 'update']]);
-        $this->middleware('permission:quote-delete', ['only' => ['destroy']]);
+        $this->middleware('user_permission:quote-list|quote-create|quote-edit|quote-delete', ['only' => ['index', 'store']]);
+        $this->middleware('user_permission:quote-create', ['only' => ['create', 'store']]);
+        $this->middleware('user_permission:quote-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('user_permission:quote-delete', ['only' => ['destroy']]);
     }
     /**
      * Display a listing of the resource.

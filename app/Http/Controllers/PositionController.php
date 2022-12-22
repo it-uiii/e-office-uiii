@@ -12,11 +12,11 @@ class PositionController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('permission:position-list|position-create|position-edit|position-delete', ['only' => ['index', 'store']]);
-        $this->middleware('permission:position-create', ['only' => ['create', 'store']]);
-        $this->middleware('permission:position-edit', ['only' => ['edit']]);
-        $this->middleware('permission:position-import', ['only' => ['import']]);
-        $this->middleware('permission:position-delete', ['only' => ['destroy']]);
+        $this->middleware('user_permission:position-list|position-create|position-edit|position-delete', ['only' => ['index', 'store']]);
+        $this->middleware('user_permission:position-create', ['only' => ['create', 'store']]);
+        $this->middleware('user_permission:position-edit', ['only' => ['edit']]);
+        $this->middleware('user_permission:position-import', ['only' => ['import']]);
+        $this->middleware('user_permission:position-delete', ['only' => ['destroy']]);
     }
 
     /**

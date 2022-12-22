@@ -14,10 +14,10 @@ class OutgoingLetterController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('permission:outgoing-letter-list|outgoing-letter-create|outgoing-letter-edit|outgoing-letter-delete', ['only' => ['index', 'store']]);
-        $this->middleware('permission:outgoing-letter-create', ['only' => ['create', 'store']]);
-        $this->middleware('permission:outgoing-letter-edit', ['only' => ['edit']]);
-        $this->middleware('permission:outgoing-letter-delete', ['only' => ['destroy']]);
+        $this->middleware('user_permission:outgoing-letter-list|outgoing-letter-create|outgoing-letter-edit|outgoing-letter-delete', ['only' => ['index', 'store']]);
+        $this->middleware('user_permission:outgoing-letter-create', ['only' => ['create', 'store']]);
+        $this->middleware('user_permission:outgoing-letter-edit', ['only' => ['edit']]);
+        $this->middleware('user_permission:outgoing-letter-delete', ['only' => ['destroy']]);
     }
 
     /**

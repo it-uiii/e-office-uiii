@@ -11,10 +11,10 @@ class ContentController extends Controller
 
     function __construct()
     {
-        $this->middleware('permission:content-list|content-create|content-edit|content-delete', ['only' => ['index', 'store']]);
-        $this->middleware('permission:content-create', ['only' => ['create', 'store']]);
-        $this->middleware('permission:content-edit', ['only' => ['edit', 'update']]);
-        $this->middleware('permission:content-delete', ['only' => ['destroy']]);
+        $this->middleware('user_permission:content-list|content-create|content-edit|content-delete', ['only' => ['index', 'store']]);
+        $this->middleware('user_permission:content-create', ['only' => ['create', 'store']]);
+        $this->middleware('user_permission:content-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('user_permission:content-delete', ['only' => ['destroy']]);
     }
     /**
      * Display a listing of the resource.

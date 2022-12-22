@@ -16,10 +16,10 @@ class PerformanceReportController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('permission:performance-report-list|performance-report-create|performance-report-edit|performance-report-delete', ['only' => ['index', 'store']]);
-        $this->middleware('permission:performance-report-create', ['only' => ['create', 'store']]);
-        $this->middleware('permission:performance-report-edit', ['only' => ['edit']]);
-        $this->middleware('permission:performance-report-delete', ['only' => ['destroy']]);
+        $this->middleware('user_permission:performance-report-list|performance-report-create|performance-report-edit|performance-report-delete', ['only' => ['index', 'store']]);
+        $this->middleware('user_permission:performance-report-create', ['only' => ['create', 'store']]);
+        $this->middleware('user_permission:performance-report-edit', ['only' => ['edit']]);
+        $this->middleware('user_permission:performance-report-delete', ['only' => ['destroy']]);
     }
 
     /**

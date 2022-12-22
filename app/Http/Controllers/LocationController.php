@@ -10,10 +10,10 @@ class LocationController extends Controller
 {
     function __construct()
     {
-        $this->middleware('permission:location-list|location-create|location-edit|location-delete', ['only' => ['index', 'store']]);
-        $this->middleware('permission:location-create', ['only' => ['create', 'store']]);
-        $this->middleware('permission:location-edit', ['only' => ['edit', 'update']]);
-        $this->middleware('permission:location-delete', ['only' => ['destroy']]);
+        $this->middleware('user_permission:location-list|location-create|location-edit|location-delete', ['only' => ['index', 'store']]);
+        $this->middleware('user_permission:location-create', ['only' => ['create', 'store']]);
+        $this->middleware('user_permission:location-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('user_permission:location-delete', ['only' => ['destroy']]);
     }
     /**
      * Display a listing of the resource.

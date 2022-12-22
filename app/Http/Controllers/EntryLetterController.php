@@ -11,10 +11,10 @@ class EntryLetterController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('permission:entry-letter-list|entry-letter-create|entry-letter-edit|entry-letter-delete', ['only' => ['index', 'store']]);
-        $this->middleware('permission:entry-letter-create', ['only' => ['create', 'store']]);
-        $this->middleware('permission:entry-letter-edit', ['only' => ['edit']]);
-        $this->middleware('permission:entry-letter-delete', ['only' => ['destroy']]);
+        $this->middleware('user_permission:entry-letter-list|entry-letter-create|entry-letter-edit|entry-letter-delete', ['only' => ['index', 'store']]);
+        $this->middleware('user_permission:entry-letter-create', ['only' => ['create', 'store']]);
+        $this->middleware('user_permission:entry-letter-edit', ['only' => ['edit']]);
+        $this->middleware('user_permission:entry-letter-delete', ['only' => ['destroy']]);
     }
 
     /**
